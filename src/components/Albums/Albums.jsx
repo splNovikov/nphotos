@@ -7,7 +7,7 @@ import AlbumCard from '../AlbumCard';
 
 import './Albums.scss';
 
-// todo: get by API
+// todo: remove this hardcode
 const albums = [
   {
     id: '1RRZnQiKm4yzI6abbEidhcbIlhWkPPLLYpajoFpmYz68',

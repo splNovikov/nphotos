@@ -1,4 +1,6 @@
 {
+  "common.close": "close",
+
   "navigationMenu.home": "home",
   "navigationMenu.albums": "albums",
   "navigationMenu.about": "about",

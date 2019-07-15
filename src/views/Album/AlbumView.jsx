@@ -111,7 +111,11 @@ class AlbumView extends Component {
           </Modal.Content>
           <Modal.Actions>
             <Button onClick={this.handleClose}>
-              <Icon name="checkmark" /> Close/Закрыть
+              <Icon name="checkmark" />{' '}
+              {formatMessage({
+                id: 'common.close',
+                defaultMessage: 'close'
+              })}
             </Button>
           </Modal.Actions>
         </Modal>
