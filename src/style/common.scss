@@ -1,0 +1,14 @@
+:focus {
+  outline: none;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ui.header.capitalize,
+.capitalize {
+  text-transform: capitalize;
+}

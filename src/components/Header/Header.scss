@@ -1,0 +1,52 @@
+@import '../../style/mixins/responsive-breakpoints.scss';
+@import '../../style/variables.scss';
+
+@mixin header-padding($vertical-padding) {
+  padding: $vertical-padding $padding-small-content;
+
+  @include for-lg {
+    padding: $vertical-padding $padding-large-content;
+  }
+}
+
+.header {
+  .links {
+    @include header-padding($padding-x-small);
+
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+      margin-right: $padding-small;
+    }
+  }
+
+  .ui.menu.navigation-menu-sm {
+    @include for-lg {
+      display: none;
+    }
+  }
+
+  .ui.menu.navigation-menu-lg {
+    display: none;
+    min-height: 4rem;
+
+    @include header-padding(0);
+
+    @include for-lg {
+      display: flex;
+    }
+
+    .item {
+      &.item-wrapper-for-logo,
+      &.item-wrapper-for-logo.active,
+      &.item-wrapper-for-logo:hover {
+        border-bottom: none;
+      }
+
+      & > img.logo:not(.ui):only-child {
+        width: 6rem;
+      }
+    }
+  }
+}

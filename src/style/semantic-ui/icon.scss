@@ -1,0 +1,9 @@
+@import '../colors';
+
+i.icon {
+  color: $color-icon;
+
+  &:hover {
+    color: $color-icon-hover;
+  }
+}

@@ -1,0 +1,16 @@
+/* Responsive */
+$responsive-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 767px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+/* Padding */
+$padding-large-content: 10rem !default;
+$padding-small-content: 2rem !default;
+
+$padding-normal: 1rem !default;
+$padding-small: 0.5rem !default;
+$padding-x-small: 0.25rem !default;

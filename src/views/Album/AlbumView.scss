@@ -1,0 +1,19 @@
+.album-view {
+  &.ui.segment {
+    border: none;
+    min-height: 10rem;
+
+    .ui.container.grid > .column {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .album-title {
+    text-align: center;
+  }
+}
+
+.ui.modal > .content > .modal-image img {
+  max-width: 100%;
+}

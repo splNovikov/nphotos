@@ -1,0 +1,31 @@
+@import '../variables.scss';
+
+@mixin for-xs {
+  @media (max-width: map_get($responsive-breakpoints, sm) - 1px) {
+    @content;
+  }
+}
+
+@mixin for-sm {
+  @media (min-width: map_get($responsive-breakpoints, sm)) {
+    @content;
+  }
+}
+
+@mixin for-md {
+  @media (min-width: map_get($responsive-breakpoints, md)) {
+    @content;
+  }
+}
+
+@mixin for-lg {
+  @media (min-width: map_get($responsive-breakpoints, lg)) {
+    @content;
+  }
+}
+
+@mixin for-xl {
+  @media (min-width: map_get($responsive-breakpoints, xl)) {
+    @content;
+  }
+}

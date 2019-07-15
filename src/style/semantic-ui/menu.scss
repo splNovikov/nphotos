@@ -1,0 +1,29 @@
+@import '../colors';
+
+.ui.menu {
+  margin: 0;
+  border-top: 1px solid $semantic-ui-menu-border;
+  border-bottom: 1px solid $semantic-ui-menu-border;
+  border-radius: 0;
+
+  a.item {
+    text-transform: capitalize;
+
+    &::before {
+      background: none;
+    }
+
+    &.active,
+    &.active:hover {
+      background: none;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      border-image: $semantic-ui-active-item-border;
+      border-image-slice: 1;
+    }
+
+    &:hover {
+      background: none;
+    }
+  }
+}

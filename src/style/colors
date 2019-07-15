@@ -1,0 +1,17 @@
+//names from http://chir.ag/projects/name-that-color/
+@import "./gradients.scss";
+
+/* private variables */
+// gray
+$_color-pine-cone:                  #6B6056;
+$_color_shark:                      #222426;
+$_color_black:                      #000000;
+
+/* Icons */
+$color-icon:                        $_color-pine-cone !default;
+$color-icon-hover:                  darken($color-icon, 15%) !default;
+
+
+/* SEMANTIC-UI MENU */
+$semantic-ui-menu-border:           rgba($_color_shark, .15);
+$semantic-ui-active-item-border:    $instagram-gradient;
