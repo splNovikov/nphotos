@@ -27,7 +27,6 @@ const {
   prepareUrls
 } = require('react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('react-dev-utils/openBrowser');
-const http = require('http');
 const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
 const createDevServerConfig = require('../config/webpackDevServer.config');
@@ -43,12 +42,6 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
-
-// BE wake-uper
-setInterval(() => {
-  http.get('https://n-photos-be.herokuapp.com');
-  console.log('Wake up!');
-}, 1 * 60 * 60);
 
 if (process.env.HOST) {
   console.log(
