@@ -14,8 +14,8 @@ const albums = [
     title: 'quadro'
   },
   {
-    id: 11111112,
-    title: 'Album title2'
+    id: 'landscapes',
+    title: 'landscapes'
   },
   {
     id: 11111113,
