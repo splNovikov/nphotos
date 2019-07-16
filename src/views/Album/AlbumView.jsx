@@ -88,7 +88,7 @@ class AlbumView extends Component {
           </Header>
         ) : (
           <React.Fragment>
-            <Header as="h2" className="album-title">
+            <Header as="h2" className="album-title capitalize">
               {album.title}
             </Header>
             <Grid container columns={3}>

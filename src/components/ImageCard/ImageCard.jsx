@@ -31,6 +31,11 @@ class ImageCard extends React.Component {
         onClick={this.handleClick}
       >
         <Image src={image.src} wrapped ui={false} />
+        {image.title ? (
+          <Card.Content>
+            <Card.Description>{image.title}</Card.Description>
+          </Card.Content>
+        ) : null}
       </Card>
     );
   }
