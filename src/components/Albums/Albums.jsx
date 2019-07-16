@@ -7,34 +7,33 @@ import AlbumCard from '../AlbumCard';
 
 import './Albums.scss';
 
-// todo: remove this hardcode
-const albums = [
-  {
-    id: 'quadro',
-    title: 'quadro'
-  },
-  {
-    id: 'landscapes',
-    title: 'landscapes'
-  },
-  {
-    id: 11111113,
-    title: 'Album title2'
-  },
-  {
-    id: 11111114,
-    title: 'Album title2'
-  }
-];
-
-@inject(({ routingStore }) => ({
-  navigate: routingStore.push
+@inject(({ albumsStore, routingStore }) => ({
+  navigate: routingStore.push,
+  fetchAlbums: albumsStore.fetchAlbums,
+  isFetching: albumsStore.isFetching,
+  albums: albumsStore.albums
 }))
 @observer
 class Albums extends React.Component {
   static propTypes = {
-    navigate: PropTypes.func.isRequired
+    navigate: PropTypes.func.isRequired,
+    fetchAlbums: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    albums: PropTypes.arrayOf(PropTypes.shape)
   };
+
+  static defaultProps = {
+    albums: []
+  };
+
+  componentDidMount() {
+    const { albums, fetchAlbums } = this.props;
+
+    // fetch only if we don't have it already
+    if (!albums.length) {
+      fetchAlbums();
+    }
+  }
 
   handleClickAlbum = album => {
     const { navigate } = this.props;
@@ -43,8 +42,10 @@ class Albums extends React.Component {
   };
 
   render() {
+    const { isFetching, albums } = this.props;
+
     return (
-      <Segment className="albums">
+      <Segment className="albums" loading={isFetching}>
         <Grid container columns={3}>
           {albums.map(album => (
             <Grid.Column key={album.id} mobile={16} tablet={8} computer={4}>

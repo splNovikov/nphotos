@@ -11,6 +11,9 @@ export class AlbumsStore {
 
   @observable errors = [];
 
+  // albums, loaded all for once
+  @observable albums = [];
+
   // fetched albums one by one are registered there:
   @observable albumsRegistry = {};
 
@@ -18,9 +21,22 @@ export class AlbumsStore {
     return id => this.albumsRegistry[id];
   }
 
-  fetchAlbum = id => {
-    return this.flowFetchAlbum(id);
-  };
+  fetchAlbums = () => this.flowFetchAlbums();
+
+  fetchAlbum = id => this.flowFetchAlbum(id);
+
+  flowFetchAlbums = flow(function* fetchAlbums() {
+    this.isFetching = true;
+    try {
+      const { data: albums } = yield albumsApi.getAlbums();
+
+      this.albums = albums.map(album => new AlbumModel(this, album));
+    } catch (error) {
+      this.errors.push(error);
+    } finally {
+      this.isFetching = false;
+    }
+  });
 
   flowFetchAlbum = flow(function* fetchAlbum(id) {
     this.isFetching = true;

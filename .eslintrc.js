@@ -11,6 +11,8 @@ module.exports = {
   rules: {
     'no-debugger': 1,
     'no-unused-vars': 1,
+    'no-unused-expressions': 1,
+    'react/destructuring-assignment': 1,
     'prettier/prettier': [
       'error',
       {

@@ -13,7 +13,9 @@ class AlbumModel {
     this.store = store;
     this.id = album.id;
     this.title = album.title;
-    this.images = album.images.map(image => new ImageModel(this, image));
+    if (album.images) {
+      this.images = album.images.map(image => new ImageModel(this, image));
+    }
   }
 }
 
