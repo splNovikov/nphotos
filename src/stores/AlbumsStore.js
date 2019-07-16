@@ -11,6 +11,7 @@ export class AlbumsStore {
 
   @observable errors = [];
 
+  // fetched albums one by one are registered there:
   @observable albumsRegistry = {};
 
   @computed get album() {

@@ -10,8 +10,8 @@ import './Albums.scss';
 // todo: remove this hardcode
 const albums = [
   {
-    id: '1RRZnQiKm4yzI6abbEidhcbIlhWkPPLLYpajoFpmYz68',
-    title: 'Album title1'
+    id: 'quadro',
+    title: 'quadro'
   },
   {
     id: 11111112,
