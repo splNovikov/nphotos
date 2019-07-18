@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import {
-  Grid,
-  Segment,
-  Header,
-  Modal,
-  Image,
-  Button,
-  Icon
-} from 'semantic-ui-react';
+import { Grid, Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
+import Carousel, { Modal, ModalGateway } from 'react-images';
 
 import ImageCard from '../../components/ImageCard';
 
@@ -58,8 +51,8 @@ class AlbumView extends Component {
     }
   }
 
-  handleClickImage = image => {
-    this.setState({ modalOpen: true, selectedImage: image });
+  handleClickImage = index => {
+    this.setState({ modalOpen: true, selectedImage: index });
   };
 
   handleClose = () => {
@@ -68,6 +61,7 @@ class AlbumView extends Component {
 
   albumId;
 
+  // todo - проверить что всё не ререндерится по нескольку раз и избавиться от стрелочной функции
   render() {
     const {
       isFetching,
@@ -92,33 +86,24 @@ class AlbumView extends Component {
               {album.title}
             </Header>
             <Grid container columns={3}>
-              {album.images.map(image => (
+              {album.images.map((image, index) => (
                 <Grid.Column key={image.id} mobile={16} tablet={8} computer={4}>
-                  <ImageCard image={image} onClick={this.handleClickImage} />
+                  <ImageCard
+                    image={image}
+                    onClick={() => this.handleClickImage(index)}
+                  />
                 </Grid.Column>
               ))}
             </Grid>
+            <ModalGateway>
+              {modalOpen ? (
+                <Modal onClose={this.handleClose}>
+                  <Carousel currentIndex={selectedImage} views={album.images} />
+                </Modal>
+              ) : null}
+            </ModalGateway>
           </React.Fragment>
         )}
-        <Modal open={modalOpen} onClose={this.handleClose}>
-          <Modal.Content image>
-            <Image
-              src={selectedImage.src}
-              wrapped
-              ui={false}
-              className="modal-image"
-            />
-          </Modal.Content>
-          <Modal.Actions>
-            <Button onClick={this.handleClose}>
-              <Icon name="checkmark" />{' '}
-              {formatMessage({
-                id: 'common.close',
-                defaultMessage: 'close'
-              })}
-            </Button>
-          </Modal.Actions>
-        </Modal>
       </Segment>
     );
   }

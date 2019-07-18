@@ -1,9 +1,5 @@
-@import '../../style/variables.scss';
-
 .image-card {
   &.ui.card {
-    padding: $padding-small;
-
     .description {
       text-align: center;
     }
