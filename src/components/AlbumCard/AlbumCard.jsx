@@ -7,7 +7,8 @@ import { Card, Image } from 'semantic-ui-react';
 class AlbumCard extends React.Component {
   static propTypes = {
     album: PropTypes.shape({
-      title: PropTypes.string
+      title: PropTypes.string,
+      cover: PropTypes.string
     }).isRequired,
     onAlbumCardClick: PropTypes.func.isRequired
   };
@@ -22,20 +23,10 @@ class AlbumCard extends React.Component {
     const { album } = this.props;
 
     return (
-      <Card role="none" onClick={this.handleCardClick}>
-        <Image
-          src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-          wrapped
-          ui={false}
-        />
+      <Card className="album-card" role="none" onClick={this.handleCardClick}>
+        <Image src={album.cover} wrapped ui={false} />
         <Card.Content>
-          <Card.Header>{album.title}</Card.Header>
-          <Card.Meta>
-            <span className="date">Joined in 2015</span>
-          </Card.Meta>
-          <Card.Description>
-            Matthew is a musician living in Nashville.
-          </Card.Description>
+          <Card.Header className="capitalize">{album.title}</Card.Header>
         </Card.Content>
       </Card>
     );
