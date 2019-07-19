@@ -5,6 +5,7 @@ import { Menu, Sidebar } from 'semantic-ui-react';
 import ReactResizeDetector from 'react-resize-detector';
 
 import Header from '../Header';
+import Footer from '../Footer';
 import Navigation from '../Navigation';
 import routes from '../../routes';
 import debounce from '../../utils/debounce';
@@ -54,6 +55,8 @@ class App extends Component {
             <Header />
 
             <div className="view-container">{routes}</div>
+
+            <Footer />
           </Sidebar.Pusher>
         </Sidebar.Pushable>
 
