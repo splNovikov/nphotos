@@ -47,15 +47,6 @@ class Navigation extends Component {
             defaultMessage: 'about'
           })}
         />
-        <Menu.Item as={NavLink} to="/3">
-          Whatever3
-        </Menu.Item>
-        <Menu.Item as={NavLink} to="/4">
-          Whatever4
-        </Menu.Item>
-        <Menu.Item as={NavLink} to="/5">
-          Whatever5
-        </Menu.Item>
       </React.Fragment>
     );
   }
