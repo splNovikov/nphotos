@@ -24,9 +24,6 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="links">
-          <a href="test" target="_blank" rel="noopener noreferrer">
-            <Icon name="facebook" />
-          </a>
           <a
             href="https://vk.com/nphotos_ru"
             target="_blank"
