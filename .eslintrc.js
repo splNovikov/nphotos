@@ -13,6 +13,7 @@ module.exports = {
     'no-unused-vars': 1,
     'no-unused-expressions': 1,
     'react/destructuring-assignment': 1,
+    'react/prop-types': 1,
     'prettier/prettier': [
       'error',
       {

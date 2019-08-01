@@ -1,6 +1,7 @@
 .albums {
   &.ui.segment {
     border: none;
+    box-shadow: none;
 
     .ui.container.grid > .column {
       display: flex;
