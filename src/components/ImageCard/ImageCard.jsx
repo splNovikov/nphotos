@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
+
+import ResponsiveImage from '../ResponsiveImage';
 
 import './ImageCard.scss';
 
@@ -30,7 +32,7 @@ class ImageCard extends React.Component {
         raised
         onClick={this.handleClick}
       >
-        <Image src={image.src} wrapped ui={false} />
+        <ResponsiveImage url={image.src} />
         {image.title ? (
           <Card.Content>
             <Card.Description>{image.title}</Card.Description>
