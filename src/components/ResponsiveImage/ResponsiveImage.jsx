@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 
 import './ResponsiveImage.scss';
 
-const ResponsiveImage = ({ url }) => (
+const ResponsiveImage = ({ url, height }) => (
   <figure
     className="responsive-image"
-    style={{ backgroundImage: `url(${url})` }}
+    style={{ backgroundImage: `url(${url})`, height }}
   />
 );
 
 ResponsiveImage.propTypes = {
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  height: PropTypes.string
+};
+
+ResponsiveImage.defaultProps = {
+  height: 150
 };
 
 export default ResponsiveImage;

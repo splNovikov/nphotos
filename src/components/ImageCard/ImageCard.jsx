@@ -32,7 +32,7 @@ class ImageCard extends React.Component {
         raised
         onClick={this.handleClick}
       >
-        <ResponsiveImage url={image.src} />
+        <ResponsiveImage url={image.src} height={200} />
         {image.title ? (
           <Card.Content>
             <Card.Description>{image.title}</Card.Description>
