@@ -14,9 +14,14 @@ const Footer = ({ intl: { formatMessage } }) => (
         <SocialLinks />
       </div>
 
-      <div>
-        <Image centered size="tiny" src={logo} as={NavLink} to="/" />
-      </div>
+      <Image
+        className="logo"
+        centered
+        size="tiny"
+        src={logo}
+        as={NavLink}
+        to="/"
+      />
 
       <List horizontal divided link size="small">
         <List.Item
