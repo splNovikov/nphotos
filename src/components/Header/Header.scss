@@ -10,15 +10,11 @@
 }
 
 .header {
-  .links {
+  .links-wrapper {
     @include header-padding($padding-x-small);
 
     display: flex;
     justify-content: flex-end;
-
-    a {
-      margin-right: $padding-small;
-    }
   }
 
   .ui.menu.navigation-menu-sm {

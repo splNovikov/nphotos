@@ -5,6 +5,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 import Navigation from '../Navigation';
+import SocialLinks from '../SocialLinks';
 import logo from '../../assets/images/logo.svg';
 
 import './Header.scss';
@@ -23,21 +24,8 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <div className="links">
-          <a
-            href="https://vk.com/nphotos_ru"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="vk" />
-          </a>
-          <a
-            href="https://www.instagram.com/_u/nphotos.ru/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="instagram" />
-          </a>
+        <div className="links-wrapper">
+          <SocialLinks />
         </div>
 
         <Menu className="navigation-menu-sm">

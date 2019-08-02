@@ -1,7 +1,13 @@
+@import '../../style/variables.scss';
+
 .footer {
   &.ui.vertical.segment {
     margin: 5em 0 0;
     padding: 1em 0;
+
+    .links-wrapper {
+      padding-bottom: $padding-normal;
+    }
 
     .list {
       text-transform: capitalize;

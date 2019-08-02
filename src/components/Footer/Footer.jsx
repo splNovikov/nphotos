@@ -4,12 +4,16 @@ import { NavLink } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
 
 import logo from '../../assets/images/logo.svg';
+import SocialLinks from '../SocialLinks';
 import './Footer.scss';
 
-// todo: add contact us
 const Footer = ({ intl: { formatMessage } }) => (
-  <Segment secondary vertical className="footer">
+  <Segment raised vertical className="footer">
     <Container textAlign="center">
+      <div className="links-wrapper">
+        <SocialLinks />
+      </div>
+
       <div>
         <Image centered size="tiny" src={logo} as={NavLink} to="/" />
       </div>
