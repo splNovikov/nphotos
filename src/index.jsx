@@ -12,6 +12,7 @@ import App from './components/App';
 import { withTracker, getLanguageMessages } from './utils';
 import * as serviceWorker from './serviceWorker';
 import albumsStore from './stores/AlbumsStore';
+import contactsStore from './stores/ContactsStore';
 import commonStore from './stores/CommonStore';
 
 import './style/index.scss';
@@ -24,7 +25,8 @@ const { language, messages } = getLanguageMessages();
 const stores = {
   routingStore,
   commonStore,
-  albumsStore
+  albumsStore,
+  contactsStore
 };
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
