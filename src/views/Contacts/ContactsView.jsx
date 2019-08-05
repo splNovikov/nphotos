@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Grid, Image, Segment } from 'semantic-ui-react';
+import { Card, Grid, Image, Segment } from 'semantic-ui-react';
 
 import './ContactsView.scss';
 
@@ -40,8 +40,18 @@ class ContactsView extends Component {
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
               <Segment>
-                <Image src={contact.avatar} size="tiny" avatar />
-                {contact.name}
+                <Image src={contact.avatar} size="tiny" avatar floated="left" />
+                <Card>
+                  <Card.Content>
+                    <Card.Header>{contact.name}</Card.Header>
+                    <Card.Meta>Friends of Elliot</Card.Meta>
+                    <Card.Description>
+                      Steve wants to add you to the group{' '}
+                      <strong>best friends</strong>
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>Extra</Card.Content>
+                </Card>
               </Segment>
             </Grid.Column>
           ))}

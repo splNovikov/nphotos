@@ -9,4 +9,9 @@
       padding: $padding-normal $padding-large-content;
     }
   }
+
+  .ui.card {
+    margin: 0;
+    box-shadow: none;
+  }
 }
