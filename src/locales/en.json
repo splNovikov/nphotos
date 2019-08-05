@@ -4,6 +4,7 @@
   "navigationMenu.home": "home",
   "navigationMenu.albums": "albums",
   "navigationMenu.about": "about",
+  "navigationMenu.contacts": "contacts",
 
   "albumView.noImages": "no images"
 }

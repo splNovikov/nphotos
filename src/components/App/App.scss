@@ -1,5 +1,21 @@
 .app {
+  .pushable > .pusher {
+    &.app-wrapper {
+      display: flex;
+      flex-flow: column;
+      min-height: 100vh;
+    }
+  }
+
+  .header {
+    flex: 0 1 auto;
+  }
+
   .view-container {
-    // todo: add styles here
+    flex: 1 1 auto;
+  }
+
+  .footer {
+    flex: 0 1 auto;
   }
 }

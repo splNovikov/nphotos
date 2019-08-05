@@ -51,7 +51,7 @@ class App extends Component {
             <Navigation />
           </Sidebar>
 
-          <Sidebar.Pusher dimmed={isSideBarOpened}>
+          <Sidebar.Pusher dimmed={isSideBarOpened} className="app-wrapper">
             <Header />
 
             <div className="view-container">{routes}</div>

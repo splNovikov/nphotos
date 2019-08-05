@@ -1,0 +1,12 @@
+@import '../../style/mixins/responsive-breakpoints.scss';
+@import '../../style/variables';
+
+.contacts-view {
+  &.ui.grid {
+    padding: $padding-normal $padding-small-content;
+
+    @include for-lg {
+      padding: $padding-normal $padding-large-content;
+    }
+  }
+}

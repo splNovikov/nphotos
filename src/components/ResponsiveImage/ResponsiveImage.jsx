@@ -12,7 +12,7 @@ const ResponsiveImage = ({ url, height }) => (
 
 ResponsiveImage.propTypes = {
   url: PropTypes.string.isRequired,
-  height: PropTypes.string
+  height: PropTypes.number
 };
 
 ResponsiveImage.defaultProps = {

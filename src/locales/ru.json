@@ -4,6 +4,7 @@
   "navigationMenu.home": "домой",
   "navigationMenu.albums": "альбомы",
   "navigationMenu.about": "о нас",
+  "navigationMenu.contacts": "контакты",
 
   "albumView.noImages": "нет изображений"
 }

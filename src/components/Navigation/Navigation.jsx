@@ -47,6 +47,14 @@ class Navigation extends Component {
             defaultMessage: 'about'
           })}
         />
+        <Menu.Item
+          as={NavLink}
+          to="/contacts"
+          content={formatMessage({
+            id: 'navigationMenu.contacts',
+            defaultMessage: 'contacts'
+          })}
+        />
       </React.Fragment>
     );
   }

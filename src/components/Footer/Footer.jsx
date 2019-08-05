@@ -50,6 +50,14 @@ const Footer = ({ intl: { formatMessage } }) => (
             defaultMessage: 'about'
           })}
         />
+        <List.Item
+          as={NavLink}
+          to="/contacts"
+          content={formatMessage({
+            id: 'navigationMenu.contacts',
+            defaultMessage: 'contacts'
+          })}
+        />
       </List>
     </Container>
   </Segment>
