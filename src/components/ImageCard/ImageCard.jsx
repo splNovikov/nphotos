@@ -17,9 +17,9 @@ class ImageCard extends React.Component {
   };
 
   handleClick = () => {
-    const { image, onClick } = this.props;
+    const { index, onClick } = this.props;
 
-    return onClick(image);
+    return onClick(index);
   };
 
   render() {

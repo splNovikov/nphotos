@@ -61,7 +61,6 @@ class AlbumView extends Component {
 
   albumId;
 
-  // todo - проверить что всё не ререндерится по нескольку раз и избавиться от стрелочной функции
   render() {
     const {
       isFetching,
@@ -90,7 +89,8 @@ class AlbumView extends Component {
                 <Grid.Column key={image.id} mobile={16} tablet={8} computer={4}>
                   <ImageCard
                     image={image}
-                    onClick={() => this.handleClickImage(index)}
+                    index={index}
+                    onClick={this.handleClickImage}
                   />
                 </Grid.Column>
               ))}
