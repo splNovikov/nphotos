@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Card, Grid, Image, Segment } from 'semantic-ui-react';
+import { Card, Grid, Image, Icon, Segment } from 'semantic-ui-react';
 
 import './ContactsView.scss';
 
@@ -44,13 +44,34 @@ class ContactsView extends Component {
                 <Card>
                   <Card.Content>
                     <Card.Header>{contact.name}</Card.Header>
-                    <Card.Meta>Friends of Elliot</Card.Meta>
+                    <Card.Meta>{contact.phone}</Card.Meta>
                     <Card.Description>
-                      Steve wants to add you to the group{' '}
-                      <strong>best friends</strong>
+                      {contact.shortDescription}
                     </Card.Description>
                   </Card.Content>
-                  <Card.Content extra>Extra</Card.Content>
+                  <Card.Content extra>
+                    <a
+                      href={contact.vkLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon name="vk" />
+                    </a>
+                    <a
+                      href={contact.instagramLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon name="instagram" />
+                    </a>
+                    <a
+                      href={contact.facebookLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Icon name="facebook" />
+                    </a>
+                  </Card.Content>
                 </Card>
               </Segment>
             </Grid.Column>
