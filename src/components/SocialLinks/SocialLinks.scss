@@ -1,9 +1,0 @@
-@import '../../style/variables.scss';
-
-.links {
-  display: inline-block;
-
-  a:not(:last-child) {
-    margin-right: $padding-small;
-  }
-}

@@ -1,3 +1,7 @@
 .ui.button {
   text-transform: capitalize;
+
+  &.transparent {
+    background: transparent;
+  }
 }

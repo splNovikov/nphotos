@@ -1,24 +1,29 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
-
-import './SocialLinks.scss';
+import { Button } from 'semantic-ui-react';
 
 const SocialLinks = () => (
   <div className="links">
-    <a
+    <Button
+      compact
+      icon="vk"
       href="https://vk.com/nphotos_ru"
       target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon name="vk" />
-    </a>
-    <a
+      className="transparent"
+    />
+    <Button
+      compact
+      icon="instagram"
       href="https://www.instagram.com/_u/nphotos.ru/"
       target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Icon name="instagram" />
-    </a>
+      className="transparent"
+    />
+    <Button
+      compact
+      icon="telegram"
+      href="https://t.me/kattynphoto"
+      target="_blank"
+      className="transparent"
+    />
   </div>
 );
 
