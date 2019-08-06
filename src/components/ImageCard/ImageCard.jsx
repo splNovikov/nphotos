@@ -13,6 +13,7 @@ class ImageCard extends React.Component {
     image: PropTypes.shape({
       title: PropTypes.string
     }).isRequired,
+    index: PropTypes.number.isRequired,
     onClick: PropTypes.func.isRequired
   };
 
