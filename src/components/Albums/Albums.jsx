@@ -46,7 +46,7 @@ class Albums extends React.Component {
     const { isFetching, albums } = this.props;
 
     return (
-      <Segment className="albums" loading={isFetching}>
+      <Segment className="albums no-borders" loading={isFetching}>
         <Grid container columns={3}>
           {albums.map(album => (
             <Grid.Column key={album.id} mobile={16} tablet={8} computer={4}>

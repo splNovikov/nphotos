@@ -30,13 +30,12 @@ class ContactsView extends Component {
     }
   }
 
-  // todo: show isFetching in better way
   render() {
     const { isFetching, contacts } = this.props;
+
     return (
-      <React.Fragment>
-        {isFetching}
-        <Grid className="contacts-view" stackable columns={2}>
+      <Segment className="contacts-view no-borders" loading={isFetching}>
+        <Grid stackable columns={2}>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
               <Segment>
@@ -77,7 +76,7 @@ class ContactsView extends Component {
             </Grid.Column>
           ))}
         </Grid>
-      </React.Fragment>
+      </Segment>
     );
   }
 }

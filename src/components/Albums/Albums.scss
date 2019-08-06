@@ -1,13 +1,5 @@
 .albums {
   &.ui.segment {
-    border: none;
-    box-shadow: none;
-
-    .ui.container.grid > .column {
-      display: flex;
-      justify-content: center;
-    }
+    min-height: 5rem;
   }
-
-  min-height: 5rem;
 }

@@ -2,7 +2,11 @@
 @import '../../style/variables.scss';
 
 .contacts-view {
-  &.ui.grid {
+  &.ui.segment {
+    min-height: 5rem;
+  }
+
+  .ui.grid {
     padding: $padding-normal $padding-small-content;
 
     @include for-lg {
