@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Grid, Segment } from 'semantic-ui-react';
 
+import appRoutes from '../../constants/appRoutes';
 import AlbumCard from '../AlbumCard';
 
 import './Albums.scss';
@@ -38,7 +39,7 @@ class Albums extends React.Component {
   handleClickAlbum = album => {
     const { navigate } = this.props;
 
-    navigate(`/albums/${album.id}`);
+    navigate(`${appRoutes.albums}/${album.id}`);
   };
 
   render() {

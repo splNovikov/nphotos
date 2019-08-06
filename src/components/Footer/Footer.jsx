@@ -3,8 +3,10 @@ import { Segment, Container, List, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
 
+import appRoutes from '../../constants/appRoutes';
 import logo from '../../assets/images/logo.svg';
 import SocialLinks from '../SocialLinks';
+
 import './Footer.scss';
 
 const Footer = ({ intl: { formatMessage } }) => (
@@ -36,7 +38,7 @@ const Footer = ({ intl: { formatMessage } }) => (
         <List.Item
           exact
           as={NavLink}
-          to="/albums"
+          to={appRoutes.albums}
           content={formatMessage({
             id: 'navigationMenu.albums',
             defaultMessage: 'albums'
@@ -44,7 +46,7 @@ const Footer = ({ intl: { formatMessage } }) => (
         />
         <List.Item
           as={NavLink}
-          to="/about"
+          to={appRoutes.about}
           content={formatMessage({
             id: 'navigationMenu.about',
             defaultMessage: 'about'
@@ -52,7 +54,7 @@ const Footer = ({ intl: { formatMessage } }) => (
         />
         <List.Item
           as={NavLink}
-          to="/contacts"
+          to={appRoutes.contacts}
           content={formatMessage({
             id: 'navigationMenu.contacts',
             defaultMessage: 'contacts'

@@ -4,6 +4,8 @@ import { Menu } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 
+import appRoutes from '../../constants/appRoutes';
+
 @inject(({ routingStore }) => ({
   location: routingStore.location
 }))
@@ -33,7 +35,7 @@ class Navigation extends Component {
         <Menu.Item
           as={NavLink}
           exact
-          to="/albums"
+          to={appRoutes.albums}
           content={formatMessage({
             id: 'navigationMenu.albums',
             defaultMessage: 'albums'
@@ -41,7 +43,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
-          to="/about"
+          to={appRoutes.about}
           content={formatMessage({
             id: 'navigationMenu.about',
             defaultMessage: 'about'
@@ -49,7 +51,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
-          to="/contacts"
+          to={appRoutes.contacts}
           content={formatMessage({
             id: 'navigationMenu.contacts',
             defaultMessage: 'contacts'
