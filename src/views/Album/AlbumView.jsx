@@ -72,14 +72,16 @@ class AlbumView extends Component {
 
     return (
       <Segment className="album-view no-borders" loading={isFetching}>
-        {!album ? (
+        {!album && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({
               id: 'albumView.noImages',
               defaultMessage: 'No Images'
             })}
           </Header>
-        ) : (
+        ) : null}
+
+        {album ? (
           <React.Fragment>
             <Header as="h2" className="album-title capitalize">
               {album.title}
@@ -95,7 +97,7 @@ class AlbumView extends Component {
               ) : null}
             </ModalGateway>
           </React.Fragment>
-        )}
+        ) : null}
       </Segment>
     );
   }

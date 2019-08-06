@@ -7,7 +7,7 @@ import Albums from '../../components/Albums';
 class AlbumsView extends Component {
   render() {
     return (
-      <div className="albums">
+      <div className="albums-view">
         <Albums />
       </div>
     );
