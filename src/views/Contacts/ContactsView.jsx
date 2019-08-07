@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Button, Card, Grid, Image, Segment } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
+
+import Contact from './components/Contact';
 
 import './ContactsView.scss';
 
@@ -35,44 +37,10 @@ class ContactsView extends Component {
 
     return (
       <Segment className="contacts-view no-borders" loading={isFetching}>
-        <Grid stackable columns={2}>
+        <Grid className="contacts-grid" stackable columns={2}>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
-              <Segment>
-                <Image src={contact.avatar} size="tiny" avatar floated="left" />
-                <Card>
-                  <Card.Content>
-                    <Card.Header>{contact.name}</Card.Header>
-                    <Card.Meta>{contact.phone}</Card.Meta>
-                    <Card.Description>
-                      {contact.shortDescription}
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <Button
-                      compact
-                      icon="vk"
-                      href={contact.vkLink}
-                      target="_blank"
-                      className="transparent"
-                    />
-                    <Button
-                      compact
-                      icon="instagram"
-                      href={contact.instagramLink}
-                      target="_blank"
-                      className="transparent"
-                    />
-                    <Button
-                      compact
-                      icon="facebook"
-                      href={contact.facebookLink}
-                      target="_blank"
-                      className="transparent"
-                    />
-                  </Card.Content>
-                </Card>
-              </Segment>
+              <Contact contact={contact} />
             </Grid.Column>
           ))}
         </Grid>
