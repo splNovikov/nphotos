@@ -9,7 +9,7 @@ const Contact = ({ contact }) => (
         <Image src={contact.avatar} size="tiny" avatar />
       </Grid.Column>
       <Grid.Column width={12}>
-        <Card>
+        <Card fluid>
           <Card.Content>
             <Card.Header>{contact.name}</Card.Header>
             <Card.Meta>{contact.phone}</Card.Meta>
