@@ -1,17 +1,6 @@
-@import '../../style/mixins/responsive-breakpoints.scss';
-@import '../../style/variables.scss';
-
 .contacts-view {
   &.ui.segment {
     min-height: 5rem;
-  }
-
-  .contacts-grid.ui.grid {
-    padding: $padding-normal $padding-small-content;
-
-    @include for-lg {
-      padding: $padding-normal $padding-large-content;
-    }
   }
 
   .ui.card {

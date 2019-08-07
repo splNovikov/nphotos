@@ -37,7 +37,7 @@ class ContactsView extends Component {
 
     return (
       <Segment className="contacts-view no-borders" loading={isFetching}>
-        <Grid className="contacts-grid" stackable columns={2}>
+        <Grid container stackable columns={2}>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
               <Contact contact={contact} />
