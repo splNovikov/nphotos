@@ -6,8 +6,6 @@ import { Grid, Segment } from 'semantic-ui-react';
 import appRoutes from '../../constants/appRoutes';
 import AlbumCard from '../AlbumCard';
 
-import './Albums.scss';
-
 @inject(({ albumsStore, routingStore }) => ({
   navigate: routingStore.push,
   fetchAlbums: albumsStore.fetchAlbums,
@@ -46,7 +44,10 @@ class Albums extends React.Component {
     const { isFetching, albums } = this.props;
 
     return (
-      <Segment className="albums no-borders" loading={isFetching}>
+      <Segment
+        className="albums no-borders fetching-min-height"
+        loading={isFetching}
+      >
         <Grid container columns={3}>
           {albums.map(album => (
             <Grid.Column key={album.id} mobile={16} tablet={8} computer={4}>

@@ -36,7 +36,10 @@ class ContactsView extends Component {
     const { isFetching, contacts } = this.props;
 
     return (
-      <Segment className="contacts-view no-borders" loading={isFetching}>
+      <Segment
+        className="contacts-view no-borders fetching-min-height"
+        loading={isFetching}
+      >
         <Grid container stackable columns={2}>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>

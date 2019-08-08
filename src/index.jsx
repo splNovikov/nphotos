@@ -14,6 +14,7 @@ import * as serviceWorker from './serviceWorker';
 import albumsStore from './stores/AlbumsStore';
 import contactsStore from './stores/ContactsStore';
 import commonStore from './stores/CommonStore';
+import aboutStore from './stores/AboutStore';
 
 import './style/index.scss';
 
@@ -26,7 +27,8 @@ const stores = {
   routingStore,
   commonStore,
   albumsStore,
-  contactsStore
+  contactsStore,
+  aboutStore
 };
 const history = syncHistoryWithStore(browserHistory, routingStore);
 

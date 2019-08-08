@@ -71,7 +71,10 @@ class AlbumView extends Component {
     const { modalOpen, selectedImage } = this.state;
 
     return (
-      <Segment className="album-view no-borders" loading={isFetching}>
+      <Segment
+        className="album-view no-borders fetching-min-height"
+        loading={isFetching}
+      >
         {!album && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({
