@@ -8,7 +8,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Navigation from '../Navigation';
 import routes from '../../routes';
-import debounce from '../../utils/debounce';
+import { debounce } from '../../utils';
 
 import './App.scss';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card, Grid, Image, Segment } from 'semantic-ui-react';
+import { formatPhoneNumber } from '../../../../utils';
 
 const Contact = ({ contact }) => (
   <Segment>
@@ -12,7 +13,7 @@ const Contact = ({ contact }) => (
         <Card fluid>
           <Card.Content>
             <Card.Header>{contact.name}</Card.Header>
-            <Card.Meta>{contact.phone}</Card.Meta>
+            <Card.Meta>{formatPhoneNumber(contact.phone)}</Card.Meta>
             <Card.Description>{contact.shortDescription}</Card.Description>
           </Card.Content>
           <Card.Content extra>
