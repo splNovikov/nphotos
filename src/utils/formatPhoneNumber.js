@@ -6,7 +6,7 @@ const formatPhoneNumber = phoneNumberString => {
 
     return `${intlCode} (${match[2]}) ${match[3]} ${match[4]}`;
   }
-  return null;
+  return phoneNumberString;
 };
 
 export default formatPhoneNumber;
