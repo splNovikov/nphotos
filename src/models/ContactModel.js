@@ -1,3 +1,5 @@
+import { formatPhoneNumber } from '../utils';
+
 class ContactModel {
   store;
 
@@ -25,7 +27,7 @@ class ContactModel {
     this.vkLink = contact.vkLink;
     this.instagramLink = contact.instagramLink;
     this.facebookLink = contact.facebookLink;
-    this.phone = contact.phone;
+    this.phone = formatPhoneNumber(contact.phone);
     this.shortDescription = contact.shortDescription;
   }
 }
