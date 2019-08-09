@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Grid, Segment } from 'semantic-ui-react';
 import { observer, inject } from 'mobx-react';
 
+import SanitizeHTML from '../../components/SanitizeHTML';
+
 @inject(({ aboutStore }) => ({
   fetchAbout: aboutStore.fetchAbout,
   isFetching: aboutStore.isFetching,
@@ -37,7 +39,9 @@ class AboutView extends Component {
         loading={isFetching}
       >
         <Grid container stackable>
-          <Grid.Column width={8}>{about}</Grid.Column>
+          <Grid.Column width={8}>
+            <SanitizeHTML html={about} />
+          </Grid.Column>
         </Grid>
       </Segment>
     );

@@ -14,6 +14,7 @@ module.exports = {
     'no-unused-expressions': 1,
     'react/destructuring-assignment': 1,
     'react/prop-types': 1,
+    'react/require-default-props': 1,
     'react/prefer-stateless-function': 1,
     'prettier/prettier': [
       'error',
