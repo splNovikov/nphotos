@@ -5,6 +5,8 @@ import { observer, inject } from 'mobx-react';
 
 import SanitizeHTML from '../../components/SanitizeHTML';
 
+import './AboutView.scss';
+
 @inject(({ aboutStore }) => ({
   fetchAbout: aboutStore.fetchAbout,
   isFetching: aboutStore.isFetching,
@@ -39,7 +41,7 @@ class AboutView extends Component {
         loading={isFetching}
       >
         <Grid container stackable>
-          <Grid.Column width={8}>
+          <Grid.Column width={8} className="about-column">
             <SanitizeHTML html={about} />
           </Grid.Column>
         </Grid>

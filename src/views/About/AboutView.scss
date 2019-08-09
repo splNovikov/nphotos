@@ -1,0 +1,8 @@
+@import '../../style/variables.scss';
+
+.about-view {
+  .about-column {
+    text-indent: $indent-normal;
+    text-align: justify;
+  }
+}
