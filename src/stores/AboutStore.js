@@ -10,7 +10,7 @@ export class AboutStore {
 
   @observable errors = [];
 
-  @observable about = '';
+  @observable about = [];
 
   fetchAbout = () => this.flowFetchAbout();
 

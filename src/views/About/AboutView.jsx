@@ -15,13 +15,18 @@ import './AboutView.scss';
 @observer
 class AboutView extends Component {
   static propTypes = {
-    about: PropTypes.string,
+    about: PropTypes.arrayOf(
+      PropTypes.shape({
+        index: PropTypes.number,
+        row: PropTypes.string
+      })
+    ),
     fetchAbout: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    about: ''
+    about: []
   };
 
   componentDidMount() {
@@ -41,9 +46,11 @@ class AboutView extends Component {
         loading={isFetching}
       >
         <Grid container stackable>
-          <Grid.Column width={8} className="about-column">
-            <SanitizeHTML html={about} />
-          </Grid.Column>
+          {about.map(a => (
+            <Grid.Column key={a.index} width={8} className="about-column">
+              <SanitizeHTML html={a.row} />
+            </Grid.Column>
+          ))}
         </Grid>
       </Segment>
     );
