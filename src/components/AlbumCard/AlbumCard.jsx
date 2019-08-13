@@ -25,8 +25,13 @@ class AlbumCard extends React.Component {
     const { album } = this.props;
 
     return (
-      <Card className="album-card" role="none" onClick={this.handleCardClick}>
-        <ResponsiveImage url={album.cover} />
+      <Card
+        className="album-card"
+        raised
+        centered
+        onClick={this.handleCardClick}
+      >
+        <ResponsiveImage url={album.cover} height={250} />
         <Card.Content>
           <Card.Header className="capitalize">{album.title}</Card.Header>
         </Card.Content>
