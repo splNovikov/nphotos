@@ -1,5 +1,6 @@
 export default {
   albums: `/albums`,
   about: `/about`,
-  contacts: `/contacts`
+  contacts: `/contacts`,
+  price: `/price`
 };
