@@ -32,14 +32,7 @@ class Header extends Component {
           <Menu.Item onClick={toggleSidebar}>
             <Icon name="sidebar" />
           </Menu.Item>
-          <Image
-            className="logo"
-            centered
-            size="tiny"
-            src={logo}
-            as={NavLink}
-            to="/"
-          />
+          <Image className="logo" size="tiny" src={logo} as={NavLink} to="/" />
         </Menu>
 
         <Menu className="navigation-menu-lg">
