@@ -21,6 +21,10 @@
     @include for-lg {
       display: none;
     }
+
+    .ui.image.logo {
+      display: flex;
+    }
   }
 
   .ui.menu.navigation-menu-lg {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Menu, Icon, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 import Navigation from '../Navigation';
@@ -32,6 +32,14 @@ class Header extends Component {
           <Menu.Item onClick={toggleSidebar}>
             <Icon name="sidebar" />
           </Menu.Item>
+          <Image
+            className="logo"
+            centered
+            size="tiny"
+            src={logo}
+            as={NavLink}
+            to="/"
+          />
         </Menu>
 
         <Menu className="navigation-menu-lg">
