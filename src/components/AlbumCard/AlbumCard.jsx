@@ -31,7 +31,7 @@ class AlbumCard extends React.Component {
         centered
         onClick={this.handleCardClick}
       >
-        <ResponsiveImage url={album.cover} height={250} />
+        <ResponsiveImage url={album.cover} height={200} />
         <Card.Content>
           <Card.Header className="capitalize">{album.title}</Card.Header>
         </Card.Content>

@@ -28,7 +28,7 @@ class ImageCard extends React.Component {
 
     return (
       <Card className="image-card" raised centered onClick={this.handleClick}>
-        <ResponsiveImage url={image.src} height={250} />
+        <ResponsiveImage url={image.src} height={200} />
         {image.title ? (
           <Card.Content>
             <Card.Description>{image.title}</Card.Description>
