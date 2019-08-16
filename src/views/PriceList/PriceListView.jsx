@@ -43,7 +43,7 @@ class PriceListView extends Component {
         className="price-list-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Grid container stackable>
+        <Grid container stackable padded="vertically">
           {priceList.map(row => (
             <Grid.Row key={row.index}>
               <SanitizeHTML html={row.price} />
