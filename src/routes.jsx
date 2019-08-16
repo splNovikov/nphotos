@@ -7,7 +7,7 @@ import AlbumsView from './views/Albums';
 import AlbumView from './views/Album';
 import AboutView from './views/About';
 import ContactsView from './views/Contacts';
-import PriceView from './views/Price';
+import PriceListView from './views/PriceList';
 
 const routes = (
   <Switch>
@@ -16,7 +16,7 @@ const routes = (
     <Route path={`${appRoutes.albums}/:id`} component={AlbumView} />
     <Route path={appRoutes.about} component={AboutView} />
     <Route path={appRoutes.contacts} component={ContactsView} />
-    <Route path={appRoutes.price} component={PriceView} />
+    <Route path={appRoutes.priceList} component={PriceListView} />
   </Switch>
 );
 

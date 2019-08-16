@@ -5,7 +5,7 @@
   "navigationMenu.albums": "albums",
   "navigationMenu.about": "about",
   "navigationMenu.contacts": "contacts",
-  "navigationMenu.price": "price",
+  "navigationMenu.priceList": "price list",
 
   "albumView.noImages": "no images"
 }

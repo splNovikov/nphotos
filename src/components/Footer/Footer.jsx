@@ -62,10 +62,10 @@ const Footer = ({ intl: { formatMessage } }) => (
         />
         <List.Item
           as={NavLink}
-          to={appRoutes.price}
+          to={appRoutes.priceList}
           content={formatMessage({
-            id: 'navigationMenu.price',
-            defaultMessage: 'price'
+            id: 'navigationMenu.priceList',
+            defaultMessage: 'price list'
           })}
         />
       </List>
