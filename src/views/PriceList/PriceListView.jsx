@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { Grid, Segment } from 'semantic-ui-react';
+import { observer } from 'mobx-react';
 
-import SanitizeHTML from '../../components/SanitizeHTML';
-
-// @inject(({ priceListStore }) => ({
-//   fetchPrice: priceListStore.fetchPrice,
-//   isFetching: priceListStore.isFetching,
-//   price: priceListStore.priceList
-// }))
 @observer
 class PriceListView extends Component {
   render() {
-    return <div className="price-list-view">priceList</div>;
+    return (
+      <Segment className="price-list-view no-borders fetching-min-height">
+        <Grid container stackable>
+          <Grid.Column>
+            <Grid.Row>Price List</Grid.Row>
+          </Grid.Column>
+        </Grid>
+      </Segment>
+    );
   }
 }
 
