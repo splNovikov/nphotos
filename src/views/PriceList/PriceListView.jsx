@@ -44,13 +44,11 @@ class PriceListView extends Component {
         loading={isFetching}
       >
         <Grid container stackable>
-          <Grid.Column>
-            {priceList.map(row => (
-              <Grid.Row key={row.index}>
-                <SanitizeHTML html={row.price} />
-              </Grid.Row>
-            ))}
-          </Grid.Column>
+          {priceList.map(row => (
+            <Grid.Row key={row.index}>
+              <SanitizeHTML html={row.price} />
+            </Grid.Row>
+          ))}
         </Grid>
       </Segment>
     );
