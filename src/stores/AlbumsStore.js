@@ -1,10 +1,7 @@
-import { computed, observable, flow, configure } from 'mobx';
+import { computed, observable, flow } from 'mobx';
 
 import albumsApi from '../api/albums';
 import AlbumModel from '../models/AlbumModel';
-
-// todo: do we need to put it everywhere in Stores? Or put it somewhere once?
-configure({ enforceActions: 'observed' });
 
 export class AlbumsStore {
   @observable isFetching = false;

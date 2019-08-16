@@ -1,7 +1,5 @@
-import { observable, configure, action } from 'mobx';
+import { observable, action } from 'mobx';
 
-// todo: do we need to put it everywhere in Stores? Or put it somewhere once?
-configure({ enforceActions: 'observed' });
 class CommonStore {
   @observable isSidebarOpened = false;
 

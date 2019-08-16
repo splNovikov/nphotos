@@ -11,10 +11,7 @@ import ru from 'react-intl/locale-data/ru';
 import App from './components/App';
 import { withTracker, getLanguageMessages } from './utils';
 import * as serviceWorker from './serviceWorker';
-import albumsStore from './stores/AlbumsStore';
-import contactsStore from './stores/ContactsStore';
-import commonStore from './stores/CommonStore';
-import aboutStore from './stores/AboutStore';
+import customStores from './stores';
 
 import './style/index.scss';
 
@@ -25,10 +22,7 @@ const routingStore = new RouterStore();
 const { language, messages } = getLanguageMessages();
 const stores = {
   routingStore,
-  commonStore,
-  albumsStore,
-  contactsStore,
-  aboutStore
+  ...customStores
 };
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
