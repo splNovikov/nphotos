@@ -2,6 +2,7 @@ import { computed, observable, flow } from 'mobx';
 
 import albumsApi from '../api/albums';
 import AlbumModel from '../models/AlbumModel';
+import httpErrorHandler from '../utils/httpErrorHandler';
 
 export class AlbumsStore {
   @observable isFetching = false;
@@ -30,6 +31,7 @@ export class AlbumsStore {
       this.albums = albums.map(album => new AlbumModel(this, album));
     } catch (error) {
       this.errors.push(error);
+      httpErrorHandler(error);
     } finally {
       this.isFetching = false;
     }
@@ -46,6 +48,7 @@ export class AlbumsStore {
       };
     } catch (error) {
       this.errors.push(error);
+      httpErrorHandler(error);
     } finally {
       this.isFetching = false;
     }

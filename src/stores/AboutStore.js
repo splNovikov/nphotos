@@ -20,7 +20,7 @@ export class AboutStore {
       this.about = about;
     } catch (error) {
       this.errors.push(error);
-      httpErrorHandler('title', 'description');
+      httpErrorHandler(error);
     } finally {
       this.isFetching = false;
     }

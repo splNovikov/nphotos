@@ -2,6 +2,7 @@ import { observable, flow } from 'mobx';
 
 import contactsApi from '../api/contacts';
 import ContactModel from '../models/ContactModel';
+import httpErrorHandler from '../utils/httpErrorHandler';
 
 export class ContactsStore {
   @observable isFetching = false;
@@ -21,6 +22,7 @@ export class ContactsStore {
       this.contacts = contacts.map(contact => new ContactModel(this, contact));
     } catch (error) {
       this.errors.push(error);
+      httpErrorHandler(error);
     } finally {
       this.isFetching = false;
     }

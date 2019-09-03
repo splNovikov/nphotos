@@ -1,6 +1,7 @@
 import { observable, flow } from 'mobx';
 
 import priceListApi from '../api/priceList';
+import httpErrorHandler from '../utils/httpErrorHandler';
 
 export class PriceListStore {
   @observable isFetching = false;
@@ -19,6 +20,7 @@ export class PriceListStore {
       this.priceList = priceList;
     } catch (error) {
       this.errors.push(error);
+      httpErrorHandler(error);
     } finally {
       this.isFetching = false;
     }
