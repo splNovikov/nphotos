@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { Menu, Sidebar } from 'semantic-ui-react';
 import ReactResizeDetector from 'react-resize-detector';
+import { SemanticToastContainer } from 'react-semantic-toasts';
 
 import Header from '../Header';
 import Footer from '../Footer';
@@ -61,6 +62,7 @@ class App extends Component {
         </Sidebar.Pushable>
 
         <ReactResizeDetector handleWidth onResize={this.onResize} />
+        <SemanticToastContainer position="bottom-right" />
         <DevTools />
       </div>
     );
