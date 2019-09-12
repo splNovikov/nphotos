@@ -1,29 +1,15 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+
+import SocialButtonWithPopup from '../SocialButtonWithPopup';
 
 const SocialLinks = () => (
   <div className="links">
-    <Button
-      compact
-      icon="vk"
-      href="https://vk.com/nphotos_ru"
-      target="_blank"
-      className="transparent"
-    />
-    <Button
-      compact
-      icon="instagram"
+    <SocialButtonWithPopup href="https://vk.com/nphotos_ru" icon="vk" />
+    <SocialButtonWithPopup
       href="https://www.instagram.com/_u/nphotos.ru/"
-      target="_blank"
-      className="transparent"
+      icon="instagram"
     />
-    <Button
-      compact
-      icon="telegram"
-      href="https://t.me/kattynphoto"
-      target="_blank"
-      className="transparent"
-    />
+    <SocialButtonWithPopup href="https://t.me/kattynphoto" icon="telegram" />
   </div>
 );
 

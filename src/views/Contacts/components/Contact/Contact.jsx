@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Card, Grid, Image, Segment } from 'semantic-ui-react';
+import { Card, Grid, Image, Segment } from 'semantic-ui-react';
+
+import SocialButtonWithPopup from '../../../../components/SocialButtonWithPopup';
 
 const Contact = ({ contact }) => (
   <Segment>
@@ -16,26 +18,14 @@ const Contact = ({ contact }) => (
             <Card.Description>{contact.shortDescription}</Card.Description>
           </Card.Content>
           <Card.Content extra>
-            <Button
-              compact
-              icon="vk"
-              href={contact.vkLink}
-              target="_blank"
-              className="transparent"
-            />
-            <Button
-              compact
-              icon="instagram"
+            <SocialButtonWithPopup href={contact.vkLink} icon="vk" />
+            <SocialButtonWithPopup
               href={contact.instagramLink}
-              target="_blank"
-              className="transparent"
+              icon="instagram"
             />
-            <Button
-              compact
-              icon="facebook"
+            <SocialButtonWithPopup
               href={contact.facebookLink}
-              target="_blank"
-              className="transparent"
+              icon="facebook"
             />
           </Card.Content>
         </Card>
