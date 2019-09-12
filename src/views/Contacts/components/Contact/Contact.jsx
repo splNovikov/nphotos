@@ -4,8 +4,10 @@ import { Card, Grid, Image, Segment } from 'semantic-ui-react';
 
 import SocialButtonWithPopup from '../../../../components/SocialButtonWithPopup';
 
+import './Contact.scss';
+
 const Contact = ({ contact }) => (
-  <Segment>
+  <Segment className="contact">
     <Grid stackable columns={2}>
       <Grid.Column width={4} textAlign="center">
         <Image src={contact.avatar} size="tiny" avatar />
