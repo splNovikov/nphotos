@@ -9,22 +9,22 @@ const Banner = ({ h1, h2, bgMobile, bgTablet, bgDesktop }) => (
     <Responsive {...Responsive.onlyMobile}>
       <Image src={bgMobile} fluid />
       <div className="banner-text">
-        <h1 className="mobile-enormous-text">{h1}</h1>
-        <h1 className="mobile-big-text">{h2}</h1>
+        <h1>{h1}</h1>
+        <h3>{h2}</h3>
       </div>
     </Responsive>
     <Responsive {...Responsive.onlyTablet}>
       <Image src={bgTablet} fluid />
       <div className="banner-text">
-        <h1 className="enormous-text">{h1}</h1>
-        <h1 className="big-text">{h2}</h1>
+        <h1>{h1}</h1>
+        <h3>{h2}</h3>
       </div>
     </Responsive>
     <Responsive {...Responsive.onlyComputer}>
       <Image src={bgDesktop} fluid />
       <div className="banner-text">
-        <h1 className="enormous-text">{h1}</h1>
-        <h1 className="big-text">{h2}</h1>
+        <h1>{h1}</h1>
+        <h3>{h2}</h3>
       </div>
     </Responsive>
   </div>
