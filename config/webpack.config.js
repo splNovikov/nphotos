@@ -6,6 +6,7 @@ const webpack = require('webpack');
 const resolve = require('resolve');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -500,6 +501,14 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
+      new FaviconsWebpackPlugin({
+        logo: './public/favicon.png',
+        // Enable caching and optionally specify the path to store cached data
+        // Note: disabling caching may increase build times considerably
+        cache: true,
+        prefix: 'static/favicon',
+        inject: true
+      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
