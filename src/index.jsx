@@ -37,6 +37,12 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// fix for issue on iphone/safari, when sidebar is not closing
+// https://github.com/Semantic-Org/Semantic-UI-React/pull/1833#issuecomment-313713611
+if ('ontouchstart' in document.documentElement) {
+  document.body.style.cursor = 'pointer';
+}
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
