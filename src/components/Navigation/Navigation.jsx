@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
@@ -6,25 +7,29 @@ import { inject, observer } from 'mobx-react';
 
 import appRoutes from '../../constants/appRoutes';
 
-@inject(({ routingStore }) => ({
-  location: routingStore.location
+@inject(({ commonStore, routingStore }) => ({
+  location: routingStore.location,
+  closeSidebar: commonStore.closeSidebar
 }))
 @observer
 class Navigation extends Component {
   static propTypes = {
     // eslint-disable-next-line react/require-default-props
-    intl: intlShape
+    intl: intlShape,
+    closeSidebar: PropTypes.func.isRequired
   };
 
   render() {
     const {
-      intl: { formatMessage }
+      intl: { formatMessage },
+      closeSidebar
     } = this.props;
 
     return (
       <React.Fragment>
         <Menu.Item
           as={NavLink}
+          onClick={closeSidebar}
           exact
           to="/"
           content={formatMessage({
@@ -34,6 +39,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
+          onClick={closeSidebar}
           exact
           to={appRoutes.albums}
           content={formatMessage({
@@ -43,6 +49,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
+          onClick={closeSidebar}
           to={appRoutes.about}
           content={formatMessage({
             id: 'navigationMenu.about',
@@ -51,6 +58,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
+          onClick={closeSidebar}
           to={appRoutes.contacts}
           content={formatMessage({
             id: 'navigationMenu.contacts',
@@ -59,6 +67,7 @@ class Navigation extends Component {
         />
         <Menu.Item
           as={NavLink}
+          onClick={closeSidebar}
           to={appRoutes.priceList}
           content={formatMessage({
             id: 'navigationMenu.priceList',
