@@ -2,6 +2,11 @@
   outline: none;
 }
 
+// Disable Blue Highlight when Touch/Press object with Cursor:Pointer
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
