@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import { Button } from 'semantic-ui-react';
 
 const SocialButton = ({ href, icon, ...rest }) => (
@@ -17,4 +18,4 @@ SocialButton.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-export default SocialButton;
+export default observer(SocialButton);

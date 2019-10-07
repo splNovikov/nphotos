@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import { Responsive, Image } from 'semantic-ui-react';
 
 import './Banner.scss';
@@ -43,4 +44,4 @@ Banner.defaultProps = {
   h2: ''
 };
 
-export default Banner;
+export default observer(Banner);

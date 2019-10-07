@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 
 import banners from '../../../../assets/images/banners-bg';
@@ -38,4 +39,4 @@ const PrefilledBanner = () => (
   </Slider>
 );
 
-export default PrefilledBanner;
+export default observer(PrefilledBanner);

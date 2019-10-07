@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import { Card, Grid, Image, Segment } from 'semantic-ui-react';
 
 import SocialButtonWithPopup from '../../../../components/SocialButtonWithPopup';
@@ -48,4 +49,4 @@ Contact.propTypes = {
   }).isRequired
 };
 
-export default Contact;
+export default observer(Contact);

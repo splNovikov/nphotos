@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import { Popup } from 'semantic-ui-react';
 
 import SocialButton from '../SocialButton';
@@ -16,4 +17,4 @@ SocialButtonWithPopup.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-export default SocialButtonWithPopup;
+export default observer(SocialButtonWithPopup);

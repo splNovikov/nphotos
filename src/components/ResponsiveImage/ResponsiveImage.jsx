@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
 import './ResponsiveImage.scss';
 
@@ -19,4 +20,4 @@ ResponsiveImage.defaultProps = {
   height: 150
 };
 
-export default ResponsiveImage;
+export default observer(ResponsiveImage);

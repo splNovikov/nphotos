@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, Container, List, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { injectIntl, intlShape } from 'react-intl';
+import { observer } from 'mobx-react';
 
 import appRoutes from '../../constants/appRoutes';
 import logo from '../../assets/images/logo.svg';
@@ -78,4 +79,4 @@ Footer.propTypes = {
   intl: intlShape
 };
 
-export default injectIntl(Footer);
+export default observer(injectIntl(Footer));
