@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Grid } from 'semantic-ui-react';
@@ -6,7 +6,7 @@ import { Grid } from 'semantic-ui-react';
 import ImageCard from '../ImageCard';
 
 @observer
-class AlbumGrid extends PureComponent {
+class AlbumGrid extends Component {
   static propTypes = {
     album: PropTypes.shape({
       images: PropTypes.arrayOf(
