@@ -17,7 +17,7 @@ class AboutView extends Component {
   static propTypes = {
     about: PropTypes.arrayOf(
       PropTypes.shape({
-        index: PropTypes.number,
+        index: PropTypes.string,
         row: PropTypes.string
       })
     ),
