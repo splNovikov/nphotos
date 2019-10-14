@@ -15,7 +15,7 @@ class PriceListView extends Component {
   static propTypes = {
     priceList: PropTypes.arrayOf(
       PropTypes.shape({
-        index: PropTypes.number,
+        index: PropTypes.string,
         price: PropTypes.string
       })
     ),
