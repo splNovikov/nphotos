@@ -46,11 +46,13 @@ class AboutView extends Component {
         loading={isFetching}
       >
         <Grid container stackable>
-          {about.map(a => (
-            <Grid.Column key={a.index} width={8} className="about-column">
-              <SanitizeHTML html={a.row} />
-            </Grid.Column>
-          ))}
+          {about.map(a =>
+            a.row ? (
+              <Grid.Column key={a.index} width={8} className="about-column">
+                <SanitizeHTML html={a.row} />
+              </Grid.Column>
+            ) : null
+          )}
         </Grid>
       </Segment>
     );
