@@ -23,10 +23,10 @@ const getLanguageMessages = () => {
   const messages =
     locales[languageWithoutRegionCode] || locales[language] || locales.en;
 
-  getLanguageMessages.memoLang = language;
+  getLanguageMessages.memoLang = languageWithoutRegionCode;
   getLanguageMessages.memoMess = messages;
 
-  return { language, messages };
+  return { language: languageWithoutRegionCode, messages };
 };
 
 export default getLanguageMessages;
