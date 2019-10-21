@@ -9,6 +9,8 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: ['prettier'],
   rules: {
+    'jsx-a11y/click-events-have-key-events': 1,
+    'jsx-a11y/no-static-element-interactions': 1,
     'no-debugger': 1,
     'no-unused-vars': 1,
     'no-unused-expressions': 1,

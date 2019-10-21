@@ -1,22 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment } from 'semantic-ui-react';
+import appRoutes from '../../constants/appRoutes';
 
-@inject(({ routingStore }) => ({
-  navigate: routingStore.push
+@inject(({ categoriesStore, routingStore }) => ({
+  navigate: routingStore.push,
+  fetchCategories: categoriesStore.fetchCategories,
+  isFetching: categoriesStore.isFetching,
+  categories: categoriesStore.categories
 }))
 @observer
 class Categories extends React.Component {
+  static propTypes = {
+    navigate: PropTypes.func.isRequired,
+    fetchCategories: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    categories: PropTypes.arrayOf(PropTypes.shape)
+  };
+
   static defaultProps = {
     categories: []
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { categories, fetchCategories } = this.props;
+
+    // fetch only if we don't have it already
+    if (!categories.length) {
+      fetchCategories();
+    }
+  }
+
+  handleClickCategory = category => {
+    const { navigate } = this.props;
+
+    navigate(`${appRoutes.categories}/${category.id}`);
+  };
 
   render() {
+    const { isFetching, categories } = this.props;
+
     return (
-      <Segment className="categories no-borders fetching-min-height">
-        Categoriiiies
+      <Segment
+        className="categories no-borders fetching-min-height"
+        loading={isFetching}
+      >
+        {categories.map(category => (
+          <div onClick={this.handleClickCategory} key={category.id}>
+            {category.title}
+          </div>
+        ))}
       </Segment>
     );
   }
