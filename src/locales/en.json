@@ -2,6 +2,7 @@
   "common.close": "close",
 
   "navigationMenu.home": "home",
+  "navigationMenu.categories": "categories",
   "navigationMenu.albums": "albums",
   "navigationMenu.about": "about",
   "navigationMenu.contacts": "contacts",

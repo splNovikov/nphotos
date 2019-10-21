@@ -38,6 +38,15 @@ class Footer extends Component {
         <List.Item
           as={NavLink}
           exact
+          to={appRoutes.categories}
+          content={formatMessage({
+            id: 'navigationMenu.categories',
+            defaultMessage: 'categories'
+          })}
+        />
+        <List.Item
+          as={NavLink}
+          exact
           to={appRoutes.albums}
           content={formatMessage({
             id: 'navigationMenu.albums',

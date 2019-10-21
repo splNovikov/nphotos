@@ -41,6 +41,16 @@ class Navigation extends Component {
           as={NavLink}
           onClick={closeSidebar}
           exact
+          to={appRoutes.categories}
+          content={formatMessage({
+            id: 'navigationMenu.categories',
+            defaultMessage: 'categories'
+          })}
+        />
+        <Menu.Item
+          as={NavLink}
+          onClick={closeSidebar}
+          exact
           to={appRoutes.albums}
           content={formatMessage({
             id: 'navigationMenu.albums',
