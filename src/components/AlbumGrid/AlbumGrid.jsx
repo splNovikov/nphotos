@@ -18,18 +18,8 @@ class AlbumGrid extends Component {
     onImageClick: PropTypes.func.isRequired
   };
 
-  handleCardClick = entity => {
-    const {
-      onImageClick,
-      album: { images }
-    } = this.props;
-    const index = images.map(e => e.id).indexOf(entity.id);
-
-    return onImageClick(index);
-  };
-
   render() {
-    const { album } = this.props;
+    const { album, onImageClick } = this.props;
 
     return (
       <Grid container columns={3}>
@@ -42,7 +32,7 @@ class AlbumGrid extends Component {
                 description: image.title,
                 title: undefined
               }}
-              onCardClick={this.handleCardClick}
+              onCardClick={onImageClick}
             />
           </Grid.Column>
         ))}

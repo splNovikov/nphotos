@@ -51,7 +51,11 @@ class AlbumView extends Component {
     }
   }
 
-  handleClickImage = index => {
+  handleClickImage = image => {
+    const { getAlbum } = this.props;
+    const album = getAlbum(this.albumId);
+    const index = album.images.map(e => e.id).indexOf(image.id);
+
     this.setState({ modalOpen: true, selectedImage: index });
   };
 
