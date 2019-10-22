@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Segment } from 'semantic-ui-react';
+import { Grid, Segment } from 'semantic-ui-react';
+
 import appRoutes from '../../constants/appRoutes';
+import Card from '../Card';
 
 @inject(({ categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -46,11 +48,13 @@ class Categories extends React.Component {
         className="categories no-borders fetching-min-height"
         loading={isFetching}
       >
-        {categories.map(category => (
-          <div onClick={this.handleClickCategory} key={category.id}>
-            {category.title}
-          </div>
-        ))}
+        <Grid container columns={4}>
+          {categories.map(category => (
+            <Grid.Column key={category.id} mobile={16} tablet={8} computer={4}>
+              <Card entity={category} onCardClick={this.handleClickCategory} />
+            </Grid.Column>
+          ))}
+        </Grid>
       </Segment>
     );
   }

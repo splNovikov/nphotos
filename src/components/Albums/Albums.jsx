@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { Grid, Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
-import AlbumCard from '../AlbumCard';
+import Card from '../Card';
 
 @inject(({ albumsStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -51,10 +51,7 @@ class Albums extends React.Component {
         <Grid container columns={3}>
           {albums.map(album => (
             <Grid.Column key={album.id} mobile={16} tablet={8} computer={4}>
-              <AlbumCard
-                album={album}
-                onAlbumCardClick={this.handleClickAlbum}
-              />
+              <Card entity={album} onCardClick={this.handleClickAlbum} />
             </Grid.Column>
           ))}
         </Grid>
