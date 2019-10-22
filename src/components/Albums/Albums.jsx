@@ -6,6 +6,7 @@ import { Grid, Segment } from 'semantic-ui-react';
 import appRoutes from '../../constants/appRoutes';
 import Card from '../Card';
 
+// todo common Grid component
 @inject(({ albumsStore, routingStore }) => ({
   navigate: routingStore.push,
   fetchAlbums: albumsStore.fetchAlbums,

@@ -5,6 +5,8 @@ import { Card as SemanticCard } from 'semantic-ui-react';
 
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 
+import './Card.scss';
+
 @observer
 class Card extends React.Component {
   static propTypes = {
@@ -12,7 +14,12 @@ class Card extends React.Component {
       title: PropTypes.string,
       cover: PropTypes.string
     }).isRequired,
-    onCardClick: PropTypes.func.isRequired
+    onCardClick: PropTypes.func.isRequired,
+    height: PropTypes.number
+  };
+
+  static defaultProps = {
+    height: 200
   };
 
   handleCardClick = () => {
@@ -22,20 +29,27 @@ class Card extends React.Component {
   };
 
   render() {
-    const { entity } = this.props;
+    const { entity, height } = this.props;
 
     return (
       <SemanticCard
-        className="card"
+        className="common-card"
         raised
         centered
         onClick={this.handleCardClick}
       >
-        <ResponsiveImage url={entity.cover} height={200} />
+        <ResponsiveImage url={entity.cover} height={height} />
         <SemanticCard.Content>
-          <SemanticCard.Header className="capitalize">
-            {entity.title}
-          </SemanticCard.Header>
+          {entity.title ? (
+            <SemanticCard.Header className="capitalize">
+              {entity.title}
+            </SemanticCard.Header>
+          ) : null}
+          {entity.description ? (
+            <SemanticCard.Description className="capitalize">
+              {entity.description}
+            </SemanticCard.Description>
+          ) : null}
         </SemanticCard.Content>
       </SemanticCard>
     );
