@@ -5,7 +5,6 @@ import { Grid } from 'semantic-ui-react';
 
 import Card from '../Card';
 
-// todo common Grid component
 @observer
 class AlbumGrid extends Component {
   static propTypes = {
