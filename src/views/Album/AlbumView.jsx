@@ -5,7 +5,7 @@ import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 import Carousel, { Modal, ModalGateway } from 'react-images';
 
-import AlbumGrid from '../../components/AlbumGrid';
+import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
 
@@ -51,6 +51,16 @@ class AlbumView extends Component {
     }
   }
 
+  mapToGridEntity = album => ({
+    ...album,
+    elements: album.images.map(i => ({
+      ...i,
+      cover: i.previewSrc,
+      description: i.title,
+      title: undefined
+    }))
+  });
+
   handleClickImage = image => {
     const { getAlbum } = this.props;
     const album = getAlbum(this.albumId);
@@ -65,6 +75,7 @@ class AlbumView extends Component {
 
   albumId;
 
+  // todo: re-render called each time when we toggle modal
   render() {
     const {
       isFetching,
@@ -94,7 +105,10 @@ class AlbumView extends Component {
               {album.title}
             </Header>
 
-            <AlbumGrid album={album} onImageClick={this.handleClickImage} />
+            <Grid
+              entity={this.mapToGridEntity(album)}
+              onCardClick={this.handleClickImage}
+            />
 
             <ModalGateway>
               {modalOpen ? (
