@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
-import Carousel, { Modal, ModalGateway } from 'react-images';
 
+import ImagesCarousel from './components/ImagesCarousel';
 import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
 
-@inject(({ albumsStore }) => ({
+@inject(({ albumsStore, commonStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
-  getAlbum: albumsStore.album
+  getAlbum: albumsStore.album,
+  toggleImagesCarousel: commonStore.toggleImagesCarousel
 }))
 @observer
 class AlbumView extends Component {
@@ -26,7 +27,8 @@ class AlbumView extends Component {
     }).isRequired,
     fetchAlbum: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    getAlbum: PropTypes.func.isRequired
+    getAlbum: PropTypes.func.isRequired,
+    toggleImagesCarousel: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -39,7 +41,6 @@ class AlbumView extends Component {
     } = this.props;
 
     this.albumId = id;
-    this.state = { modalOpen: false, selectedImage: {} };
   }
 
   componentDidMount() {
@@ -62,20 +63,15 @@ class AlbumView extends Component {
   });
 
   handleClickImage = image => {
-    const { getAlbum } = this.props;
+    const { getAlbum, toggleImagesCarousel } = this.props;
     const album = getAlbum(this.albumId);
     const index = album.images.map(e => e.id).indexOf(image.id);
 
-    this.setState({ modalOpen: true, selectedImage: index });
-  };
-
-  handleClose = () => {
-    this.setState({ modalOpen: false, selectedImage: {} });
+    toggleImagesCarousel(true, index);
   };
 
   albumId;
 
-  // todo: re-render called each time when we toggle modal
   render() {
     const {
       isFetching,
@@ -83,7 +79,6 @@ class AlbumView extends Component {
       intl: { formatMessage }
     } = this.props;
     const album = getAlbum(this.albumId);
-    const { modalOpen, selectedImage } = this.state;
 
     return (
       <Segment
@@ -110,13 +105,7 @@ class AlbumView extends Component {
               onCardClick={this.handleClickImage}
             />
 
-            <ModalGateway>
-              {modalOpen ? (
-                <Modal onClose={this.handleClose}>
-                  <Carousel currentIndex={selectedImage} views={album.images} />
-                </Modal>
-              ) : null}
-            </ModalGateway>
+            <ImagesCarousel images={album.images} />
           </React.Fragment>
         ) : null}
       </Segment>
