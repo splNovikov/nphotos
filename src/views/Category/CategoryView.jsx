@@ -7,8 +7,10 @@ import { injectIntl, intlShape } from 'react-intl';
 import Grid from '../../components/Grid';
 
 import './CategoryView.scss';
+import appRoutes from '../../constants/appRoutes';
 
-@inject(({ categoriesStore }) => ({
+@inject(({ categoriesStore, routingStore }) => ({
+  navigate: routingStore.push,
   fetchCategory: categoriesStore.fetchCategory,
   isFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category
@@ -23,6 +25,7 @@ class CategoryView extends Component {
         id: PropTypes.string.isRequired
       })
     }).isRequired,
+    navigate: PropTypes.func.isRequired,
     fetchCategory: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     getCategory: PropTypes.func.isRequired
@@ -54,8 +57,11 @@ class CategoryView extends Component {
     elements: category.albums
   });
 
-  // todo:
-  handleClickAlbum = album => {};
+  handleClickAlbum = album => {
+    const { navigate } = this.props;
+
+    navigate(`${appRoutes.albums}/${album.id}`);
+  };
 
   categoryId;
 
