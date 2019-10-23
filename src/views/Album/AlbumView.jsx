@@ -72,6 +72,7 @@ class AlbumView extends Component {
 
   albumId;
 
+  // todo: (!album || !category.images.length)
   render() {
     const {
       isFetching,

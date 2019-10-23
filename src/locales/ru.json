@@ -1,5 +1,6 @@
 {
   "common.close": "закрыть",
+  "common.category": "категория",
 
   "navigationMenu.home": "домой",
   "navigationMenu.categories": "категории",
@@ -8,5 +9,6 @@
   "navigationMenu.contacts": "контакты",
   "navigationMenu.priceList": "цены",
 
-  "albumView.noImages": "нет изображений"
+  "albumView.noImages": "нет изображений",
+  "categoryView.noAlbums": "нет альбомов в этой категории"
 }

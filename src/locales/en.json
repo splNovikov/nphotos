@@ -1,5 +1,6 @@
 {
   "common.close": "close",
+  "common.category": "category",
 
   "navigationMenu.home": "home",
   "navigationMenu.categories": "categories",
@@ -8,5 +9,6 @@
   "navigationMenu.contacts": "contacts",
   "navigationMenu.priceList": "price list",
 
-  "albumView.noImages": "no images"
+  "albumView.noImages": "no images",
+  "categoryView.noAlbums": "no albums in this category"
 }
