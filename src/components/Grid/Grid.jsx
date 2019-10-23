@@ -23,7 +23,6 @@ class Grid extends Component {
 
   render() {
     const { entity, onCardClick } = this.props;
-    // todo: it is called too much times!!!
 
     return (
       <SemanticGrid container columns={3}>
