@@ -21,6 +21,7 @@ class Grid extends Component {
     onCardClick: PropTypes.func.isRequired
   };
 
+  // todo: columns, circle, imageHeight should be configurable
   render() {
     const { entity, onCardClick } = this.props;
 

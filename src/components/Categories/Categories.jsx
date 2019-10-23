@@ -40,6 +40,7 @@ class Categories extends React.Component {
     navigate(`${appRoutes.categories}/${category.id}`);
   };
 
+  // todo: use common Grid
   render() {
     const { isFetching, categories } = this.props;
 
@@ -51,7 +52,12 @@ class Categories extends React.Component {
         <Grid container columns={4}>
           {categories.map(category => (
             <Grid.Column key={category.id} mobile={16} tablet={8} computer={4}>
-              <Card entity={category} onCardClick={this.handleClickCategory} />
+              <Card
+                entity={category}
+                onCardClick={this.handleClickCategory}
+                circle
+                height={200}
+              />
             </Grid.Column>
           ))}
         </Grid>

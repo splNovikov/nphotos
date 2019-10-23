@@ -1,6 +1,19 @@
-.responsive-image {
-  margin: 0;
-  background-position: center;
-  background-size: cover;
-  width: 100%;
+@import '../../style/variables.scss';
+
+.responsive-image-container {
+  // todo: make padding conditional
+  padding: $padding-normal;
+  display: flex;
+  justify-content: center;
+
+  .responsive-image {
+    margin: 0;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+
+    &.circle {
+      border-radius: 50%;
+    }
+  }
 }

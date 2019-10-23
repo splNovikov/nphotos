@@ -40,6 +40,7 @@ class Albums extends React.Component {
     navigate(`${appRoutes.albums}/${album.id}`);
   };
 
+  // todo: use common Grid component
   render() {
     const { isFetching, albums } = this.props;
 
