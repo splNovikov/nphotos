@@ -53,6 +53,8 @@ class Categories extends React.Component {
           onCardClick={this.handleClickCategory}
           columns={4}
           imageHeight={200}
+          imagePadding={0}
+          circle={false}
         />
       </Segment>
     );
