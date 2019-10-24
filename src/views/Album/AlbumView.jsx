@@ -70,7 +70,6 @@ class AlbumView extends Component {
 
   albumId;
 
-  // todo: (!album || !category.images.length)
   render() {
     const {
       isFetching,
@@ -84,7 +83,7 @@ class AlbumView extends Component {
         className="album-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {!album && !isFetching ? (
+        {(!album || !album.images.length) && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({
               id: 'albumView.noImages',
@@ -93,7 +92,7 @@ class AlbumView extends Component {
           </Header>
         ) : null}
 
-        {album ? (
+        {album && album.images.length ? (
           <React.Fragment>
             <Header as="h2" className="album-title capitalize">
               {album.title}
