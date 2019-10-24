@@ -7,6 +7,9 @@ $responsive-breakpoints: (
   xl: 1200px
 ) !default;
 
+/* Fonts */
+$font-size-x-small: 1rem !default;
+
 /* Padding */
 $padding-large-content: 10rem !default;
 $padding-small-content: 2rem !default;
@@ -17,3 +20,6 @@ $padding-x-small: 0.25rem !default;
 
 /* Indents */
 $indent-normal: 2rem !default;
+
+/* Border radius */
+$default-border-radius: 10px !default;

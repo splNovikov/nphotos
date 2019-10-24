@@ -1,6 +1,7 @@
 {
   "common.close": "close",
   "common.category": "category",
+  "common.album": "album",
 
   "navigationMenu.home": "home",
   "navigationMenu.categories": "categories",

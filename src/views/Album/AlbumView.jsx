@@ -94,7 +94,16 @@ class AlbumView extends Component {
 
         {album && album.images.length ? (
           <React.Fragment>
-            <Header as="h2" className="album-title capitalize">
+            <Header
+              as="h2"
+              className="album-title capitalize flex-header-centered"
+            >
+              <span className="tag-album">
+                {formatMessage({
+                  id: 'common.album',
+                  defaultMessage: 'album'
+                })}
+              </span>
               {album.title}
             </Header>
 
