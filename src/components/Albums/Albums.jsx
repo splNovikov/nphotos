@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
-import Card from '../Card';
+import Grid from '../Grid';
 
 @inject(({ albumsStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -40,7 +40,6 @@ class Albums extends React.Component {
     navigate(`${appRoutes.albums}/${album.id}`);
   };
 
-  // todo: use common Grid component
   render() {
     const { isFetching, albums } = this.props;
 
@@ -49,13 +48,13 @@ class Albums extends React.Component {
         className="albums no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Grid container columns={3}>
-          {albums.map(album => (
-            <Grid.Column key={album.id} mobile={16} tablet={8} computer={4}>
-              <Card entity={album} onCardClick={this.handleClickAlbum} />
-            </Grid.Column>
-          ))}
-        </Grid>
+        <Grid
+          elements={albums}
+          onCardClick={this.handleClickAlbum}
+          columns={3}
+          imageHeight={200}
+          circle={false}
+        />
       </Segment>
     );
   }

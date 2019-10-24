@@ -5,31 +5,44 @@ import { Grid as SemanticGrid } from 'semantic-ui-react';
 
 import Card from '../Card';
 
+// todo: seems like columns property is not affecting anything
 @observer
 class Grid extends Component {
   static propTypes = {
-    entity: PropTypes.shape({
-      elements: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string,
-          title: PropTypes.string,
-          description: PropTypes.string,
-          cover: PropTypes.string
-        }).isRequired
-      )
-    }).isRequired,
-    onCardClick: PropTypes.func.isRequired
+    elements: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+        cover: PropTypes.string
+      }).isRequired
+    ).isRequired,
+    onCardClick: PropTypes.func.isRequired,
+    columns: PropTypes.number,
+    // disable next rule, because those properties in this component are optional
+    /* eslint-disable react/require-default-props */
+    circle: PropTypes.bool,
+    imageHeight: PropTypes.number
+    /* eslint-enable react/require-default-props */
   };
 
-  // todo: columns, circle, imageHeight should be configurable
+  static defaultProps = {
+    columns: 3
+  };
+
   render() {
-    const { entity, onCardClick } = this.props;
+    const { columns, elements, onCardClick, circle, imageHeight } = this.props;
 
     return (
-      <SemanticGrid container columns={3}>
-        {entity.elements.map(el => (
+      <SemanticGrid container columns={columns}>
+        {elements.map(el => (
           <SemanticGrid.Column key={el.id} mobile={16} tablet={8} computer={4}>
-            <Card entity={el} onCardClick={onCardClick} />
+            <Card
+              entity={el}
+              onCardClick={onCardClick}
+              circle={circle}
+              height={imageHeight}
+            />
           </SemanticGrid.Column>
         ))}
       </SemanticGrid>

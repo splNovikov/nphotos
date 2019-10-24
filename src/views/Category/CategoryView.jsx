@@ -52,11 +52,6 @@ class CategoryView extends Component {
     }
   }
 
-  mapToGridEntity = category => ({
-    ...category,
-    elements: category.albums
-  });
-
   handleClickAlbum = album => {
     const { navigate } = this.props;
 
@@ -98,8 +93,11 @@ class CategoryView extends Component {
             </Header>
 
             <Grid
-              entity={this.mapToGridEntity(category)}
+              elements={category.albums}
               onCardClick={this.handleClickAlbum}
+              columns={3}
+              imageHeight={200}
+              circle={false}
             />
           </React.Fragment>
         ) : null}

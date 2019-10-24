@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Grid, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
-import Card from '../Card';
+import Grid from '../Grid';
 
 @inject(({ categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -40,7 +40,6 @@ class Categories extends React.Component {
     navigate(`${appRoutes.categories}/${category.id}`);
   };
 
-  // todo: use common Grid
   render() {
     const { isFetching, categories } = this.props;
 
@@ -49,18 +48,13 @@ class Categories extends React.Component {
         className="categories no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Grid container columns={4}>
-          {categories.map(category => (
-            <Grid.Column key={category.id} mobile={16} tablet={8} computer={4}>
-              <Card
-                entity={category}
-                onCardClick={this.handleClickCategory}
-                circle
-                height={200}
-              />
-            </Grid.Column>
-          ))}
-        </Grid>
+        <Grid
+          elements={categories}
+          onCardClick={this.handleClickCategory}
+          columns={4}
+          imageHeight={150}
+          circle
+        />
       </Segment>
     );
   }

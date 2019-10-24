@@ -52,15 +52,13 @@ class AlbumView extends Component {
     }
   }
 
-  mapToGridEntity = album => ({
-    ...album,
-    elements: album.images.map(i => ({
+  mapToGridEntity = album =>
+    album.images.map(i => ({
       ...i,
       cover: i.previewSrc,
       description: i.title,
       title: undefined
-    }))
-  });
+    }));
 
   handleClickImage = image => {
     const { getAlbum, toggleImagesCarousel } = this.props;
@@ -102,8 +100,11 @@ class AlbumView extends Component {
             </Header>
 
             <Grid
-              entity={this.mapToGridEntity(album)}
+              elements={this.mapToGridEntity(album)}
               onCardClick={this.handleClickImage}
+              columns={4}
+              imageHeight={200}
+              circle={false}
             />
 
             <ImagesCarousel images={album.images} />

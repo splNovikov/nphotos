@@ -15,9 +15,10 @@ class Card extends React.Component {
       cover: PropTypes.string
     }).isRequired,
     onCardClick: PropTypes.func.isRequired,
+    circle: PropTypes.bool,
+    // disable next rule, because this property in this component is optional
     // eslint-disable-next-line react/require-default-props
-    height: PropTypes.number,
-    circle: PropTypes.bool
+    height: PropTypes.number
   };
 
   static defaultProps = {
