@@ -5,7 +5,10 @@ import { observer } from 'mobx-react';
 import './ResponsiveImage.scss';
 
 const setStyle = (url, circle, height) => {
-  const style = { backgroundImage: `url(${url})`, height };
+  const style = {
+    backgroundImage: `url(${url})`,
+    height
+  };
 
   // make picture circle, not "ellipse"
   if (circle) {
@@ -15,11 +18,11 @@ const setStyle = (url, circle, height) => {
   return style;
 };
 
-const ResponsiveImage = ({ url, height, circle }) => (
-  <div className="responsive-image-container">
+const ResponsiveImage = ({ url, circle, height, padding }) => (
+  <div className="responsive-image-container" style={{ padding }}>
     <figure
       className={`responsive-image ${circle ? 'circle' : ''}`}
-      style={setStyle(url, circle, height)}
+      style={setStyle(url, circle, height, padding)}
     />
   </div>
 );
@@ -27,12 +30,14 @@ const ResponsiveImage = ({ url, height, circle }) => (
 ResponsiveImage.propTypes = {
   url: PropTypes.string.isRequired,
   height: PropTypes.number,
-  circle: PropTypes.bool
+  circle: PropTypes.bool,
+  padding: PropTypes.number
 };
 
 ResponsiveImage.defaultProps = {
   height: 150,
-  circle: false
+  circle: false,
+  padding: 0
 };
 
 export default observer(ResponsiveImage);

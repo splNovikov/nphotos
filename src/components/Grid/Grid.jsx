@@ -22,7 +22,8 @@ class Grid extends Component {
     // disable next rule, because those properties in this component are optional
     /* eslint-disable react/require-default-props */
     circle: PropTypes.bool,
-    imageHeight: PropTypes.number
+    imageHeight: PropTypes.number,
+    imagePadding: PropTypes.number
     /* eslint-enable react/require-default-props */
   };
 
@@ -31,7 +32,14 @@ class Grid extends Component {
   };
 
   render() {
-    const { columns, elements, onCardClick, circle, imageHeight } = this.props;
+    const {
+      columns,
+      elements,
+      onCardClick,
+      circle,
+      imageHeight,
+      imagePadding
+    } = this.props;
 
     return (
       <SemanticGrid container columns={columns}>
@@ -42,6 +50,7 @@ class Grid extends Component {
               onCardClick={onCardClick}
               circle={circle}
               height={imageHeight}
+              imagePadding={imagePadding}
             />
           </SemanticGrid.Column>
         ))}

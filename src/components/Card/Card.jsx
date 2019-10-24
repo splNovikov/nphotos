@@ -16,9 +16,11 @@ class Card extends React.Component {
     }).isRequired,
     onCardClick: PropTypes.func.isRequired,
     circle: PropTypes.bool,
-    // disable next rule, because this property in this component is optional
-    // eslint-disable-next-line react/require-default-props
-    height: PropTypes.number
+    // disable next rule, because those properties in this component are optional
+    /* eslint-disable react/require-default-props */
+    height: PropTypes.number,
+    imagePadding: PropTypes.number
+    /* eslint-enable react/require-default-props */
   };
 
   static defaultProps = {
@@ -32,7 +34,7 @@ class Card extends React.Component {
   };
 
   render() {
-    const { entity, height, circle } = this.props;
+    const { entity, height, circle, imagePadding } = this.props;
 
     return (
       <SemanticCard
@@ -41,7 +43,12 @@ class Card extends React.Component {
         centered
         onClick={this.handleCardClick}
       >
-        <ResponsiveImage url={entity.cover} height={height} circle={circle} />
+        <ResponsiveImage
+          url={entity.cover}
+          height={height}
+          circle={circle}
+          padding={imagePadding}
+        />
         <SemanticCard.Content>
           {entity.title ? (
             <SemanticCard.Header className="capitalize">

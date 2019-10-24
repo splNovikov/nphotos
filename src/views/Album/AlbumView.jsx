@@ -104,6 +104,7 @@ class AlbumView extends Component {
               columns={4}
               imageHeight={200}
               circle={false}
+              imagePadding={10}
             />
 
             <ImagesCarousel images={album.images} />
