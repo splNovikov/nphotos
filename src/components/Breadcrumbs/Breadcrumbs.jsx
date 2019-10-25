@@ -7,22 +7,38 @@ import { Breadcrumb, Icon } from 'semantic-ui-react';
 
 import './Breadcrumbs.scss';
 
-@inject(({ routingStore }) => ({
-  pathname: routingStore.location.pathname
+@inject(({ albumsStore, categoriesStore, routingStore }) => ({
+  pathname: routingStore.location.pathname,
+  getAlbum: albumsStore.album,
+  getCategory: categoriesStore.category
 }))
 @observer
 class Breadcrumbs extends React.Component {
   static propTypes = {
     // eslint-disable-next-line react/require-default-props
     intl: intlShape,
-    pathname: PropTypes.string.isRequired
+    pathname: PropTypes.string.isRequired,
+    getAlbum: PropTypes.func.isRequired,
+    getCategory: PropTypes.func.isRequired
   };
 
   getSections = pathname =>
     pathname.split('/').reduce((acc, a) => {
       if (!a) return acc;
+
+      const title = this.getTitle(a);
+
+      if (title) return [...acc, title];
+
       return [...acc, a];
     }, []);
+
+  getTitle = id => {
+    const { getAlbum, getCategory } = this.props;
+    const album = getAlbum(id) || getCategory(id);
+
+    return album && album.title;
+  };
 
   isLast = (length, index) => index !== length - 1;
 
