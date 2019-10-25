@@ -18,6 +18,7 @@ module.exports = {
     'react/prop-types': 1,
     'react/require-default-props': 1,
     'react/prefer-stateless-function': 1,
+    'react/jsx-indent': 1,
     'prettier/prettier': [
       'error',
       {
