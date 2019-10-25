@@ -84,16 +84,7 @@ class CategoryView extends Component {
 
         {category && category.albums.length ? (
           <React.Fragment>
-            <Header
-              as="h2"
-              className="category-title capitalize flex-header-centered"
-            >
-              <span className="tag-category">
-                {formatMessage({
-                  id: 'common.category',
-                  defaultMessage: 'category'
-                })}
-              </span>
+            <Header as="h2" className="category-title capitalize">
               {category.title}
             </Header>
 

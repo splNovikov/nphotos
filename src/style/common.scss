@@ -1,7 +1,3 @@
-@import './variables.scss';
-@import './colors.scss';
-@import './mixins/tag.scss';
-
 :focus {
   outline: none;
 }
@@ -15,16 +11,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.tag-album {
-  @include tag {
-    background-color: rgba($_color-pine-glade, 0.9);
-  }
-}
-
-.tag-category {
-  @include tag {
-    background-color: rgba($_color-tango, 0.9);
-  }
 }
