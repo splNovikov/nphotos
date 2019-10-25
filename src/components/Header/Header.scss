@@ -50,4 +50,8 @@
       }
     }
   }
+
+  .ui.breadcrumb {
+    @include header-padding(10px);
+  }
 }

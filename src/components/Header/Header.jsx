@@ -5,6 +5,7 @@ import { Menu, Icon, Image } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 import Navigation from '../Navigation';
+import Breadcrumbs from '../Breadcrumbs';
 import SocialLinks from '../SocialLinks';
 import logo from '../../assets/images/logo.svg';
 
@@ -43,6 +44,8 @@ class Header extends Component {
             <Navigation />
           </Menu.Menu>
         </Menu>
+
+        <Breadcrumbs className="breadcrumbs" />
       </div>
     );
   }
