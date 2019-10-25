@@ -5,9 +5,9 @@ import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 
 import Grid from '../../components/Grid';
+import appRoutes from '../../constants/appRoutes';
 
 import './CategoryView.scss';
-import appRoutes from '../../constants/appRoutes';
 
 @inject(({ categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
