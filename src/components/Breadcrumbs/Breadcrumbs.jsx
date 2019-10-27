@@ -10,7 +10,9 @@ import './Breadcrumbs.scss';
 @inject(({ albumsStore, categoriesStore, routingStore }) => ({
   pathname: routingStore.location.pathname,
   getAlbum: albumsStore.album,
-  getCategory: categoriesStore.category
+  isAlbumFetching: albumsStore.isFetching,
+  getCategory: categoriesStore.category,
+  isCategoryFetching: categoriesStore.isFetching
 }))
 @observer
 class Breadcrumbs extends React.Component {
@@ -19,6 +21,8 @@ class Breadcrumbs extends React.Component {
     intl: intlShape,
     pathname: PropTypes.string.isRequired,
     getAlbum: PropTypes.func.isRequired,
+    isAlbumFetching: PropTypes.bool.isRequired,
+    isCategoryFetching: PropTypes.bool.isRequired,
     getCategory: PropTypes.func.isRequired
   };
 
@@ -26,18 +30,25 @@ class Breadcrumbs extends React.Component {
     pathname.split('/').reduce((acc, a) => {
       if (!a) return acc;
 
-      const title = this.getTitle(a);
-
-      if (title) return [...acc, title];
-
       return [...acc, a];
     }, []);
 
   getTitle = id => {
     const { getAlbum, getCategory } = this.props;
-    const album = getAlbum(id) || getCategory(id);
 
-    return album && album.title;
+    const entity = getAlbum(id) || getCategory(id);
+
+    return entity && entity.title;
+  };
+
+  getLastSection = section => {
+    const { isAlbumFetching, isCategoryFetching } = this.props;
+
+    if (isAlbumFetching || isCategoryFetching) {
+      return <Icon name="circle notch" loading />;
+    }
+
+    return this.getTitle(section) || section;
   };
 
   isLast = (length, index) => index !== length - 1;
@@ -68,7 +79,7 @@ class Breadcrumbs extends React.Component {
                   })}
                 </Breadcrumb.Section>
               ) : (
-                section
+                this.getLastSection(section)
               )}
             </React.Fragment>
           );
