@@ -44,12 +44,9 @@ class CategoryView extends Component {
   }
 
   componentDidMount() {
-    const { getCategory, fetchCategory } = this.props;
+    const { fetchCategory } = this.props;
 
-    // fetch only if we don't have it already
-    if (!getCategory(this.categoryId)) {
-      fetchCategory(this.categoryId);
-    }
+    fetchCategory(this.categoryId);
   }
 
   handleClickAlbum = album => {
@@ -57,6 +54,8 @@ class CategoryView extends Component {
 
     navigate(`${appRoutes.albums}/${album.id}`);
   };
+
+  hasAlbums = category => category && category.albums && category.albums.length;
 
   categoryId;
 
@@ -73,7 +72,7 @@ class CategoryView extends Component {
         className="category-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {(!category || !category.albums.length) && !isFetching ? (
+        {!this.hasAlbums(category) && !isFetching ? (
           <Header as="h2" className="category-title capitalize">
             {formatMessage({
               id: 'categoryView.noAlbums',
@@ -82,7 +81,7 @@ class CategoryView extends Component {
           </Header>
         ) : null}
 
-        {category && category.albums.length ? (
+        {this.hasAlbums(category) ? (
           <React.Fragment>
             <Header as="h2" className="category-title capitalize">
               {category.title}

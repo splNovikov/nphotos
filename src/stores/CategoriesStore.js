@@ -9,11 +9,11 @@ export class CategoriesStore {
 
   @observable errors = [];
 
-  // categories, loaded all for once
-  @observable categories = [];
-
-  // fetched categories one by one are registered there:
   @observable categoriesRegistry = {};
+
+  @computed get categories() {
+    return Object.values(this.categoriesRegistry);
+  }
 
   @computed get category() {
     return id => this.categoriesRegistry[id];
@@ -28,8 +28,12 @@ export class CategoriesStore {
     try {
       const { data: categories } = yield categoriesApi.getCategories();
 
-      this.categories = categories.map(
-        category => new CategoryModel(this, category)
+      this.categoriesRegistry = categories.reduce(
+        (acc, category) => ({
+          ...acc,
+          [category.id]: new CategoryModel(this, category)
+        }),
+        {}
       );
     } catch (error) {
       this.errors.push(error);

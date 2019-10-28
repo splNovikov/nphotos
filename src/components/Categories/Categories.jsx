@@ -26,12 +26,9 @@ class Categories extends React.Component {
   };
 
   componentDidMount() {
-    const { categories, fetchCategories } = this.props;
+    const { fetchCategories } = this.props;
 
-    // fetch only if we don't have it already
-    if (!categories.length) {
-      fetchCategories();
-    }
+    fetchCategories();
   }
 
   handleClickCategory = category => {
