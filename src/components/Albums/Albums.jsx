@@ -26,12 +26,9 @@ class Albums extends React.Component {
   };
 
   componentDidMount() {
-    const { albums, fetchAlbums } = this.props;
+    const { fetchAlbums } = this.props;
 
-    // fetch only if we don't have it already
-    if (!albums.length) {
-      fetchAlbums();
-    }
+    fetchAlbums();
   }
 
   handleClickAlbum = album => {

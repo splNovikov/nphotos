@@ -44,12 +44,9 @@ class AlbumView extends Component {
   }
 
   componentDidMount() {
-    const { getAlbum, fetchAlbum } = this.props;
+    const { fetchAlbum } = this.props;
 
-    // fetch only if we don't have it already
-    if (!getAlbum(this.albumId)) {
-      fetchAlbum(this.albumId);
-    }
+    fetchAlbum(this.albumId);
   }
 
   mapToGridEntity = album =>
@@ -68,6 +65,8 @@ class AlbumView extends Component {
     toggleImagesCarousel(true, index);
   };
 
+  hasImages = album => album && album.images && album.images.length;
+
   albumId;
 
   render() {
@@ -83,7 +82,7 @@ class AlbumView extends Component {
         className="album-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {(!album || !album.images.length) && !isFetching ? (
+        {!this.hasImages(album) && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({
               id: 'albumView.noImages',
@@ -92,7 +91,7 @@ class AlbumView extends Component {
           </Header>
         ) : null}
 
-        {album && album.images.length ? (
+        {this.hasImages(album) ? (
           <React.Fragment>
             <Header as="h2" className="album-title capitalize">
               {album.title}

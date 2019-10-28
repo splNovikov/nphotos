@@ -9,11 +9,11 @@ export class AlbumsStore {
 
   @observable errors = [];
 
-  // albums, loaded all for once
-  @observable albums = [];
-
-  // fetched albums one by one are registered there:
   @observable albumsRegistry = {};
+
+  @computed get albums() {
+    return Object.values(this.albumsRegistry);
+  }
 
   @computed get album() {
     return id => this.albumsRegistry[id];
@@ -28,7 +28,10 @@ export class AlbumsStore {
     try {
       const { data: albums } = yield albumsApi.getAlbums();
 
-      this.albums = albums.map(album => new AlbumModel(this, album));
+      this.albumsRegistry = albums.reduce(
+        (acc, album) => ({ ...acc, [album.id]: new AlbumModel(this, album) }),
+        {}
+      );
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
