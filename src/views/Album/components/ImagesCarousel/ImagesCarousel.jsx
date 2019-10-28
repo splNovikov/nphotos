@@ -22,6 +22,12 @@ class ImagesCarousel extends Component {
     toggleImagesCarousel: PropTypes.func.isRequired
   };
 
+  componentWillUnmount() {
+    const { toggleImagesCarousel } = this.props;
+
+    toggleImagesCarousel(false);
+  }
+
   render() {
     const {
       isOpened,
