@@ -600,11 +600,11 @@ module.exports = function(webpackEnv) {
           formatter: typescriptFormatter
         }),
       new FaviconsWebpackPlugin({
-        logo: './public/favicon.svg',
+        logo: './public/favicon.png',
         mode: 'webapp',
         // Enable caching and optionally specify the path to store cached data
         // Note: disabling caching may increase build times considerably
-        cache: false,
+        cache: true,
         prefix: 'static/favicon',
         inject: true,
         favicons: {
