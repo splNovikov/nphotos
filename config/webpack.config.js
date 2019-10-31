@@ -501,40 +501,6 @@ module.exports = function(webpackEnv) {
             : undefined
         )
       ),
-      new FaviconsWebpackPlugin({
-        logo: './public/favicon.png',
-        // Enable caching and optionally specify the path to store cached data
-        // Note: disabling caching may increase build times considerably
-        cache: true,
-        prefix: 'static/favicon',
-        inject: true,
-        favicons: {
-          appName: 'NPhotos',
-          developerName: 'Pavel Novikov',
-          developerURL: null, // prevent retrieving from the nearest package.json
-          icons: {
-            // Platform Options:
-            // - offset - offset in percentage
-            // - background:
-            //   * false - use default
-            //   * true - force use default, e.g. set background for Android icons
-            //   * color - set background for the specified icons
-            //   * mask - apply mask in order to create circle icon (applied by default for firefox). `boolean`
-            //   * overlayGlow - apply glow effect after mask has been applied (applied by default for firefox). `boolean`
-            //   * overlayShadow - apply drop shadow after mask has been applied .`boolean`
-            //
-            background: false,
-            android: true, // Create Android homescreen icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            appleIcon: true, // Create Apple touch icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            appleStartup: true, // Create Apple startup images. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            coast: true, // Create Opera Coast icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            favicons: true, // Create regular favicons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            firefox: true, // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            windows: true, // Create Windows 8 tile icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-            yandex: true // Create Yandex browser icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
-          }
-        }
-      }),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       isEnvProduction &&
@@ -632,7 +598,41 @@ module.exports = function(webpackEnv) {
           watch: paths.appSrc,
           silent: true,
           formatter: typescriptFormatter
-        })
+        }),
+      new FaviconsWebpackPlugin({
+        logo: './public/favicon.svg',
+        // Enable caching and optionally specify the path to store cached data
+        // Note: disabling caching may increase build times considerably
+        cache: false,
+        prefix: 'static/favicon',
+        inject: true,
+        favicons: {
+          appName: 'NPhotos',
+          developerName: 'Pavel Novikov',
+          developerURL: null, // prevent retrieving from the nearest package.json
+          icons: {
+            // Platform Options:
+            // - offset - offset in percentage
+            // - background:
+            //   * false - use default
+            //   * true - force use default, e.g. set background for Android icons
+            //   * color - set background for the specified icons
+            //   * mask - apply mask in order to create circle icon (applied by default for firefox). `boolean`
+            //   * overlayGlow - apply glow effect after mask has been applied (applied by default for firefox). `boolean`
+            //   * overlayShadow - apply drop shadow after mask has been applied .`boolean`
+            //
+            background: false,
+            android: true, // Create Android homescreen icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            appleIcon: true, // Create Apple touch icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            appleStartup: true, // Create Apple startup images. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            coast: true, // Create Opera Coast icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            favicons: true, // Create regular favicons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            firefox: true, // Create Firefox OS icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            windows: true, // Create Windows 8 tile icons. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+            yandex: true // Create Yandex browser icon. `boolean` or `{ offset, background, mask, overlayGlow, overlayShadow }`
+          }
+        }
+      })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.
