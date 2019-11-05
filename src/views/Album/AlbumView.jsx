@@ -5,6 +5,7 @@ import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 
 import ImagesCarousel from './components/ImagesCarousel';
+import UploadImages from './components/UploadImages';
 import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
@@ -13,7 +14,8 @@ import './AlbumView.scss';
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
-  toggleImagesCarousel: commonStore.toggleImagesCarousel
+  toggleImagesCarousel: commonStore.toggleImagesCarousel,
+  user: commonStore.user
 }))
 @observer
 class AlbumView extends Component {
@@ -28,7 +30,12 @@ class AlbumView extends Component {
     fetchAlbum: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     getAlbum: PropTypes.func.isRequired,
-    toggleImagesCarousel: PropTypes.func.isRequired
+    toggleImagesCarousel: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      permissions: PropTypes.shape({
+        canAddImages: PropTypes.bool
+      })
+    }).isRequired
   };
 
   constructor(props) {
@@ -73,7 +80,8 @@ class AlbumView extends Component {
     const {
       isFetching,
       getAlbum,
-      intl: { formatMessage }
+      intl: { formatMessage },
+      user: { permissions }
     } = this.props;
     const album = getAlbum(this.albumId);
 
@@ -90,6 +98,10 @@ class AlbumView extends Component {
             })}
           </Header>
         ) : null}
+
+        {permissions.canAddImages ? 'Todo: edit button' : null}
+
+        {permissions.canAddImages ? <UploadImages /> : null}
 
         {this.hasImages(album) ? (
           <React.Fragment>
