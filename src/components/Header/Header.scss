@@ -1,17 +1,10 @@
 @import '../../style/mixins/responsive-breakpoints.scss';
+@import '../../style/mixins/page-padding.scss';
 @import '../../style/variables.scss';
-
-@mixin header-padding($vertical-padding) {
-  padding: $vertical-padding $padding-small-content;
-
-  @include for-lg {
-    padding: $vertical-padding $padding-large-content;
-  }
-}
 
 .header {
   .links-wrapper {
-    @include header-padding($padding-x-small);
+    @include page-padding($padding-x-small);
 
     display: flex;
     justify-content: flex-end;
@@ -32,7 +25,7 @@
     display: none;
     min-height: 4rem;
 
-    @include header-padding(0);
+    @include page-padding(0);
 
     @include for-lg {
       display: flex;
@@ -52,6 +45,6 @@
   }
 
   .ui.breadcrumb {
-    @include header-padding(10px);
+    @include page-padding($padding-normal);
   }
 }
