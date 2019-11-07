@@ -1,53 +1,76 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Button, Form } from 'semantic-ui-react';
+import axios from 'axios';
 
 @observer
 class UploadImages extends Component {
-  fileInputRef = React.createRef();
+  filesInputRef = React.createRef();
 
   constructor(props) {
     super(props);
+
     this.state = {
-      file: null
+      files: null
     };
   }
 
-  onFormSubmit = e => {
+  // todo: disable button when length is 0
+  handleFormSubmit = e => {
     e.preventDefault(); // Stop form submit
-    this.fileUpload(this.state.file);
-    console.log('Submit');
+
+    const { files } = this.state;
+
+    if (!files || !files.length) {
+      return;
+    }
+
+    // todo: refactor
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    };
+    const formData = new FormData();
+
+    Array.from(files).forEach(file => formData.append('upload', file));
+
+    axios.post(`${process.env.BASE_URL}/files`, formData, config);
   };
 
-  fileChange = e => {
-    this.setState({ file: e.target.files[0] }, () => {
-      console.log('File chosen --->', this.state.file);
-    });
+  handleFilesChange = e => {
+    const { files } = e.target;
+
+    this.setState({ files });
   };
 
-  fileUpload = file => {
-    console.log(file);
+  handleClickChooseButton = () => {
+    this.filesInputRef.current.click();
   };
 
+  // todo: intl
   render() {
     return (
-      <Form onSubmit={this.onFormSubmit}>
+      <Form>
         <Form.Field>
           <Button
             content="Choose File"
             labelPosition="left"
             icon="file"
-            onClick={() => this.fileInputRef.current.click()}
+            onClick={this.handleClickChooseButton}
           />
           <input
-            ref={this.fileInputRef}
+            ref={this.filesInputRef}
             type="file"
             hidden
             multiple
-            onChange={this.fileChange}
+            accept=".jpg,.jpeg"
+            onChange={this.handleFilesChange}
           />
         </Form.Field>
-        <Button type="submit">Upload</Button>
+        <Button type="submit" onClick={this.handleFormSubmit}>
+          Upload
+        </Button>
       </Form>
     );
   }
