@@ -2,6 +2,7 @@
   "common.close": "закрыть",
   "common.category": "категория",
   "common.album": "альбом",
+  "common.upload": "загрузить",
 
   "navigationMenu.home": "домой",
   "navigationMenu.categories": "категории",
@@ -9,6 +10,9 @@
   "navigationMenu.about": "о нас",
   "navigationMenu.contacts": "контакты",
   "navigationMenu.priceList": "цены",
+
+  "uploadImages.chooseImages": "выбрать изображения",
+  "uploadImages.uploadNImages": "upload {length} images",
 
   "albumView.noImages": "нет изображений",
   "categoryView.noAlbums": "нет альбомов в этой категории"

@@ -2,6 +2,7 @@
   "common.close": "close",
   "common.category": "category",
   "common.album": "album",
+  "common.upload": "upload",
 
   "navigationMenu.home": "home",
   "navigationMenu.categories": "categories",
@@ -9,6 +10,9 @@
   "navigationMenu.about": "about",
   "navigationMenu.contacts": "contacts",
   "navigationMenu.priceList": "price list",
+
+  "uploadImages.chooseImages": "choose images",
+  "uploadImages.uploadNImages": "upload {length} images",
 
   "albumView.noImages": "no images",
   "categoryView.noAlbums": "no albums in this category"

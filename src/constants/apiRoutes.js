@@ -6,5 +6,6 @@ export default {
   albums: `${baseUrl}/albums`,
   contacts: `${baseUrl}/contacts`,
   about: `${baseUrl}/about`,
-  priceList: `${baseUrl}/priceList`
+  priceList: `${baseUrl}/priceList`,
+  files: `${baseUrl}/files`
 };
