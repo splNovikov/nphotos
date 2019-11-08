@@ -1,5 +1,4 @@
 @import '../../style/mixins/page-padding.scss';
-@import '../../style/variables.scss';
 
 .album-view {
   .album-title {
@@ -7,7 +6,7 @@
   }
 
   .edit-segment {
-    @include page-padding($padding-normal);
+    @include page-padding(0);
   }
 }
 
