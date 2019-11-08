@@ -5,7 +5,7 @@ import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 
 import ImagesCarousel from './components/ImagesCarousel';
-import UploadImages from './components/UploadImages';
+import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 
 // todo: use store
@@ -109,7 +109,10 @@ class AlbumView extends Component {
         {permissions.canAddImages ? 'Todo: edit button' : null}
 
         {permissions.canAddImages ? (
-          <UploadImages onUploadSubmit={this.handleUploadSubmit} />
+          <UploadFiles
+            onUploadSubmit={this.handleUploadSubmit}
+            acceptedFileTypes=".jpg,.jpeg"
+          />
         ) : null}
 
         {this.hasImages(album) ? (

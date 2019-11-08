@@ -4,15 +4,13 @@ import { observer } from 'mobx-react';
 import { Button, Form } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
 
-import './UploadImages.scss';
-
-// todo: make generic component Upload files. Use it for video in future
 @observer
-class UploadImages extends Component {
+class UploadFiles extends Component {
   static propTypes = {
     // eslint-disable-next-line react/require-default-props
     intl: intlShape,
-    onUploadSubmit: PropTypes.func.isRequired
+    onUploadSubmit: PropTypes.func.isRequired,
+    acceptedFileTypes: PropTypes.string.isRequired
   };
 
   filesInputRef = React.createRef();
@@ -21,48 +19,49 @@ class UploadImages extends Component {
     super(props);
 
     this.state = {
-      images: []
+      files: []
     };
   }
 
   handleFormSubmit = e => {
     e.preventDefault();
 
-    const { images } = this.state;
+    const { files } = this.state;
     const { onUploadSubmit } = this.props;
 
-    if (!images || !images.length) {
+    if (!files || !files.length) {
       return;
     }
 
-    onUploadSubmit(images);
-    this.clearSelectedImages();
+    onUploadSubmit(files);
+    this.clearSelectedFiles();
   };
 
   handleFilesChange = e => {
     const { files } = e.target;
 
-    this.setState({ images: files });
+    this.setState({ files });
   };
 
   handleClickChooseButton = () => {
     this.filesInputRef.current.click();
   };
 
-  clearSelectedImages = () => this.setState({ images: [] });
+  clearSelectedFiles = () => this.setState({ files: [] });
 
   render() {
-    const { images } = this.state;
+    const { files } = this.state;
     const {
-      intl: { formatMessage }
+      intl: { formatMessage },
+      acceptedFileTypes
     } = this.props;
 
     return (
-      <Form className="upload-images">
+      <Form>
         <Button
           content={formatMessage({
-            id: 'uploadImages.chooseImages',
-            defaultMessage: 'choose images'
+            id: 'uploadFiles.chooseFiles',
+            defaultMessage: 'choose files'
           })}
           labelPosition="left"
           icon="file"
@@ -73,21 +72,21 @@ class UploadImages extends Component {
           type="file"
           hidden
           multiple
-          accept=".jpg,.jpeg"
+          accept={acceptedFileTypes}
           onChange={this.handleFilesChange}
         />
         <Button
           type="submit"
-          disabled={!images || !images.length}
+          disabled={!files || !files.length}
           onClick={this.handleFormSubmit}
         >
-          {images && images.length
+          {files && files.length
             ? formatMessage(
                 {
-                  id: 'uploadImages.uploadNImages',
+                  id: 'uploadFiles.uploadNFiles',
                   defaultMessage: 'upload'
                 },
-                { length: images.length }
+                { length: files.length }
               )
             : formatMessage({
                 id: 'common.upload',
@@ -99,4 +98,4 @@ class UploadImages extends Component {
   }
 }
 
-export default injectIntl(UploadImages);
+export default injectIntl(UploadFiles);

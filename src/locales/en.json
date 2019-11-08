@@ -11,8 +11,8 @@
   "navigationMenu.contacts": "contacts",
   "navigationMenu.priceList": "price list",
 
-  "uploadImages.chooseImages": "choose images",
-  "uploadImages.uploadNImages": "upload {length} images",
+  "uploadFiles.chooseFiles": "choose files",
+  "uploadFiles.uploadNFiles": "upload ({length})",
 
   "albumView.noImages": "no images",
   "categoryView.noAlbums": "no albums in this category"

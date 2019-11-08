@@ -11,8 +11,8 @@
   "navigationMenu.contacts": "контакты",
   "navigationMenu.priceList": "цены",
 
-  "uploadImages.chooseImages": "выбрать изображения",
-  "uploadImages.uploadNImages": "upload {length} images",
+  "uploadFiles.chooseFiles": "выбрать файлы",
+  "uploadFiles.uploadNFiles": "загрузить ({length})",
 
   "albumView.noImages": "нет изображений",
   "categoryView.noAlbums": "нет альбомов в этой категории"

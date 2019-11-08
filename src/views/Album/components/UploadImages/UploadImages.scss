@@ -1,6 +1,0 @@
-@import '../../../../style/mixins/page-padding.scss';
-@import '../../../../style/variables.scss';
-
-.upload-images {
-  @include page-padding($padding-x-small);
-}
