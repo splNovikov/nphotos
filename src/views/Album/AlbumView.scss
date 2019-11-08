@@ -1,6 +1,13 @@
+@import '../../style/mixins/page-padding.scss';
+@import '../../style/variables.scss';
+
 .album-view {
   .album-title {
     text-align: center;
+  }
+
+  .edit-segment {
+    @include page-padding($padding-normal);
   }
 }
 

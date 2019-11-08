@@ -106,14 +106,18 @@ class AlbumView extends Component {
           </Header>
         ) : null}
 
-        {permissions.canAddImages ? 'Todo: edit button' : null}
+        <div className="edit-segment">
+          <Segment>
+            {permissions.canAddImages ? 'Todo: edit button' : null}
 
-        {permissions.canAddImages ? (
-          <UploadFiles
-            onUploadSubmit={this.handleUploadSubmit}
-            acceptedFileTypes=".jpg,.jpeg"
-          />
-        ) : null}
+            {permissions.canAddImages ? (
+              <UploadFiles
+                onUploadSubmit={this.handleUploadSubmit}
+                acceptedFileTypes=".jpg,.jpeg"
+              />
+            ) : null}
+          </Segment>
+        </div>
 
         {this.hasImages(album) ? (
           <React.Fragment>
