@@ -35,6 +35,7 @@ class UploadImages extends Component {
     }
 
     onUploadSubmit(images);
+    this.clearSelectedImages();
   };
 
   handleFilesChange = e => {
@@ -47,8 +48,9 @@ class UploadImages extends Component {
     this.filesInputRef.current.click();
   };
 
+  clearSelectedImages = () => this.setState({ images: [] });
+
   // todo: disable buttons while uploading
-  // todo: reset selected after loaded
   render() {
     const { images } = this.state;
     const {
