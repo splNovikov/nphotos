@@ -44,8 +44,11 @@
     }
   }
 
-  // todo: need wrapper
-  .breadcrumbs {
+  .breadcrumbs-wrapper {
     @include page-padding($padding-normal);
+
+    .breadcrumbs {
+      padding: 0 $padding-normal;
+    }
   }
 }

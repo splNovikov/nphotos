@@ -106,18 +106,17 @@ class AlbumView extends Component {
           </Header>
         ) : null}
 
-        <div className="edit-segment">
-          <Segment>
-            {permissions.canAddImages ? 'Todo: edit button' : null}
-
-            {permissions.canAddImages ? (
+        {permissions.canEditAlbum ? (
+          <div className="edit-segment">
+            <Segment>
+              Todo: edit button
               <UploadFiles
                 onUploadSubmit={this.handleUploadSubmit}
                 acceptedFileTypes=".jpg,.jpeg"
               />
-            ) : null}
-          </Segment>
-        </div>
+            </Segment>
+          </div>
+        ) : null}
 
         {this.hasImages(album) ? (
           <React.Fragment>
@@ -125,14 +124,17 @@ class AlbumView extends Component {
               {album.title}
             </Header>
 
-            <Grid
-              elements={this.mapToGridEntity(album)}
-              onCardClick={this.handleClickImage}
-              columns={4}
-              imageHeight={200}
-              circle={false}
-              imagePadding={10}
-            />
+            <div className="images-grid-wrapper">
+              <Grid
+                className="images-grid"
+                elements={this.mapToGridEntity(album)}
+                onCardClick={this.handleClickImage}
+                columns={4}
+                imageHeight={200}
+                circle={false}
+                imagePadding={10}
+              />
+            </div>
 
             <ImagesCarousel images={album.images} />
           </React.Fragment>
