@@ -6,6 +6,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 import './UploadImages.scss';
 
+// todo: make generic component Upload files. Use it for video in future
 @observer
 class UploadImages extends Component {
   static propTypes = {
@@ -50,7 +51,6 @@ class UploadImages extends Component {
 
   clearSelectedImages = () => this.setState({ images: [] });
 
-  // todo: disable buttons while uploading
   render() {
     const { images } = this.state;
     const {
