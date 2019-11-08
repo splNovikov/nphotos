@@ -1,10 +1,13 @@
-:focus {
-  outline: none;
-}
+@import './colors.scss';
 
 // Disable Blue Highlight when Touch/Press object with Cursor:Pointer
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: 0;
+  color: rgba($_color-tango, 0.84);
 }
 
 .ellipsis {
