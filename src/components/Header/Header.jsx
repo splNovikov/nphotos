@@ -45,7 +45,7 @@ class Header extends Component {
           </Menu.Menu>
         </Menu>
 
-        <Breadcrumbs className="breadcrumbs" />
+        <Breadcrumbs />
       </div>
     );
   }
