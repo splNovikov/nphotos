@@ -8,6 +8,9 @@ import ImagesCarousel from './components/ImagesCarousel';
 import UploadImages from './components/UploadImages';
 import Grid from '../../components/Grid';
 
+// todo: use store
+import filesApi from '../../api/files';
+
 import './AlbumView.scss';
 
 @inject(({ albumsStore, commonStore }) => ({
@@ -72,6 +75,10 @@ class AlbumView extends Component {
     toggleImagesCarousel(true, index);
   };
 
+  handleUploadSubmit = images => {
+    filesApi.uploadImages(images, this.albumId);
+  };
+
   hasImages = album => album && album.images && album.images.length;
 
   albumId;
@@ -101,7 +108,9 @@ class AlbumView extends Component {
 
         {permissions.canAddImages ? 'Todo: edit button' : null}
 
-        {permissions.canAddImages ? <UploadImages /> : null}
+        {permissions.canAddImages ? (
+          <UploadImages onUploadSubmit={this.handleUploadSubmit} />
+        ) : null}
 
         {this.hasImages(album) ? (
           <React.Fragment>

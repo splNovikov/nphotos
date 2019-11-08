@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Button, Form } from 'semantic-ui-react';
 import { injectIntl, intlShape } from 'react-intl';
-
-// todo: use store
-import filesApi from '../../../../api/files';
 
 import './UploadImages.scss';
 
@@ -12,7 +10,8 @@ import './UploadImages.scss';
 class UploadImages extends Component {
   static propTypes = {
     // eslint-disable-next-line react/require-default-props
-    intl: intlShape
+    intl: intlShape,
+    onUploadSubmit: PropTypes.func.isRequired
   };
 
   filesInputRef = React.createRef();
@@ -29,12 +28,13 @@ class UploadImages extends Component {
     e.preventDefault();
 
     const { images } = this.state;
+    const { onUploadSubmit } = this.props;
 
     if (!images || !images.length) {
       return;
     }
 
-    filesApi.uploadImages(images);
+    onUploadSubmit(images);
   };
 
   handleFilesChange = e => {
@@ -47,6 +47,8 @@ class UploadImages extends Component {
     this.filesInputRef.current.click();
   };
 
+  // todo: disable buttons while uploading
+  // todo: reset selected after loaded
   render() {
     const { images } = this.state;
     const {
