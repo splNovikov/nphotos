@@ -8,17 +8,17 @@ import ImagesCarousel from './components/ImagesCarousel';
 import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 
-// todo: use store
-import filesApi from '../../api/files';
-
 import './AlbumView.scss';
 
-@inject(({ albumsStore, commonStore }) => ({
+// todo: all admin actions should be from specific pages and via chunks
+@inject(({ albumsStore, commonStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
   toggleImagesCarousel: commonStore.toggleImagesCarousel,
-  user: commonStore.user
+  user: commonStore.user,
+  uploadImages: filesStore.uploadImages,
+  isUploading: filesStore.isUploading
 }))
 @observer
 class AlbumView extends Component {
@@ -38,7 +38,9 @@ class AlbumView extends Component {
       permissions: PropTypes.shape({
         canAddImages: PropTypes.bool
       })
-    }).isRequired
+    }).isRequired,
+    uploadImages: PropTypes.func.isRequired,
+    isUploading: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -76,7 +78,9 @@ class AlbumView extends Component {
   };
 
   handleUploadSubmit = images => {
-    filesApi.uploadImages(images, this.albumId);
+    const { uploadImages } = this.props;
+
+    uploadImages(images, this.albumId);
   };
 
   hasImages = album => album && album.images && album.images.length;
@@ -88,7 +92,8 @@ class AlbumView extends Component {
       isFetching,
       getAlbum,
       intl: { formatMessage },
-      user: { permissions }
+      user: { permissions },
+      isUploading
     } = this.props;
     const album = getAlbum(this.albumId);
 
@@ -108,8 +113,8 @@ class AlbumView extends Component {
 
         {permissions.canEditAlbum ? (
           <div className="edit-segment">
-            <Segment>
-              Todo: edit button
+            <Segment loading={isUploading}>
+              <div>Todo: edit button</div>
               <UploadFiles
                 onUploadSubmit={this.handleUploadSubmit}
                 acceptedFileTypes=".jpg,.jpeg"

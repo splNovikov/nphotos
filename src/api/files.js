@@ -6,7 +6,7 @@ const uploadImages = (images, albumId) => {
 
   Array.from(images).forEach(file => formData.append('image', file));
 
-  axios.post(apiRoutes.files, formData, {
+  return axios.post(apiRoutes.files, formData, {
     params: {
       albumId
     }
