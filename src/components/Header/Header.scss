@@ -45,10 +45,11 @@
   }
 
   .breadcrumbs-wrapper {
-    @include page-padding($padding-normal);
+    @include page-padding(0);
 
     .breadcrumbs {
-      padding: 0 $padding-normal;
+      // padding-top should be a little bigger, cos it looks better
+      padding: $padding-large $padding-normal $padding-normal $padding-normal;
     }
   }
 }
