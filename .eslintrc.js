@@ -17,16 +17,18 @@ module.exports = {
     'react/destructuring-assignment': 1,
     'react/prop-types': 1,
     'react/require-default-props': 1,
+    'react/static-property-placement': 1,
     'react/prefer-stateless-function': 1,
     'react/jsx-indent': 1,
+    'react/jsx-props-no-spreading': 1,
+    'react/jsx-one-expression-per-line': 1,
     'prettier/prettier': [
       'error',
       {
         singleQuote: true,
         trailingComma: 'none'
       }
-    ],
-    'react/jsx-one-expression-per-line': false
+    ]
   },
   parserOptions: {
     ecmaFeatures: {

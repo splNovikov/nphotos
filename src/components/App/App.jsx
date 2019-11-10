@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { Menu, Sidebar } from 'semantic-ui-react';
@@ -12,11 +12,6 @@ import routes from '../../routes';
 import { debounce } from '../../utils';
 
 import './App.scss';
-
-const DevTools =
-  process.env.NODE_ENV !== 'production'
-    ? require('mobx-react-devtools').default
-    : Fragment;
 
 @inject(({ commonStore }) => ({
   isSideBarOpened: commonStore.isSidebarOpened,
@@ -63,7 +58,6 @@ class App extends Component {
 
         <ReactResizeDetector handleWidth onResize={this.onResize} />
         <SemanticToastContainer position="bottom-right" />
-        <DevTools />
       </div>
     );
   }

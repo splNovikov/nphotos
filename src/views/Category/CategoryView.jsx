@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment, Header } from 'semantic-ui-react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import Grid from '../../components/Grid';
 import appRoutes from '../../constants/appRoutes';
@@ -17,9 +17,11 @@ import './CategoryView.scss';
 }))
 @observer
 class CategoryView extends Component {
+  categoryId;
+
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape,
+    // todo: fix intl
+    // intl: intlShape,
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string.isRequired
@@ -57,8 +59,6 @@ class CategoryView extends Component {
 
   hasAlbums = category => category && category.albums && category.albums.length;
 
-  categoryId;
-
   render() {
     const {
       isFetching,
@@ -82,7 +82,7 @@ class CategoryView extends Component {
         ) : null}
 
         {this.hasAlbums(category) ? (
-          <React.Fragment>
+          <>
             <Header as="h2" className="category-title capitalize">
               {category.title}
             </Header>
@@ -94,7 +94,7 @@ class CategoryView extends Component {
               imageHeight={200}
               circle={false}
             />
-          </React.Fragment>
+          </>
         ) : null}
       </Segment>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 
 import appRoutes from '../../constants/appRoutes';
@@ -15,8 +15,8 @@ import './FooterNavigation.scss';
 @observer
 class Footer extends Component {
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape
+    // todo: fix intl
+    // intl: intlShape
   };
 
   render() {

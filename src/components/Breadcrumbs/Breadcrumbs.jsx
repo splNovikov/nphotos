@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { Breadcrumb, Icon } from 'semantic-ui-react';
 
 import './Breadcrumbs.scss';
@@ -17,8 +17,8 @@ import './Breadcrumbs.scss';
 @observer
 class Breadcrumbs extends React.Component {
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape,
+    // todo: fix intl
+    // intl: intlShape,
     pathname: PropTypes.string.isRequired,
     getAlbum: PropTypes.func.isRequired,
     isAlbumFetching: PropTypes.bool.isRequired,

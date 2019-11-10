@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Button, Form } from 'semantic-ui-react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 @observer
 class UploadFiles extends Component {
+  filesInputRef = React.createRef();
+
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape,
+    // todo: fix intl
+    // intl: intlShape,
     onUploadSubmit: PropTypes.func.isRequired,
     acceptedFileTypes: PropTypes.string.isRequired
   };
-
-  filesInputRef = React.createRef();
 
   constructor(props) {
     super(props);

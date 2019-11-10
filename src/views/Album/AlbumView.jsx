@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment, Header } from 'semantic-ui-react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 import ImagesCarousel from './components/ImagesCarousel';
 import UploadFiles from '../../components/UploadFiles';
@@ -22,9 +22,11 @@ import './AlbumView.scss';
 }))
 @observer
 class AlbumView extends Component {
+  albumId;
+
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape,
+    // todo: fix intl
+    // intl: intlShape,
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string.isRequired
@@ -85,8 +87,6 @@ class AlbumView extends Component {
 
   hasImages = album => album && album.images && album.images.length;
 
-  albumId;
-
   render() {
     const {
       isFetching,
@@ -124,7 +124,7 @@ class AlbumView extends Component {
         ) : null}
 
         {this.hasImages(album) ? (
-          <React.Fragment>
+          <>
             <Header as="h2" className="album-title capitalize">
               {album.title}
             </Header>
@@ -142,7 +142,7 @@ class AlbumView extends Component {
             </div>
 
             <ImagesCarousel images={album.images} />
-          </React.Fragment>
+          </>
         ) : null}
       </Segment>
     );

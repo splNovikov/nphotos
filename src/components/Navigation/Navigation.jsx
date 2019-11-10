@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 
 import appRoutes from '../../constants/appRoutes';
@@ -14,8 +14,8 @@ import appRoutes from '../../constants/appRoutes';
 @observer
 class Navigation extends Component {
   static propTypes = {
-    // eslint-disable-next-line react/require-default-props
-    intl: intlShape,
+    // todo: fix intl
+    // intl: intlShape,
     closeSidebar: PropTypes.func.isRequired
   };
 
@@ -26,7 +26,7 @@ class Navigation extends Component {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Menu.Item
           as={NavLink}
           onClick={closeSidebar}
@@ -84,7 +84,7 @@ class Navigation extends Component {
             defaultMessage: 'price list'
           })}
         />
-      </React.Fragment>
+      </>
     );
   }
 }
