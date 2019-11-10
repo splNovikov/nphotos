@@ -10,18 +10,6 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 }))
 @observer
 class ImagesCarousel extends Component {
-  static propTypes = {
-    isOpened: PropTypes.bool.isRequired,
-    // eslint-disable-next-line react/require-default-props
-    selectedImage: PropTypes.number,
-    images: PropTypes.arrayOf(
-      PropTypes.shape({
-        src: PropTypes.string
-      })
-    ).isRequired,
-    toggleImagesCarousel: PropTypes.func.isRequired
-  };
-
   componentWillUnmount() {
     const { toggleImagesCarousel } = this.props;
 
@@ -47,5 +35,22 @@ class ImagesCarousel extends Component {
     );
   }
 }
+
+ImagesCarousel.propTypes = {
+  isOpened: PropTypes.bool,
+  // eslint-disable-next-line react/require-default-props
+  selectedImage: PropTypes.number,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string
+    })
+  ).isRequired,
+  // eslint-disable-next-line react/require-default-props
+  toggleImagesCarousel: PropTypes.func
+};
+
+ImagesCarousel.defaultProps = {
+  isOpened: false
+};
 
 export default ImagesCarousel;

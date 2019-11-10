@@ -14,11 +14,6 @@ import './FooterNavigation.scss';
 }))
 @observer
 class Footer extends Component {
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape
-  };
-
   render() {
     const {
       intl: { formatMessage }
@@ -81,5 +76,10 @@ class Footer extends Component {
     );
   }
 }
+
+Footer.propTypes = {
+  // todo: fix intl
+  // intl: intlShape
+};
 
 export default injectIntl(Footer);

@@ -19,11 +19,6 @@ import './App.scss';
 }))
 @observer
 class App extends Component {
-  static propTypes = {
-    isSideBarOpened: PropTypes.bool.isRequired,
-    closeSidebar: PropTypes.func.isRequired
-  };
-
   componentDidMount() {
     window.addEventListener('resize', this.onResize);
   }
@@ -62,5 +57,10 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  isSideBarOpened: PropTypes.bool.isRequired,
+  closeSidebar: PropTypes.func.isRequired
+};
 
 export default App;

@@ -12,21 +12,6 @@ import SanitizeHTML from '../../components/SanitizeHTML';
 }))
 @observer
 class PriceListView extends Component {
-  static propTypes = {
-    priceList: PropTypes.arrayOf(
-      PropTypes.shape({
-        index: PropTypes.string,
-        price: PropTypes.string
-      })
-    ),
-    fetchPriceList: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    priceList: []
-  };
-
   componentDidMount() {
     const { fetchPriceList, priceList } = this.props;
 
@@ -56,5 +41,20 @@ class PriceListView extends Component {
     );
   }
 }
+
+PriceListView.propTypes = {
+  priceList: PropTypes.arrayOf(
+    PropTypes.shape({
+      index: PropTypes.string,
+      price: PropTypes.string
+    })
+  ),
+  fetchPriceList: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
+
+PriceListView.defaultProps = {
+  priceList: []
+};
 
 export default PriceListView;

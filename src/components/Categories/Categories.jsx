@@ -14,17 +14,6 @@ import Grid from '../Grid';
 }))
 @observer
 class Categories extends React.Component {
-  static propTypes = {
-    navigate: PropTypes.func.isRequired,
-    fetchCategories: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    categories: PropTypes.arrayOf(PropTypes.shape)
-  };
-
-  static defaultProps = {
-    categories: []
-  };
-
   componentDidMount() {
     const { fetchCategories } = this.props;
 
@@ -57,5 +46,16 @@ class Categories extends React.Component {
     );
   }
 }
+
+Categories.propTypes = {
+  navigate: PropTypes.func.isRequired,
+  fetchCategories: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape)
+};
+
+Categories.defaultProps = {
+  categories: []
+};
 
 export default Categories;

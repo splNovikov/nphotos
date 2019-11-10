@@ -8,13 +8,6 @@ import { injectIntl } from 'react-intl';
 class UploadFiles extends Component {
   filesInputRef = React.createRef();
 
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape,
-    onUploadSubmit: PropTypes.func.isRequired,
-    acceptedFileTypes: PropTypes.string.isRequired
-  };
-
   constructor(props) {
     super(props);
 
@@ -97,5 +90,12 @@ class UploadFiles extends Component {
     );
   }
 }
+
+UploadFiles.propTypes = {
+  // todo: fix intl
+  // intl: intlShape,
+  onUploadSubmit: PropTypes.func.isRequired,
+  acceptedFileTypes: PropTypes.string.isRequired
+};
 
 export default injectIntl(UploadFiles);

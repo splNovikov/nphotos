@@ -14,16 +14,6 @@ import './ContactsView.scss';
 }))
 @observer
 class ContactsView extends Component {
-  static propTypes = {
-    contacts: PropTypes.arrayOf(PropTypes.shape),
-    fetchContacts: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    contacts: []
-  };
-
   componentDidMount() {
     const { fetchContacts, contacts } = this.props;
 
@@ -51,5 +41,15 @@ class ContactsView extends Component {
     );
   }
 }
+
+ContactsView.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.shape),
+  fetchContacts: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
+
+ContactsView.defaultProps = {
+  contacts: []
+};
 
 export default ContactsView;

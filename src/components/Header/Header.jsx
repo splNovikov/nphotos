@@ -16,10 +16,6 @@ import './Header.scss';
 }))
 @observer
 class Header extends Component {
-  static propTypes = {
-    toggleSidebar: PropTypes.func.isRequired
-  };
-
   render() {
     const { toggleSidebar } = this.props;
 
@@ -52,5 +48,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  toggleSidebar: PropTypes.func
+};
 
 export default Header;

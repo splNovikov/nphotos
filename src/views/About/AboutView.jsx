@@ -14,21 +14,6 @@ import './AboutView.scss';
 }))
 @observer
 class AboutView extends Component {
-  static propTypes = {
-    about: PropTypes.arrayOf(
-      PropTypes.shape({
-        index: PropTypes.string,
-        row: PropTypes.string
-      })
-    ),
-    fetchAbout: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired
-  };
-
-  static defaultProps = {
-    about: []
-  };
-
   componentDidMount() {
     const { fetchAbout, about } = this.props;
 
@@ -58,5 +43,20 @@ class AboutView extends Component {
     );
   }
 }
+
+AboutView.propTypes = {
+  about: PropTypes.arrayOf(
+    PropTypes.shape({
+      index: PropTypes.string,
+      row: PropTypes.string
+    })
+  ),
+  fetchAbout: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
+
+AboutView.defaultProps = {
+  about: []
+};
 
 export default AboutView;

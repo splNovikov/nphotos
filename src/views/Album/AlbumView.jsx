@@ -24,27 +24,6 @@ import './AlbumView.scss';
 class AlbumView extends Component {
   albumId;
 
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string.isRequired
-      })
-    }).isRequired,
-    fetchAlbum: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    getAlbum: PropTypes.func.isRequired,
-    toggleImagesCarousel: PropTypes.func.isRequired,
-    user: PropTypes.shape({
-      permissions: PropTypes.shape({
-        canAddImages: PropTypes.bool
-      })
-    }).isRequired,
-    uploadImages: PropTypes.func.isRequired,
-    isUploading: PropTypes.bool.isRequired
-  };
-
   constructor(props) {
     super(props);
 
@@ -148,5 +127,26 @@ class AlbumView extends Component {
     );
   }
 }
+
+AlbumView.propTypes = {
+  // todo: fix intl
+  // intl: intlShape,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  fetchAlbum: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getAlbum: PropTypes.func.isRequired,
+  toggleImagesCarousel: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    permissions: PropTypes.shape({
+      canEditAlbum: PropTypes.bool
+    })
+  }).isRequired,
+  uploadImages: PropTypes.func.isRequired,
+  isUploading: PropTypes.bool.isRequired
+};
 
 export default injectIntl(AlbumView);

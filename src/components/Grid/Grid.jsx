@@ -8,29 +8,6 @@ import Card from '../Card';
 // todo: seems like columns property is not affecting anything
 @observer
 class Grid extends Component {
-  static propTypes = {
-    elements: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        title: PropTypes.string,
-        description: PropTypes.string,
-        cover: PropTypes.string
-      }).isRequired
-    ).isRequired,
-    onCardClick: PropTypes.func.isRequired,
-    columns: PropTypes.number,
-    // disable next rule, because those properties in this component are optional
-    /* eslint-disable react/require-default-props */
-    circle: PropTypes.bool,
-    imageHeight: PropTypes.number,
-    imagePadding: PropTypes.number
-    /* eslint-enable react/require-default-props */
-  };
-
-  static defaultProps = {
-    columns: 3
-  };
-
   render() {
     const {
       columns,
@@ -58,5 +35,28 @@ class Grid extends Component {
     );
   }
 }
+
+Grid.propTypes = {
+  elements: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      cover: PropTypes.string
+    }).isRequired
+  ).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  columns: PropTypes.number,
+  // disable next rule, because those properties in this component are optional
+  /* eslint-disable react/require-default-props */
+  circle: PropTypes.bool,
+  imageHeight: PropTypes.number,
+  imagePadding: PropTypes.number
+  /* eslint-enable react/require-default-props */
+};
+
+Grid.defaultProps = {
+  columns: 3
+};
 
 export default Grid;

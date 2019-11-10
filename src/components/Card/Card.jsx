@@ -9,24 +9,6 @@ import './Card.scss';
 
 @observer
 class Card extends React.Component {
-  static propTypes = {
-    entity: PropTypes.shape({
-      title: PropTypes.string,
-      cover: PropTypes.string
-    }).isRequired,
-    onCardClick: PropTypes.func.isRequired,
-    circle: PropTypes.bool,
-    // disable next rule, because those properties in this component are optional
-    /* eslint-disable react/require-default-props */
-    height: PropTypes.number,
-    imagePadding: PropTypes.number
-    /* eslint-enable react/require-default-props */
-  };
-
-  static defaultProps = {
-    circle: false
-  };
-
   handleCardClick = () => {
     const { entity, onCardClick } = this.props;
 
@@ -65,5 +47,24 @@ class Card extends React.Component {
     );
   }
 }
+
+Card.propTypes = {
+  entity: PropTypes.shape({
+    title: PropTypes.string,
+    cover: PropTypes.string,
+    description: PropTypes.string
+  }).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  circle: PropTypes.bool,
+  // disable next rule, because those properties in this component are optional
+  /* eslint-disable react/require-default-props */
+  height: PropTypes.number,
+  imagePadding: PropTypes.number
+  /* eslint-enable react/require-default-props */
+};
+
+Card.defaultProps = {
+  circle: false
+};
 
 export default Card;

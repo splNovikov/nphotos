@@ -16,16 +16,6 @@ import './Breadcrumbs.scss';
 }))
 @observer
 class Breadcrumbs extends React.Component {
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape,
-    pathname: PropTypes.string.isRequired,
-    getAlbum: PropTypes.func.isRequired,
-    isAlbumFetching: PropTypes.bool.isRequired,
-    isCategoryFetching: PropTypes.bool.isRequired,
-    getCategory: PropTypes.func.isRequired
-  };
-
   getSections = pathname =>
     pathname.split('/').reduce((acc, a) => {
       if (!a) return acc;
@@ -88,5 +78,15 @@ class Breadcrumbs extends React.Component {
     ) : null;
   }
 }
+
+Breadcrumbs.propTypes = {
+  // todo: fix intl
+  // intl: intlShape,
+  pathname: PropTypes.string.isRequired,
+  getAlbum: PropTypes.func.isRequired,
+  isAlbumFetching: PropTypes.bool.isRequired,
+  isCategoryFetching: PropTypes.bool.isRequired,
+  getCategory: PropTypes.func.isRequired
+};
 
 export default injectIntl(Breadcrumbs);

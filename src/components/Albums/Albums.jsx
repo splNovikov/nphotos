@@ -14,17 +14,6 @@ import Grid from '../Grid';
 }))
 @observer
 class Albums extends React.Component {
-  static propTypes = {
-    navigate: PropTypes.func.isRequired,
-    fetchAlbums: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    albums: PropTypes.arrayOf(PropTypes.shape)
-  };
-
-  static defaultProps = {
-    albums: []
-  };
-
   componentDidMount() {
     const { fetchAlbums } = this.props;
 
@@ -56,5 +45,16 @@ class Albums extends React.Component {
     );
   }
 }
+
+Albums.propTypes = {
+  navigate: PropTypes.func.isRequired,
+  fetchAlbums: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  albums: PropTypes.arrayOf(PropTypes.shape)
+};
+
+Albums.defaultProps = {
+  albums: []
+};
 
 export default Albums;

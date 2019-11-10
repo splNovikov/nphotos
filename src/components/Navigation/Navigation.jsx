@@ -13,12 +13,6 @@ import appRoutes from '../../constants/appRoutes';
 }))
 @observer
 class Navigation extends Component {
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape,
-    closeSidebar: PropTypes.func.isRequired
-  };
-
   render() {
     const {
       intl: { formatMessage },
@@ -88,5 +82,11 @@ class Navigation extends Component {
     );
   }
 }
+
+Navigation.propTypes = {
+  // todo: fix intl
+  // intl: intlShape,
+  closeSidebar: PropTypes.func.isRequired
+};
 
 export default injectIntl(Navigation);

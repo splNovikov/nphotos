@@ -19,20 +19,6 @@ import './CategoryView.scss';
 class CategoryView extends Component {
   categoryId;
 
-  static propTypes = {
-    // todo: fix intl
-    // intl: intlShape,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string.isRequired
-      })
-    }).isRequired,
-    navigate: PropTypes.func.isRequired,
-    fetchCategory: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    getCategory: PropTypes.func.isRequired
-  };
-
   constructor(props) {
     super(props);
 
@@ -100,5 +86,19 @@ class CategoryView extends Component {
     );
   }
 }
+
+CategoryView.propTypes = {
+  // todo: fix intl
+  // intl: intlShape,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  navigate: PropTypes.func.isRequired,
+  fetchCategory: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getCategory: PropTypes.func.isRequired
+};
 
 export default injectIntl(CategoryView);
