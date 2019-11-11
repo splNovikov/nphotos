@@ -47,14 +47,14 @@ class Categories extends React.Component {
   }
 }
 
-Categories.propTypes = {
+Categories.wrappedComponent.propTypes = {
   navigate: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape)
 };
 
-Categories.defaultProps = {
+Categories.wrappedComponent.defaultProps = {
   categories: []
 };
 

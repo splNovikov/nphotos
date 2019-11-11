@@ -49,7 +49,7 @@ ImagesCarousel.propTypes = {
   toggleImagesCarousel: PropTypes.func
 };
 
-ImagesCarousel.defaultProps = {
+ImagesCarousel.wrappedComponent.defaultProps = {
   isOpened: false
 };
 

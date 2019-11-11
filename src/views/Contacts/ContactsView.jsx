@@ -42,13 +42,13 @@ class ContactsView extends Component {
   }
 }
 
-ContactsView.propTypes = {
+ContactsView.wrappedComponent.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape),
   fetchContacts: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 };
 
-ContactsView.defaultProps = {
+ContactsView.wrappedComponent.defaultProps = {
   contacts: []
 };
 

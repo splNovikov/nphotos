@@ -46,14 +46,14 @@ class Albums extends React.Component {
   }
 }
 
-Albums.propTypes = {
+Albums.wrappedComponent.propTypes = {
   navigate: PropTypes.func.isRequired,
   fetchAlbums: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   albums: PropTypes.arrayOf(PropTypes.shape)
 };
 
-Albums.defaultProps = {
+Albums.wrappedComponent.defaultProps = {
   albums: []
 };
 

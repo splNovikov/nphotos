@@ -59,7 +59,7 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+App.wrappedComponent.propTypes = {
   isSideBarOpened: PropTypes.bool.isRequired,
   closeSidebar: PropTypes.func.isRequired
 };

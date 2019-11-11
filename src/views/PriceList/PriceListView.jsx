@@ -42,7 +42,7 @@ class PriceListView extends Component {
   }
 }
 
-PriceListView.propTypes = {
+PriceListView.wrappedComponent.propTypes = {
   priceList: PropTypes.arrayOf(
     PropTypes.shape({
       index: PropTypes.string,
@@ -53,7 +53,7 @@ PriceListView.propTypes = {
   isFetching: PropTypes.bool.isRequired
 };
 
-PriceListView.defaultProps = {
+PriceListView.wrappedComponent.defaultProps = {
   priceList: []
 };
 

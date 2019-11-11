@@ -78,9 +78,8 @@ class FooterNavigation extends Component {
   }
 }
 
-FooterNavigation.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  intl: PropTypes.shape()
+FooterNavigation.wrappedComponent.propTypes = {
+  intl: PropTypes.shape().isRequired
 };
 
 export default injectIntl(FooterNavigation);

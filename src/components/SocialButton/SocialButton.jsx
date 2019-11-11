@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Button } from 'semantic-ui-react';
 
-const SocialButton = ({
-  href,
-  icon,
-  onMouseEnter,
-  onMouseLeave,
-  onBlur,
-  onClick,
-  onFocus
-}) => (
+const SocialButton = ({ href, icon, onMouseEnter, onMouseLeave }) => (
   <Button
     compact
     icon={icon}
@@ -20,20 +12,16 @@ const SocialButton = ({
     className="transparent"
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
-    onBlur={onBlur}
-    onClick={onClick}
-    onFocus={onFocus}
   />
 );
 
 SocialButton.propTypes = {
   href: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
-  onFocus: PropTypes.func.isRequired
+  // eslint-disable-next-line react/require-default-props
+  onMouseEnter: PropTypes.func,
+  // eslint-disable-next-line react/require-default-props
+  onMouseLeave: PropTypes.func
 };
 
 export default observer(SocialButton);

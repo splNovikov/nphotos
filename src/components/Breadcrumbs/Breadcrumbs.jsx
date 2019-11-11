@@ -79,9 +79,8 @@ class Breadcrumbs extends React.Component {
   }
 }
 
-Breadcrumbs.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  intl: PropTypes.shape(),
+Breadcrumbs.wrappedComponent.propTypes = {
+  intl: PropTypes.shape().isRequired,
   pathname: PropTypes.string.isRequired,
   getAlbum: PropTypes.func.isRequired,
   isAlbumFetching: PropTypes.bool.isRequired,

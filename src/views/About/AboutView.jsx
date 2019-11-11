@@ -44,7 +44,7 @@ class AboutView extends Component {
   }
 }
 
-AboutView.propTypes = {
+AboutView.wrappedComponent.propTypes = {
   about: PropTypes.arrayOf(
     PropTypes.shape({
       index: PropTypes.string,
@@ -55,7 +55,7 @@ AboutView.propTypes = {
   isFetching: PropTypes.bool.isRequired
 };
 
-AboutView.defaultProps = {
+AboutView.wrappedComponent.defaultProps = {
   about: []
 };
 

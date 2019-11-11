@@ -49,7 +49,7 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
+Header.wrappedComponent.propTypes = {
   // eslint-disable-next-line react/require-default-props
   toggleSidebar: PropTypes.func
 };

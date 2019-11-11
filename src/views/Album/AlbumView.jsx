@@ -10,7 +10,6 @@ import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
 
-// todo: all admin actions should be from specific pages and via chunks
 @inject(({ albumsStore, commonStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
@@ -128,9 +127,8 @@ class AlbumView extends Component {
   }
 }
 
-AlbumView.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  intl: PropTypes.shape(),
+AlbumView.wrappedComponent.propTypes = {
+  intl: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
