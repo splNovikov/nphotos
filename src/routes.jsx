@@ -2,33 +2,33 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import appRoutes from './constants/appRoutes';
-// todo: all lazy
-import HomeView from './views/Home';
-import CategoryView from './views/Category';
-import AlbumsView from './views/Albums';
-import AlbumView from './views/Album';
-import AboutView from './views/About';
-import ContactsView from './views/Contacts';
-import PriceListView from './views/PriceList';
+import LoadingFallback from './components/LoadingFallback';
 
+const LazyHomeView = lazy(() => import('./views/Home'));
 const LazyCategoriesView = lazy(() => import('./views/Categories'));
-
-// todo: new Component
-const LoadingMessage = () => "I'm loading...";
+const LazyCategoryView = lazy(() => import('./views/Category'));
+const LazyAlbumsView = lazy(() => import('./views/Albums'));
+const LazyAlbumView = lazy(() => import('./views/Album'));
+const LazyAboutView = lazy(() => import('./views/About'));
+const LazyContactsView = lazy(() => import('./views/Contacts'));
+const LazyPriceListView = lazy(() => import('./views/PriceList'));
 
 const routes = (
-  <Suspense fallback={<LoadingMessage />}>
+  <Suspense fallback={<LoadingFallback />}>
     <Switch>
-      <Route exact path="/" component={HomeView} />
+      <Route exact path="/" component={LazyHomeView} />
       <Route exact path={appRoutes.categories} component={LazyCategoriesView} />
-      <Route path={`${appRoutes.categories}/:id`} component={CategoryView} />
+      <Route
+        path={`${appRoutes.categories}/:id`}
+        component={LazyCategoryView}
+      />
 
-      <Route exact path={appRoutes.albums} component={AlbumsView} />
-      <Route path={`${appRoutes.albums}/:id`} component={AlbumView} />
+      <Route exact path={appRoutes.albums} component={LazyAlbumsView} />
+      <Route path={`${appRoutes.albums}/:id`} component={LazyAlbumView} />
 
-      <Route path={appRoutes.about} component={AboutView} />
-      <Route path={appRoutes.contacts} component={ContactsView} />
-      <Route path={appRoutes.priceList} component={PriceListView} />
+      <Route path={appRoutes.about} component={LazyAboutView} />
+      <Route path={appRoutes.contacts} component={LazyContactsView} />
+      <Route path={appRoutes.priceList} component={LazyPriceListView} />
     </Switch>
   </Suspense>
 );
