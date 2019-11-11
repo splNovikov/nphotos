@@ -92,8 +92,7 @@ class UploadFiles extends Component {
 }
 
 UploadFiles.propTypes = {
-  // todo: fix intl
-  // intl: intlShape,
+  intl: PropTypes.shape.isRequired,
   onUploadSubmit: PropTypes.func.isRequired,
   acceptedFileTypes: PropTypes.string.isRequired
 };

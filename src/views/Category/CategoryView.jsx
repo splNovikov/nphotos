@@ -88,8 +88,7 @@ class CategoryView extends Component {
 }
 
 CategoryView.propTypes = {
-  // todo: fix intl
-  // intl: intlShape,
+  intl: PropTypes.shape.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

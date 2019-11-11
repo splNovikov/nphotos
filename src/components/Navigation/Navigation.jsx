@@ -84,8 +84,7 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
-  // todo: fix intl
-  // intl: intlShape,
+  intl: PropTypes.shape.isRequired,
   closeSidebar: PropTypes.func.isRequired
 };
 

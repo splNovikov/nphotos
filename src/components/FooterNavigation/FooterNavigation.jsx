@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { List } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
@@ -78,8 +79,7 @@ class Footer extends Component {
 }
 
 Footer.propTypes = {
-  // todo: fix intl
-  // intl: intlShape
+  intl: PropTypes.shape.isRequired
 };
 
 export default injectIntl(Footer);

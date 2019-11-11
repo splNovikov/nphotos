@@ -129,8 +129,7 @@ class AlbumView extends Component {
 }
 
 AlbumView.propTypes = {
-  // todo: fix intl
-  // intl: intlShape,
+  intl: PropTypes.shape.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

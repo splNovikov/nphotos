@@ -80,8 +80,7 @@ class Breadcrumbs extends React.Component {
 }
 
 Breadcrumbs.propTypes = {
-  // todo: fix intl
-  // intl: intlShape,
+  intl: PropTypes.shape.isRequired,
   pathname: PropTypes.string.isRequired,
   getAlbum: PropTypes.func.isRequired,
   isAlbumFetching: PropTypes.bool.isRequired,
