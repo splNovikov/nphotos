@@ -88,7 +88,8 @@ class CategoryView extends Component {
 }
 
 CategoryView.propTypes = {
-  intl: PropTypes.shape.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  intl: PropTypes.shape(),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

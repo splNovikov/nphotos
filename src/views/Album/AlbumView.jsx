@@ -129,7 +129,8 @@ class AlbumView extends Component {
 }
 
 AlbumView.propTypes = {
-  intl: PropTypes.shape.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  intl: PropTypes.shape(),
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired

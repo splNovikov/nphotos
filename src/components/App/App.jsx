@@ -20,6 +20,7 @@ import './App.scss';
 @observer
 class App extends Component {
   componentDidMount() {
+    // todo: onDestroy remove listener
     window.addEventListener('resize', this.onResize);
   }
 

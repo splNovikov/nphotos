@@ -14,7 +14,7 @@ import './FooterNavigation.scss';
   location: routingStore.location
 }))
 @observer
-class Footer extends Component {
+class FooterNavigation extends Component {
   render() {
     const {
       intl: { formatMessage }
@@ -78,8 +78,9 @@ class Footer extends Component {
   }
 }
 
-Footer.propTypes = {
-  intl: PropTypes.shape.isRequired
+FooterNavigation.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  intl: PropTypes.shape()
 };
 
-export default injectIntl(Footer);
+export default injectIntl(FooterNavigation);

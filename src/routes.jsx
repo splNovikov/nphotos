@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import appRoutes from './constants/appRoutes';
+// todo: all lazy
 import HomeView from './views/Home';
 import CategoryView from './views/Category';
 import AlbumsView from './views/Albums';

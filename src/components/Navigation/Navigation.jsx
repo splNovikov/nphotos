@@ -84,7 +84,8 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
-  intl: PropTypes.shape.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  intl: PropTypes.shape(),
   closeSidebar: PropTypes.func.isRequired
 };
 

@@ -92,7 +92,8 @@ class UploadFiles extends Component {
 }
 
 UploadFiles.propTypes = {
-  intl: PropTypes.shape.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  intl: PropTypes.shape(),
   onUploadSubmit: PropTypes.func.isRequired,
   acceptedFileTypes: PropTypes.string.isRequired
 };
