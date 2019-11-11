@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment, Header } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
-import ImagesCarousel from './components/ImagesCarousel';
 import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
+
+const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
 
 @inject(({ albumsStore, commonStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
@@ -119,7 +120,7 @@ class AlbumView extends Component {
               />
             </div>
 
-            <ImagesCarousel images={album.images} />
+            <LazyImagesCarousel images={album.images} />
           </>
         ) : null}
       </Segment>
