@@ -20,8 +20,11 @@ import './App.scss';
 @observer
 class App extends Component {
   componentDidMount() {
-    // todo: onDestroy remove listener
     window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
   }
 
   // eslint-disable-next-line react/destructuring-assignment
