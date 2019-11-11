@@ -29,6 +29,7 @@ const stores = {
 const history = syncHistoryWithStore(browserHistory, routingStore);
 
 ReactDOM.render(
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <Provider {...stores}>
     <IntlProvider locale={language} messages={messages}>
       <Router history={history}>

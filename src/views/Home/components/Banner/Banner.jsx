@@ -7,6 +7,7 @@ import './Banner.scss';
 
 const Banner = ({ h1, h2, bgMobile, bgTablet, bgDesktop }) => (
   <div className="banner">
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Responsive {...Responsive.onlyMobile}>
       <Image src={bgMobile} fluid />
       <div className="banner-text">
@@ -14,6 +15,7 @@ const Banner = ({ h1, h2, bgMobile, bgTablet, bgDesktop }) => (
         <h3>{h2}</h3>
       </div>
     </Responsive>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Responsive {...Responsive.onlyTablet}>
       <Image src={bgTablet} fluid />
       <div className="banner-text">
@@ -21,6 +23,7 @@ const Banner = ({ h1, h2, bgMobile, bgTablet, bgDesktop }) => (
         <h3>{h2}</h3>
       </div>
     </Responsive>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Responsive {...Responsive.onlyComputer}>
       <Image src={bgDesktop} fluid />
       <div className="banner-text">

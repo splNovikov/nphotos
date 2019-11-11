@@ -18,7 +18,7 @@ const withTracker = (WrappedComponent, options = {}) => props => {
   } = props;
   useEffect(() => trackPage(pathname, options), [pathname]);
 
-  // eslint-disable-next-line react/jsx-filename-extension
+  // eslint-disable-next-line react/jsx-filename-extension,react/jsx-props-no-spreading
   return <WrappedComponent {...props} />;
 };
 
