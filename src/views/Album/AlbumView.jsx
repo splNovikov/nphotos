@@ -66,6 +66,7 @@ class AlbumView extends Component {
   };
 
   // todo: Suspend for LazyImagesCarousel
+  // todo: delete button with confirm
   render() {
     const {
       isFetching,
@@ -91,12 +92,24 @@ class AlbumView extends Component {
 
         {permissions.canEditAlbum ? (
           <div className="edit-segment-wrapper">
-            <Segment>
+            <Segment textAlign="right">
               <Button
                 onClick={this.handleClickEdit}
+                labelPosition="left"
+                positive
+                icon="edit"
                 content={formatMessage({
                   id: 'common.edit',
                   defaultMessage: 'edit'
+                })}
+              />
+              <Button
+                labelPosition="left"
+                negative
+                icon="delete"
+                content={formatMessage({
+                  id: 'common.delete',
+                  defaultMessage: 'delete'
                 })}
               />
             </Segment>

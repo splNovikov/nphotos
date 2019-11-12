@@ -54,6 +54,8 @@ class AlbumEditView extends Component {
     } = this.props;
     const album = getAlbum(this.albumId);
 
+    // todo: fix positive and negative background styling
+    // todo: cancel button with confirm
     return (
       <Segment
         className="album-edit-view no-borders fetching-min-height"
@@ -75,9 +77,22 @@ class AlbumEditView extends Component {
 
           <Button
             onClick={this.handleClickEdit}
+            labelPosition="left"
+            positive
+            icon="save"
             content={formatMessage({
               id: 'common.save',
               defaultMessage: 'save'
+            })}
+          />
+          <Button
+            onClick={this.handleClickEdit}
+            labelPosition="left"
+            negative
+            icon="cancel"
+            content={formatMessage({
+              id: 'common.cancel',
+              defaultMessage: 'cancel'
             })}
           />
         </Segment>

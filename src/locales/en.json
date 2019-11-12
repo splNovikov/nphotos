@@ -5,6 +5,8 @@
   "common.upload": "upload",
   "common.edit": "edit",
   "common.save": "save",
+  "common.delete": "delete",
+  "common.cancel": "cancel",
 
   "navigationMenu.home": "home",
   "navigationMenu.categories": "categories",

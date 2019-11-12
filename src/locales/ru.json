@@ -5,6 +5,8 @@
   "common.upload": "загрузить",
   "common.edit": "редактировать",
   "common.save": "сохранить",
+  "common.delete": "удалить",
+  "common.cancel": "отменить",
 
   "navigationMenu.home": "домой",
   "navigationMenu.categories": "категории",
