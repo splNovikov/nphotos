@@ -8,12 +8,11 @@ import './AlbumEditView.scss';
 
 import UploadFiles from '../../components/UploadFiles';
 
-@inject(({ albumsStore, commonStore, filesStore }) => ({
+@inject(({ albumsStore, userStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
-  toggleImagesCarousel: commonStore.toggleImagesCarousel,
-  user: commonStore.user,
+  user: userStore.user,
   uploadImages: filesStore.uploadImages,
   isUploading: filesStore.isUploading
 }))

@@ -11,12 +11,12 @@ import './AlbumView.scss';
 
 const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
 
-@inject(({ albumsStore, commonStore, routingStore }) => ({
+@inject(({ albumsStore, commonStore, userStore, routingStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
   toggleImagesCarousel: commonStore.toggleImagesCarousel,
-  user: commonStore.user,
+  user: userStore.user,
   navigate: routingStore.push
 }))
 @observer

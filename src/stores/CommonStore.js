@@ -7,14 +7,6 @@ class CommonStore {
 
   @observable selectedCarouselImageIndex = undefined;
 
-  // todo: should have own store
-  @observable user = {
-    // todo: should be received from backend
-    permissions: {
-      canEditAlbum: true
-    }
-  };
-
   @action.bound
   toggleSidebar() {
     this.isSidebarOpened = !this.isSidebarOpened;

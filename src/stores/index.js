@@ -7,6 +7,7 @@ import albumsStore from './AlbumsStore';
 import commonStore from './CommonStore';
 import priceListStore from './PriceListStore';
 import filesStore from './FilesStore';
+import userStore from './UserStore';
 
 configure({ enforceActions: 'observed' });
 
@@ -17,7 +18,8 @@ const stores = {
   contactsStore,
   aboutStore,
   priceListStore,
-  filesStore
+  filesStore,
+  userStore
 };
 
 export default stores;
