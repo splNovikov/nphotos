@@ -1,24 +1,23 @@
 import React, { Component, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Segment, Header } from 'semantic-ui-react';
+import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
-import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 
 import './AlbumView.scss';
+import appRoutes from '../../constants/appRoutes';
 
 const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
 
-@inject(({ albumsStore, commonStore, filesStore }) => ({
+@inject(({ albumsStore, commonStore, routingStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
   toggleImagesCarousel: commonStore.toggleImagesCarousel,
   user: commonStore.user,
-  uploadImages: filesStore.uploadImages,
-  isUploading: filesStore.isUploading
+  navigate: routingStore.push
 }))
 @observer
 class AlbumView extends Component {
@@ -58,21 +57,21 @@ class AlbumView extends Component {
     toggleImagesCarousel(true, index);
   };
 
-  handleUploadSubmit = images => {
-    const { uploadImages } = this.props;
-
-    uploadImages(images, this.albumId);
-  };
-
   hasImages = album => album && album.images && album.images.length;
 
+  handleClickEdit = () => {
+    const { navigate } = this.props;
+
+    navigate(`${appRoutes.albumEdit}/${this.albumId}`);
+  };
+
+  // todo: Suspend for LazyImagesCarousel
   render() {
     const {
       isFetching,
       getAlbum,
       intl: { formatMessage },
-      user: { permissions },
-      isUploading
+      user: { permissions }
     } = this.props;
     const album = getAlbum(this.albumId);
 
@@ -91,12 +90,14 @@ class AlbumView extends Component {
         ) : null}
 
         {permissions.canEditAlbum ? (
-          <div className="edit-segment">
-            <Segment loading={isUploading}>
-              <div>Todo: edit button</div>
-              <UploadFiles
-                onUploadSubmit={this.handleUploadSubmit}
-                acceptedFileTypes=".jpg,.jpeg"
+          <div className="edit-segment-wrapper">
+            <Segment>
+              <Button
+                onClick={this.handleClickEdit}
+                content={formatMessage({
+                  id: 'common.edit',
+                  defaultMessage: 'edit, todo: intl'
+                })}
               />
             </Segment>
           </div>
@@ -143,9 +144,7 @@ AlbumView.wrappedComponent.propTypes = {
     permissions: PropTypes.shape({
       canEditAlbum: PropTypes.bool
     })
-  }).isRequired,
-  uploadImages: PropTypes.func.isRequired,
-  isUploading: PropTypes.bool.isRequired
+  }).isRequired
 };
 
 export default injectIntl(AlbumView);

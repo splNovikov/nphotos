@@ -9,10 +9,12 @@ const LazyCategoriesView = lazy(() => import('./views/Categories'));
 const LazyCategoryView = lazy(() => import('./views/Category'));
 const LazyAlbumsView = lazy(() => import('./views/Albums'));
 const LazyAlbumView = lazy(() => import('./views/Album'));
+const LazyAlbumEditView = lazy(() => import('./views/AlbumEdit'));
 const LazyAboutView = lazy(() => import('./views/About'));
 const LazyContactsView = lazy(() => import('./views/Contacts'));
 const LazyPriceListView = lazy(() => import('./views/PriceList'));
 
+// todo: add "guard" for albumEdit
 const routes = (
   <Suspense fallback={<LoadingFallback />}>
     <Switch>
@@ -25,6 +27,10 @@ const routes = (
 
       <Route exact path={appRoutes.albums} component={LazyAlbumsView} />
       <Route path={`${appRoutes.albums}/:id`} component={LazyAlbumView} />
+      <Route
+        path={`${appRoutes.albumEdit}/:id`}
+        component={LazyAlbumEditView}
+      />
 
       <Route path={appRoutes.about} component={LazyAboutView} />
       <Route path={appRoutes.contacts} component={LazyContactsView} />
