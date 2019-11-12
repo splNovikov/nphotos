@@ -5,9 +5,9 @@ import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 import Grid from '../../components/Grid';
+import appRoutes from '../../constants/appRoutes';
 
 import './AlbumView.scss';
-import appRoutes from '../../constants/appRoutes';
 
 const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
 
@@ -144,7 +144,8 @@ AlbumView.wrappedComponent.propTypes = {
     permissions: PropTypes.shape({
       canEditAlbum: PropTypes.bool
     })
-  }).isRequired
+  }).isRequired,
+  navigate: PropTypes.func.isRequired
 };
 
 export default injectIntl(AlbumView);

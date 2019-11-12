@@ -45,7 +45,6 @@ class AlbumEditView extends Component {
     uploadImages(images, this.albumId);
   };
 
-  // todo: fix breadcrumbs - instead of edit-album should be link to album
   render() {
     const {
       isFetching,

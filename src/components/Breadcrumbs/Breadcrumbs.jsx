@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl';
 import { Breadcrumb, Icon } from 'semantic-ui-react';
 
 import './Breadcrumbs.scss';
+import appRoutes from '../../constants/appRoutes';
 
 @inject(({ albumsStore, categoriesStore, routingStore }) => ({
   pathname: routingStore.location.pathname,
@@ -16,6 +17,17 @@ import './Breadcrumbs.scss';
 }))
 @observer
 class Breadcrumbs extends React.Component {
+  specificRoutesMap = {
+    [appRoutes.albumEdit]: (
+      <Breadcrumb.Section as={NavLink} to={appRoutes.albums}>
+        {this.props.intl.formatMessage({
+          id: `navigationMenu.albums`,
+          defaultMessage: 'albums'
+        })}
+      </Breadcrumb.Section>
+    )
+  };
+
   getSections = pathname =>
     pathname.split('/').reduce((acc, a) => {
       if (!a) return acc;
@@ -41,13 +53,33 @@ class Breadcrumbs extends React.Component {
     return this.getTitle(section) || section;
   };
 
-  isLast = (length, index) => index !== length - 1;
+  isLast = (length, index) => index === length - 1;
 
-  render() {
+  renderSection = (section, sectionsSize, index) => {
     const {
-      pathname,
       intl: { formatMessage }
     } = this.props;
+
+    if (this.specificRoutesMap[`/${section}`]) {
+      return this.specificRoutesMap[`/${section}`];
+    }
+
+    if (!this.isLast(sectionsSize, index)) {
+      return (
+        <Breadcrumb.Section as={NavLink} to={`/${section}`}>
+          {formatMessage({
+            id: `navigationMenu.${section}`,
+            defaultMessage: section
+          })}
+        </Breadcrumb.Section>
+      );
+    }
+
+    return this.getLastSection(section);
+  };
+
+  render() {
+    const { pathname } = this.props;
     const sections = this.getSections(pathname);
 
     return sections && sections.length ? (
@@ -61,16 +93,7 @@ class Breadcrumbs extends React.Component {
             <React.Fragment key={section}>
               <Breadcrumb.Divider icon="right angle" />
 
-              {this.isLast(sections.length, index) ? (
-                <Breadcrumb.Section as={NavLink} to={`/${section}`}>
-                  {formatMessage({
-                    id: `navigationMenu.${section}`,
-                    defaultMessage: section
-                  })}
-                </Breadcrumb.Section>
-              ) : (
-                this.getLastSection(section)
-              )}
+              {this.renderSection(section, sections.length, index)}
             </React.Fragment>
           );
         })}
