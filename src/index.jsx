@@ -5,8 +5,6 @@ import { Router, Route } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { IntlProvider } from 'react-intl';
-// import en from 'react-intl/locale-data/en';
-// import ru from 'react-intl/locale-data/ru';
 
 import App from './components/App';
 import { withTracker, getLanguageMessages } from './utils';
@@ -14,10 +12,6 @@ import * as serviceWorker from './serviceWorker';
 import customStores from './stores';
 
 import './style/index.scss';
-
-// todo: do we need addLocalData?
-// https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md#migrate-to-using-native-intl-apis
-// addLocaleData([...en, ...ru]);
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
