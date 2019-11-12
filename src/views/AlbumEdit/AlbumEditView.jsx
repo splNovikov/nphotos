@@ -78,7 +78,7 @@ class AlbumEditView extends Component {
             onClick={this.handleClickEdit}
             content={formatMessage({
               id: 'common.save',
-              defaultMessage: 'save, todo: intl'
+              defaultMessage: 'save'
             })}
           />
         </Segment>

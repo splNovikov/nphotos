@@ -3,6 +3,8 @@
   "common.category": "category",
   "common.album": "album",
   "common.upload": "upload",
+  "common.edit": "edit",
+  "common.save": "save",
 
   "navigationMenu.home": "home",
   "navigationMenu.categories": "categories",

@@ -3,6 +3,8 @@
   "common.category": "категория",
   "common.album": "альбом",
   "common.upload": "загрузить",
+  "common.edit": "редактировать",
+  "common.save": "сохранить",
 
   "navigationMenu.home": "домой",
   "navigationMenu.categories": "категории",
