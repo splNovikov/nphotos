@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import './AlbumEditView.scss';
 
 import UploadFiles from '../../components/UploadFiles';
+import userPermissions from '../../constants/userPermissions';
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
@@ -61,7 +62,7 @@ class AlbumEditView extends Component {
         className="album-edit-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {permissions.canEditAlbum ? (
+        {permissions[userPermissions.canEditAlbum] ? (
           <div className="edit-segment-wrapper">
             <Segment loading={isUploading}>
               <UploadFiles
@@ -113,7 +114,7 @@ AlbumEditView.wrappedComponent.propTypes = {
   getAlbum: PropTypes.func.isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({
-      canEditAlbum: PropTypes.bool
+      [userPermissions.canEditAlbum]: PropTypes.bool
     })
   }).isRequired,
   uploadImages: PropTypes.func.isRequired,

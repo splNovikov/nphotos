@@ -1,10 +1,12 @@
 import { observable } from 'mobx';
 
+import userPermissions from '../constants/userPermissions';
+
 class UserStore {
   @observable user = {
     // todo: should be received from backend
     permissions: {
-      canEditAlbum: true
+      [userPermissions.canEditAlbum]: true
     }
   };
 }

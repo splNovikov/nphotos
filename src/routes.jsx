@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import appRoutes from './constants/appRoutes';
+import userPermissions from './constants/userPermissions';
 import LoadingFallback from './components/LoadingFallback';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -31,6 +32,7 @@ const routes = (
       <ProtectedRoute
         path={`${appRoutes.albumEdit}/:id`}
         component={LazyAlbumEditView}
+        restriction={userPermissions.canEditAlbum}
       />
 
       <Route path={appRoutes.about} component={LazyAboutView} />

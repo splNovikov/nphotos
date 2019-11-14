@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl';
 
 import Grid from '../../components/Grid';
 import appRoutes from '../../constants/appRoutes';
+import userPermissions from '../../constants/userPermissions';
 
 import './AlbumView.scss';
 
@@ -90,7 +91,7 @@ class AlbumView extends Component {
           </Header>
         ) : null}
 
-        {permissions.canEditAlbum ? (
+        {permissions[userPermissions.canEditAlbum] ? (
           <div className="edit-segment-wrapper">
             <Segment textAlign="right">
               <Button
@@ -155,7 +156,7 @@ AlbumView.wrappedComponent.propTypes = {
   toggleImagesCarousel: PropTypes.func.isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({
-      canEditAlbum: PropTypes.bool
+      [userPermissions.canEditAlbum]: PropTypes.bool
     })
   }).isRequired,
   navigate: PropTypes.func.isRequired
