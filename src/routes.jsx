@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import appRoutes from './constants/appRoutes';
 import LoadingFallback from './components/LoadingFallback';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const LazyHomeView = lazy(() => import('./views/Home'));
 const LazyCategoriesView = lazy(() => import('./views/Categories'));
@@ -27,7 +28,7 @@ const routes = (
 
       <Route exact path={appRoutes.albums} component={LazyAlbumsView} />
       <Route path={`${appRoutes.albums}/:id`} component={LazyAlbumView} />
-      <Route
+      <ProtectedRoute
         path={`${appRoutes.albumEdit}/:id`}
         component={LazyAlbumEditView}
       />

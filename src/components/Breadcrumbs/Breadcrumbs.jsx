@@ -20,6 +20,7 @@ class Breadcrumbs extends React.Component {
   specificRoutesMap = {
     [appRoutes.albumEdit]: (
       <Breadcrumb.Section as={NavLink} to={appRoutes.albums}>
+        {/* eslint-disable-next-line react/destructuring-assignment */}
         {this.props.intl.formatMessage({
           id: `navigationMenu.albums`,
           defaultMessage: 'albums'
