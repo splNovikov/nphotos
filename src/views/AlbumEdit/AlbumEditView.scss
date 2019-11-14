@@ -1,7 +1,7 @@
 @import '../../style/mixins/page-padding.scss';
 
 .album-edit-view {
-  .edit-segment-wrapper {
+  &.ui {
     @include page-padding(0);
   }
 }

@@ -63,14 +63,12 @@ class AlbumEditView extends Component {
         loading={isFetching}
       >
         {permissions[userPermissions.canEditAlbum] ? (
-          <div className="edit-segment-wrapper">
-            <Segment loading={isUploading}>
-              <UploadFiles
-                onUploadSubmit={this.handleUploadSubmit}
-                acceptedFileTypes=".jpg,.jpeg"
-              />
-            </Segment>
-          </div>
+          <Segment loading={isUploading}>
+            <UploadFiles
+              onUploadSubmit={this.handleUploadSubmit}
+              acceptedFileTypes=".jpg,.jpeg"
+            />
+          </Segment>
         ) : null}
 
         <Segment>
