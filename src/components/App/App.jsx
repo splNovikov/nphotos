@@ -13,13 +13,19 @@ import { debounce } from '../../utils';
 
 import './App.scss';
 
-@inject(({ commonStore }) => ({
+@inject(({ commonStore, userStore }) => ({
   isSideBarOpened: commonStore.isSidebarOpened,
-  closeSidebar: commonStore.closeSidebar
+  closeSidebar: commonStore.closeSidebar,
+  fetchUser: userStore.fetchUser
 }))
 @observer
 class App extends Component {
   componentDidMount() {
+    const { fetchUser } = this.props;
+
+    // fetching user
+    fetchUser();
+    // subscribe on window.resize -> close sidebar
     window.addEventListener('resize', this.onResize);
   }
 
@@ -63,6 +69,7 @@ class App extends Component {
 }
 
 App.wrappedComponent.propTypes = {
+  fetchUser: PropTypes.func.isRequired,
   isSideBarOpened: PropTypes.bool.isRequired,
   closeSidebar: PropTypes.func.isRequired
 };

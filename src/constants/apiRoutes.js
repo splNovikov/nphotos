@@ -7,5 +7,6 @@ export default {
   contacts: `${baseUrl}/contacts`,
   about: `${baseUrl}/about`,
   priceList: `${baseUrl}/priceList`,
-  files: `${baseUrl}/files`
+  files: `${baseUrl}/files`,
+  user: `${baseUrl}/user`
 };
