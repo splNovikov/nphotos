@@ -58,6 +58,7 @@ class AlbumView extends Component {
     toggleImagesCarousel(true, index);
   };
 
+  // todo: move code duplication to common file
   hasImages = album => album && album.images && album.images.length;
 
   handleClickEdit = () => {
