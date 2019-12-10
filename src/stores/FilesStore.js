@@ -1,6 +1,6 @@
 import { observable, flow } from 'mobx';
 
-import filesApi from '../api/files';
+import imagesApi from '../api/images';
 import httpErrorHandler from '../utils/httpErrorHandler';
 
 export class FilesStore {
@@ -13,7 +13,7 @@ export class FilesStore {
   flowUploadImages = flow(function* uploadImages(images, albumId) {
     this.isUploading = true;
     try {
-      yield filesApi.uploadImages(images, albumId);
+      yield imagesApi.uploadImages(images, albumId);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);

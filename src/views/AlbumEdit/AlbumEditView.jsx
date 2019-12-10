@@ -55,13 +55,41 @@ class AlbumEditView extends Component {
     } = this.props;
     const album = getAlbum(this.albumId);
 
-    // todo: fix positive and negative background styling
+    // todo: fix positive and negative button background styling
     // todo: cancel button with confirm
+    // todo: set max count of uploading files
     return (
       <Segment
         className="album-edit-view no-borders fetching-min-height"
         loading={isFetching}
       >
+        <Segment>
+          <div>{album && album.title}</div>
+
+          <Button
+            onClick={() => {}}
+            labelPosition="left"
+            positive
+            icon="save"
+            disabled
+            content={formatMessage({
+              id: 'common.save',
+              defaultMessage: 'save'
+            })}
+          />
+          <Button
+            onClick={() => {}}
+            labelPosition="left"
+            negative
+            icon="cancel"
+            disabled
+            content={formatMessage({
+              id: 'common.cancel',
+              defaultMessage: 'cancel'
+            })}
+          />
+        </Segment>
+
         {permissions[userPermissions.canEditAlbum] ? (
           <Segment loading={isUploading}>
             <UploadFiles
@@ -70,31 +98,6 @@ class AlbumEditView extends Component {
             />
           </Segment>
         ) : null}
-
-        <Segment>
-          <div>{album && album.title}</div>
-
-          <Button
-            onClick={this.handleClickEdit}
-            labelPosition="left"
-            positive
-            icon="save"
-            content={formatMessage({
-              id: 'common.save',
-              defaultMessage: 'save'
-            })}
-          />
-          <Button
-            onClick={this.handleClickEdit}
-            labelPosition="left"
-            negative
-            icon="cancel"
-            content={formatMessage({
-              id: 'common.cancel',
-              defaultMessage: 'cancel'
-            })}
-          />
-        </Segment>
       </Segment>
     );
   }

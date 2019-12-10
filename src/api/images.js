@@ -4,9 +4,9 @@ import apiRoutes from '../constants/apiRoutes';
 const uploadImages = (images, albumId) => {
   const formData = new FormData();
 
-  Array.from(images).forEach(file => formData.append('image', file));
+  Array.from(images).forEach(image => formData.append('image', image));
 
-  return axios.post(apiRoutes.files, formData, {
+  return axios.post(apiRoutes.images, formData, {
     params: {
       albumId
     }
