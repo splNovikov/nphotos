@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import './AlbumEditView.scss';
 
 import UploadFiles from '../../components/UploadFiles';
+import Grid from '../../components/Grid';
 import userPermissions from '../../constants/userPermissions';
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
@@ -39,10 +40,23 @@ class AlbumEditView extends Component {
     fetchAlbum(this.albumId);
   }
 
-  handleUploadSubmit = images => {
-    const { uploadImages } = this.props;
+  mapToGridEntity = album =>
+    album.images.map(i => ({
+      ...i,
+      cover: i.previewSrc,
+      description: i.title,
+      title: undefined
+    }));
 
-    uploadImages(images, this.albumId);
+  hasImages = album => album && album.images && album.images.length;
+
+  handleUploadSubmit = async images => {
+    const { uploadImages, getAlbum } = this.props;
+    const album = getAlbum(this.albumId);
+
+    const uploadedImages = await uploadImages(images, this.albumId);
+
+    album.addImages(uploadedImages);
   };
 
   render() {
@@ -58,6 +72,7 @@ class AlbumEditView extends Component {
     // todo: fix positive and negative button background styling
     // todo: cancel button with confirm
     // todo: set max count of uploading files
+    // todo: fix all () => {}
     return (
       <Segment
         className="album-edit-view no-borders fetching-min-height"
@@ -97,6 +112,18 @@ class AlbumEditView extends Component {
               acceptedFileTypes=".jpg,.jpeg"
             />
           </Segment>
+        ) : null}
+
+        {this.hasImages(album) ? (
+          <Grid
+            className="images-grid"
+            onCardClick={() => {}}
+            elements={this.mapToGridEntity(album)}
+            columns={4}
+            imageHeight={200}
+            circle={false}
+            imagePadding={10}
+          />
         ) : null}
       </Segment>
     );
