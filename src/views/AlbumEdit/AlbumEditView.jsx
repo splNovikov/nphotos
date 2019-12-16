@@ -8,6 +8,9 @@ import './AlbumEditView.scss';
 import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 import userPermissions from '../../constants/userPermissions';
+import albumHelper from '../helpers/albumHelper';
+
+const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
@@ -38,16 +41,6 @@ class AlbumEditView extends Component {
 
     fetchAlbum(this.albumId);
   }
-
-  mapToGridEntity = album =>
-    album.images.map(i => ({
-      ...i,
-      cover: i.previewSrc,
-      description: i.title,
-      title: undefined
-    }));
-
-  hasImages = album => album && album.images && album.images.length;
 
   handleUploadSubmit = async images => {
     const { uploadImages, getAlbum } = this.props;
@@ -80,16 +73,16 @@ class AlbumEditView extends Component {
           <Segment loading={isUploading}>
             <UploadFiles
               onUploadSubmit={this.handleUploadSubmit}
-              acceptedFileTypes=".jpg,.jpeg"
+              acceptedFileTypes={acceptedFileTypes}
             />
           </Segment>
         ) : null}
 
-        {this.hasImages(album) ? (
+        {albumHelper.hasImages(album) ? (
           <Grid
             className="images-grid"
             onCardClick={() => {}}
-            elements={this.mapToGridEntity(album)}
+            elements={albumHelper.mapToGridEntity(album)}
             columns={4}
             imageHeight={200}
             circle={false}

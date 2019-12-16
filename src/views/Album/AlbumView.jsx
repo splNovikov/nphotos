@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import Grid from '../../components/Grid';
 import appRoutes from '../../constants/appRoutes';
 import userPermissions from '../../constants/userPermissions';
+import albumHelper from '../helpers/albumHelper';
 
 import './AlbumView.scss';
 
@@ -42,14 +43,6 @@ class AlbumView extends Component {
     fetchAlbum(this.albumId);
   }
 
-  mapToGridEntity = album =>
-    album.images.map(i => ({
-      ...i,
-      cover: i.previewSrc,
-      description: i.title,
-      title: undefined
-    }));
-
   handleClickImage = image => {
     const { getAlbum, toggleImagesCarousel } = this.props;
     const album = getAlbum(this.albumId);
@@ -57,9 +50,6 @@ class AlbumView extends Component {
 
     toggleImagesCarousel(true, index);
   };
-
-  // todo: move code duplication to common file
-  hasImages = album => album && album.images && album.images.length;
 
   handleClickEdit = () => {
     const { navigate } = this.props;
@@ -82,7 +72,7 @@ class AlbumView extends Component {
         className="album-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {!this.hasImages(album) && !isFetching ? (
+        {!albumHelper.hasImages(album) && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({
               id: 'albumView.noImages',
@@ -108,7 +98,7 @@ class AlbumView extends Component {
           </div>
         ) : null}
 
-        {this.hasImages(album) ? (
+        {albumHelper.hasImages(album) ? (
           <>
             <Header as="h2" className="album-title capitalize">
               {album.title}
@@ -117,7 +107,7 @@ class AlbumView extends Component {
             <div className="images-grid-wrapper">
               <Grid
                 className="images-grid"
-                elements={this.mapToGridEntity(album)}
+                elements={albumHelper.mapToGridEntity(album)}
                 onCardClick={this.handleClickImage}
                 columns={4}
                 imageHeight={200}
