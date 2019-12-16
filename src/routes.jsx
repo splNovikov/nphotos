@@ -16,7 +16,6 @@ const LazyAboutView = lazy(() => import('./views/About'));
 const LazyContactsView = lazy(() => import('./views/Contacts'));
 const LazyPriceListView = lazy(() => import('./views/PriceList'));
 
-// todo: add "guard" for albumEdit
 const routes = (
   <Suspense fallback={<LoadingFallback />}>
     <Switch>

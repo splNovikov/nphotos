@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
-import { injectIntl } from 'react-intl';
 
 import './AlbumEditView.scss';
 
@@ -63,14 +62,13 @@ class AlbumEditView extends Component {
     const {
       isFetching,
       getAlbum,
-      intl: { formatMessage },
       user: { permissions },
       isUploading
     } = this.props;
     const album = getAlbum(this.albumId);
 
-    // todo: fix positive and negative button background styling
-    // todo: cancel button with confirm
+    // todo [after release]: fix positive and negative button background styling
+    // todo [after release]: cancel button with confirm
     // todo: set max count of uploading files
     // todo: fix all () => {}
     return (
@@ -78,33 +76,6 @@ class AlbumEditView extends Component {
         className="album-edit-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Segment>
-          <div>{album && album.title}</div>
-
-          <Button
-            onClick={() => {}}
-            labelPosition="left"
-            positive
-            icon="save"
-            disabled
-            content={formatMessage({
-              id: 'common.save',
-              defaultMessage: 'save'
-            })}
-          />
-          <Button
-            onClick={() => {}}
-            labelPosition="left"
-            negative
-            icon="cancel"
-            disabled
-            content={formatMessage({
-              id: 'common.cancel',
-              defaultMessage: 'cancel'
-            })}
-          />
-        </Segment>
-
         {permissions[userPermissions.canEditAlbum] ? (
           <Segment loading={isUploading}>
             <UploadFiles
@@ -131,7 +102,6 @@ class AlbumEditView extends Component {
 }
 
 AlbumEditView.wrappedComponent.propTypes = {
-  intl: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -149,4 +119,4 @@ AlbumEditView.wrappedComponent.propTypes = {
   isUploading: PropTypes.bool.isRequired
 };
 
-export default injectIntl(AlbumEditView);
+export default AlbumEditView;

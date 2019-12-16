@@ -67,8 +67,7 @@ class AlbumView extends Component {
     navigate(`${appRoutes.albumEdit}/${this.albumId}`);
   };
 
-  // todo: Suspend for LazyImagesCarousel
-  // todo: delete button with confirm
+  // todo [after release]: delete button with confirm
   render() {
     const {
       isFetching,
@@ -103,15 +102,6 @@ class AlbumView extends Component {
                 content={formatMessage({
                   id: 'common.edit',
                   defaultMessage: 'edit'
-                })}
-              />
-              <Button
-                labelPosition="left"
-                negative
-                icon="delete"
-                content={formatMessage({
-                  id: 'common.delete',
-                  defaultMessage: 'delete'
                 })}
               />
             </Segment>
