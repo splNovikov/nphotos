@@ -1,0 +1,14 @@
+.modal-image {
+  .content {
+    min-height: 10rem;
+    position: relative;
+
+    .ui.loading.segment {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}

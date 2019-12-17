@@ -2,24 +2,57 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Modal, Button, Image } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
+
+import LoadingFallback from '../../../../components/LoadingFallback';
+
+import './ModalImage.scss';
 
 @observer
-// todo: intl: Close button
 class ModalImage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      imageIsLoading: true
+    };
+  }
+
+  handleImageLoaded = () => {
+    this.setState({ imageIsLoading: false });
+  };
+
   render() {
-    const { isOpened, toggleModal, image } = this.props;
+    const {
+      closeModal,
+      image,
+      intl: { formatMessage }
+    } = this.props;
+    const { imageIsLoading } = this.state;
 
     if (!image) {
       return null;
     }
 
     return (
-      <Modal size="small" open={isOpened} onClose={toggleModal}>
+      <Modal className="modal-image" size="small" open onClose={closeModal}>
         <Modal.Content>
-          <Image src={image.src} />
+          {imageIsLoading ? <LoadingFallback /> : null}
+          <Image
+            loading="lazy"
+            onLoad={this.handleImageLoaded}
+            src={image.src}
+          />
         </Modal.Content>
         <Modal.Actions>
-          <Button positive content="Yes" onClick={toggleModal} />
+          <Button
+            positive
+            content={formatMessage({
+              id: 'common.close',
+              defaultMessage: 'edit'
+            })}
+            onClick={closeModal}
+          />
         </Modal.Actions>
       </Modal>
     );
@@ -27,9 +60,9 @@ class ModalImage extends Component {
 }
 
 ModalImage.propTypes = {
-  isOpened: PropTypes.bool.isRequired,
+  intl: PropTypes.shape().isRequired,
   // eslint-disable-next-line react/require-default-props
-  toggleModal: PropTypes.func,
+  closeModal: PropTypes.func,
   // eslint-disable-next-line react/require-default-props
   image: PropTypes.oneOfType([
     PropTypes.shape({
@@ -40,4 +73,4 @@ ModalImage.propTypes = {
   ])
 };
 
-export default ModalImage;
+export default injectIntl(ModalImage);

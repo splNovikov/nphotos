@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
 
 import './AlbumEditView.scss';
 
-import ModalImage from './components/ModalImage';
 import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 import userPermissions from '../../constants/userPermissions';
 import albumHelper from '../helpers/albumHelper';
 
+const LazyModalImage = lazy(() => import('./components/ModalImage'));
 const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
@@ -108,11 +108,9 @@ class AlbumEditView extends Component {
             />
           ) : null}
         </Segment>
-        <ModalImage
-          isOpened={modalOpened}
-          toggleModal={this.toggleModal}
-          image={image}
-        />
+        {modalOpened ? (
+          <LazyModalImage closeModal={this.toggleModal} image={image} />
+        ) : null}
       </>
     );
   }
