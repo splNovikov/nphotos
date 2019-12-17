@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Card as SemanticCard } from 'semantic-ui-react';
@@ -8,8 +8,7 @@ import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 import './Card.scss';
 
 @observer
-// todo: {Component everywhere instead of React.Component }
-class Card extends React.Component {
+class Card extends Component {
   handleCardClick = () => {
     const { entity, onCardClick } = this.props;
 

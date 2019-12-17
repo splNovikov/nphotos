@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment } from 'semantic-ui-react';
@@ -13,7 +13,7 @@ import Grid from '../Grid';
   categories: categoriesStore.categories
 }))
 @observer
-class Categories extends React.Component {
+class Categories extends Component {
   componentDidMount() {
     const { fetchCategories } = this.props;
 

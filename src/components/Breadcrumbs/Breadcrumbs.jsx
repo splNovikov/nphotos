@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
@@ -16,7 +16,7 @@ import appRoutes from '../../constants/appRoutes';
   isCategoryFetching: categoriesStore.isFetching
 }))
 @observer
-class Breadcrumbs extends React.Component {
+class Breadcrumbs extends Component {
   specificRoutesMap = {
     [appRoutes.albumEdit]: (
       <Breadcrumb.Section as={NavLink} to={appRoutes.albums}>
