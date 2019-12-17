@@ -8,6 +8,7 @@ import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 import './Card.scss';
 
 @observer
+// todo: {Component everywhere instead of React.Component }
 class Card extends React.Component {
   handleCardClick = () => {
     const { entity, onCardClick } = this.props;

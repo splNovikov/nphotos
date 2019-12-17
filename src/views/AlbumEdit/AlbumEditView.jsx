@@ -5,6 +5,7 @@ import { inject, observer } from 'mobx-react';
 
 import './AlbumEditView.scss';
 
+import ModalImage from './components/ModalImage';
 import UploadFiles from '../../components/UploadFiles';
 import Grid from '../../components/Grid';
 import userPermissions from '../../constants/userPermissions';
@@ -33,6 +34,10 @@ class AlbumEditView extends Component {
       }
     } = this.props;
 
+    this.state = {
+      modalOpened: false
+    };
+
     this.albumId = id;
   }
 
@@ -51,6 +56,17 @@ class AlbumEditView extends Component {
     album.addImages(uploadedImages);
   };
 
+  toggleModal = ({ id }) => {
+    const { getAlbum } = this.props;
+    const { images } = getAlbum(this.albumId);
+    const image = images.find(i => i.id === id);
+
+    this.setState(state => ({
+      modalOpened: !state.modalOpened,
+      image: !state.modalOpened && image
+    }));
+  };
+
   render() {
     const {
       isFetching,
@@ -58,38 +74,46 @@ class AlbumEditView extends Component {
       user: { permissions },
       isUploading
     } = this.props;
+    const { modalOpened, image } = this.state;
     const album = getAlbum(this.albumId);
 
     // todo [after release]: fix positive and negative button background styling
     // todo [after release]: cancel button with confirm
+    // todo [after release]: fix performance - it renders multiple times
     // todo: set max count of uploading files
-    // todo: fix all () => {}
     return (
-      <Segment
-        className="album-edit-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
-        {permissions[userPermissions.canEditAlbum] ? (
-          <Segment loading={isUploading}>
-            <UploadFiles
-              onUploadSubmit={this.handleUploadSubmit}
-              acceptedFileTypes={acceptedFileTypes}
-            />
-          </Segment>
-        ) : null}
+      <>
+        <Segment
+          className="album-edit-view no-borders fetching-min-height"
+          loading={isFetching}
+        >
+          {permissions[userPermissions.canEditAlbum] ? (
+            <Segment loading={isUploading}>
+              <UploadFiles
+                onUploadSubmit={this.handleUploadSubmit}
+                acceptedFileTypes={acceptedFileTypes}
+              />
+            </Segment>
+          ) : null}
 
-        {albumHelper.hasImages(album) ? (
-          <Grid
-            className="images-grid"
-            onCardClick={() => {}}
-            elements={albumHelper.mapToGridEntity(album)}
-            columns={4}
-            imageHeight={200}
-            circle={false}
-            imagePadding={10}
-          />
-        ) : null}
-      </Segment>
+          {albumHelper.hasImages(album) ? (
+            <Grid
+              className="images-grid"
+              onCardClick={this.toggleModal}
+              elements={albumHelper.mapToGridEntity(album)}
+              columns={4}
+              imageHeight={200}
+              circle={false}
+              imagePadding={10}
+            />
+          ) : null}
+        </Segment>
+        <ModalImage
+          isOpened={modalOpened}
+          toggleModal={this.toggleModal}
+          image={image}
+        />
+      </>
     );
   }
 }
