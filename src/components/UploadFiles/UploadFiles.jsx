@@ -42,11 +42,16 @@ class UploadFiles extends Component {
 
   clearSelectedFiles = () => this.setState({ files: [] });
 
+  isFormValid = (files, maxUploadFiles) =>
+    files && files.length && files.length <= maxUploadFiles;
+
+  // todo [after release]: move Max upload files to intl
   render() {
     const { files } = this.state;
     const {
       intl: { formatMessage },
-      acceptedFileTypes
+      acceptedFileTypes,
+      maxUploadFiles
     } = this.props;
 
     return (
@@ -70,7 +75,7 @@ class UploadFiles extends Component {
         />
         <Button
           type="submit"
-          disabled={!files || !files.length}
+          disabled={!this.isFormValid(files, maxUploadFiles)}
           onClick={this.handleFormSubmit}
         >
           {files && files.length
@@ -86,6 +91,10 @@ class UploadFiles extends Component {
                 defaultMessage: 'upload'
               })}
         </Button>
+        <span>
+          Max upload files:
+          {maxUploadFiles}
+        </span>
       </Form>
     );
   }
@@ -94,7 +103,8 @@ class UploadFiles extends Component {
 UploadFiles.propTypes = {
   intl: PropTypes.shape().isRequired,
   onUploadSubmit: PropTypes.func.isRequired,
-  acceptedFileTypes: PropTypes.string.isRequired
+  acceptedFileTypes: PropTypes.string.isRequired,
+  maxUploadFiles: PropTypes.number.isRequired
 };
 
 export default injectIntl(UploadFiles);

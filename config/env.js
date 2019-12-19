@@ -74,6 +74,7 @@ function getClientEnvironment(publicUrl) {
         NODE_ENV: process.env.NODE_ENV || 'development',
         BASE_URL: process.env.BASE_URL,
         UPLOAD_ACCEPTED_FILE_TYPES: process.env.UPLOAD_ACCEPTED_FILE_TYPES,
+        MAX_UPLOAD_IMAGES: process.env.MAX_UPLOAD_IMAGES,
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put

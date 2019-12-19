@@ -12,6 +12,7 @@ import albumHelper from '../helpers/albumHelper';
 
 const LazyModalImage = lazy(() => import('./components/ModalImage'));
 const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
+const maxUploadFiles = +process.env.MAX_UPLOAD_IMAGES || 50;
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
@@ -92,6 +93,7 @@ class AlbumEditView extends Component {
               <UploadFiles
                 onUploadSubmit={this.handleUploadSubmit}
                 acceptedFileTypes={acceptedFileTypes}
+                maxUploadFiles={maxUploadFiles}
               />
             </Segment>
           ) : null}
