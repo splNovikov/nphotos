@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 const LazyHomeView = lazy(() => import('./views/Home'));
 const LazyCategoriesView = lazy(() => import('./views/Categories'));
 const LazyCategoryView = lazy(() => import('./views/Category'));
+const LazyCategoryEditView = lazy(() => import('./views/CategoryEdit'));
 const LazyAlbumsView = lazy(() => import('./views/Albums'));
 const LazyAlbumView = lazy(() => import('./views/Album'));
 const LazyAlbumEditView = lazy(() => import('./views/AlbumEdit'));
@@ -24,6 +25,11 @@ const routes = (
       <Route
         path={`${appRoutes.categories}/:id`}
         component={LazyCategoryView}
+      />
+      <ProtectedRoute
+        path={`${appRoutes.categoryEdit}/:id`}
+        component={LazyCategoryEditView}
+        restriction={userPermissions.canEditCategory}
       />
 
       <Route exact path={appRoutes.albums} component={LazyAlbumsView} />

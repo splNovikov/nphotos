@@ -1,3 +1,4 @@
 export default {
-  canEditAlbum: 'canEditAlbum'
+  canEditAlbum: 'canEditAlbum',
+  canEditCategory: 'canEditCategory'
 };

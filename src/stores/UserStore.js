@@ -11,7 +11,8 @@ class UserStore {
 
   @observable user = {
     permissions: {
-      [userPermissions.canEditAlbum]: false
+      [userPermissions.canEditAlbum]: false,
+      [userPermissions.canEditCategory]: false
     }
   };
 
@@ -20,6 +21,7 @@ class UserStore {
   flowFetchUser = flow(function* fetchUser() {
     this.isFetching = true;
     try {
+      // todo: canEditCategory add to api response
       const { data: user } = yield userApi.getUser();
 
       // todo: map User

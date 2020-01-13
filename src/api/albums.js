@@ -11,4 +11,20 @@ const getAlbums = () =>
 const getAlbum = id =>
   axios.get(`${apiRoutes.albums}/${id}`, { params: { lang: language } });
 
-export default { getAlbums, getAlbum };
+const addAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
+  const formData = new FormData();
+
+  formData.append('cover', cover);
+  formData.append(
+    'album',
+    JSON.stringify({
+      categoryId,
+      titleRus,
+      titleEng
+    })
+  );
+
+  return axios.post(apiRoutes.albums, formData);
+};
+
+export default { getAlbums, getAlbum, addAlbum };
