@@ -46,6 +46,7 @@ class UploadFiles extends Component {
     files && files.length && files.length <= maxUploadFiles;
 
   // todo [after release]: move Max upload files to intl
+  // todo: if upload has been failed - no error handling here
   render() {
     const { files } = this.state;
     const {
@@ -69,7 +70,7 @@ class UploadFiles extends Component {
           ref={this.filesInputRef}
           type="file"
           hidden
-          multiple
+          multiple={maxUploadFiles > 1}
           accept={acceptedFileTypes}
           onChange={this.handleFilesChange}
         />
