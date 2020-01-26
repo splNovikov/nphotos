@@ -1,4 +1,5 @@
 @import '../../style/mixins/page-padding.scss';
+@import '../../style/variables.scss';
 
 .category-view {
   .category-title {
@@ -7,5 +8,9 @@
 
   .edit-segment-wrapper {
     @include page-padding(0);
+  }
+
+  .albums-grid-wrapper {
+    padding: $padding-large 0;
   }
 }

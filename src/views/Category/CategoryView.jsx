@@ -99,13 +99,15 @@ class CategoryView extends Component {
               {category.title}
             </Header>
 
-            <Grid
-              elements={category.albums}
-              onCardClick={this.handleClickAlbum}
-              columns={3}
-              imageHeight={200}
-              circle={false}
-            />
+            <div className="albums-grid-wrapper">
+              <Grid
+                elements={category.albums}
+                onCardClick={this.handleClickAlbum}
+                columns={3}
+                imageHeight={200}
+                circle={false}
+              />
+            </div>
           </>
         ) : null}
       </Segment>
