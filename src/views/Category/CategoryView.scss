@@ -1,5 +1,11 @@
+@import '../../style/mixins/page-padding.scss';
+
 .category-view {
   .category-title {
     text-align: center;
+  }
+
+  .edit-segment-wrapper {
+    @include page-padding(0);
   }
 }

@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
-import { Segment, Header } from 'semantic-ui-react';
+import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 import Grid from '../../components/Grid';
 import appRoutes from '../../constants/appRoutes';
+import userPermissions from '../../constants/userPermissions';
 
 import './CategoryView.scss';
 
-@inject(({ categoriesStore, routingStore }) => ({
+@inject(({ categoriesStore, userStore, routingStore }) => ({
   navigate: routingStore.push,
   fetchCategory: categoriesStore.fetchCategory,
   isFetching: categoriesStore.isFetching,
-  getCategory: categoriesStore.category
+  getCategory: categoriesStore.category,
+  user: userStore.user
 }))
 @observer
 class CategoryView extends Component {
@@ -45,11 +47,18 @@ class CategoryView extends Component {
 
   hasAlbums = category => category && category.albums && category.albums.length;
 
+  handleClickEdit = () => {
+    const { navigate } = this.props;
+
+    navigate(`${appRoutes.categoryEdit}/${this.categoryId}`);
+  };
+
   render() {
     const {
       isFetching,
       getCategory,
-      intl: { formatMessage }
+      intl: { formatMessage },
+      user: { permissions }
     } = this.props;
     const category = getCategory(this.categoryId);
 
@@ -65,6 +74,23 @@ class CategoryView extends Component {
               defaultMessage: 'No Albums in this category'
             })}
           </Header>
+        ) : null}
+
+        {permissions[userPermissions.canEditCategory] ? (
+          <div className="edit-segment-wrapper">
+            <Segment textAlign="right">
+              <Button
+                onClick={this.handleClickEdit}
+                labelPosition="left"
+                positive
+                icon="edit"
+                content={formatMessage({
+                  id: 'common.edit',
+                  defaultMessage: 'edit'
+                })}
+              />
+            </Segment>
+          </div>
         ) : null}
 
         {this.hasAlbums(category) ? (
@@ -92,6 +118,11 @@ CategoryView.wrappedComponent.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  user: PropTypes.shape({
+    permissions: PropTypes.shape({
+      [userPermissions.canEditCategory]: PropTypes.bool
     })
   }).isRequired,
   navigate: PropTypes.func.isRequired,
