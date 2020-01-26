@@ -6,6 +6,8 @@ import { Segment } from 'semantic-ui-react';
 import UploadFiles from '../../components/UploadFiles';
 import api from '../../api/albums';
 
+import './CategoryEditView.scss';
+
 // todo: UPLOAD_ACCEPTED_IMAGE_TYPES instead of UPLOAD_ACCEPTED_FILE_TYPES;
 const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
 
@@ -28,7 +30,7 @@ class CategoryEditView extends Component {
 
   componentDidMount() {}
 
-  // todo: it will be handle submit popup
+  // todo [after release]: should be confirmed?
   handleUploadSubmit = fileList => {
     if (!this.categoryId) {
       console.log('no category id');
@@ -51,10 +53,10 @@ class CategoryEditView extends Component {
     // album.addImages(uploadedImages);
   };
 
+  // todo [after release]: add album with confirm
   render() {
     return (
       <Segment className="category-edit-view no-borders fetching-min-height">
-        TODO: create new page - edit category with popup add album
         <UploadFiles
           onUploadSubmit={this.handleUploadSubmit}
           acceptedFileTypes={acceptedFileTypes}

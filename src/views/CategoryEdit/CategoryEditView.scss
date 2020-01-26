@@ -1,0 +1,7 @@
+@import '../../style/mixins/page-padding.scss';
+
+.category-edit-view {
+  &.ui {
+    @include page-padding(0);
+  }
+}
