@@ -73,7 +73,7 @@ function getClientEnvironment(publicUrl) {
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: process.env.NODE_ENV || 'development',
         BASE_URL: process.env.BASE_URL,
-        UPLOAD_ACCEPTED_FILE_TYPES: process.env.UPLOAD_ACCEPTED_FILE_TYPES,
+        UPLOAD_ACCEPTED_IMAGE_TYPES: process.env.UPLOAD_ACCEPTED_IMAGE_TYPES,
         MAX_UPLOAD_IMAGES: process.env.MAX_UPLOAD_IMAGES,
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.

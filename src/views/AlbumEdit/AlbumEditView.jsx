@@ -12,8 +12,7 @@ import userPermissions from '../../constants/userPermissions';
 import albumHelper from '../helpers/albumHelper';
 
 const LazyModalImage = lazy(() => import('./components/ModalImage'));
-// todo: UPLOAD_ACCEPTED_IMAGE_TYPES instead of UPLOAD_ACCEPTED_FILE_TYPES;
-const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
+const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 const maxUploadFiles = +process.env.MAX_UPLOAD_IMAGES || 50;
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
