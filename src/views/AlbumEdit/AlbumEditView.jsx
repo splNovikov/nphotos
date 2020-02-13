@@ -1,11 +1,12 @@
 import React, { Component, lazy } from 'react';
 import PropTypes from 'prop-types';
-import { Segment } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 import { inject, observer } from 'mobx-react';
+import { injectIntl } from 'react-intl';
 
 import './AlbumEditView.scss';
 
-import UploadFiles from '../../components/UploadFiles';
+import ChooseFiles from '../../components/ChooseFiles';
 import Grid from '../../components/Grid';
 import userPermissions from '../../constants/userPermissions';
 import albumHelper from '../helpers/albumHelper';
@@ -37,7 +38,8 @@ class AlbumEditView extends Component {
     } = this.props;
 
     this.state = {
-      modalOpened: false
+      modalOpened: false,
+      selectedImages: []
     };
 
     this.albumId = id;
@@ -49,14 +51,29 @@ class AlbumEditView extends Component {
     fetchAlbum(this.albumId);
   }
 
-  handleUploadSubmit = async images => {
+  handleSelectImages = images => {
+    this.setState({ selectedImages: images });
+  };
+
+  // todo: if upload has been failed - no error handling here
+  handleUploadImages = async () => {
+    const { selectedImages } = this.state;
+
+    if (!selectedImages || !selectedImages.length) {
+      return;
+    }
+
     const { uploadImages, getAlbum } = this.props;
+
     const album = getAlbum(this.albumId);
 
-    const uploadedImages = await uploadImages(images, this.albumId);
+    const uploadedImages = await uploadImages(selectedImages, this.albumId);
 
     album.addImages(uploadedImages);
   };
+
+  isUploadValid = (files, maxFiles) =>
+    files && files.length && files.length <= maxFiles;
 
   toggleModal = ({ id }) => {
     const { getAlbum } = this.props;
@@ -71,18 +88,18 @@ class AlbumEditView extends Component {
 
   render() {
     const {
+      intl: { formatMessage },
       isFetching,
       getAlbum,
       user: { permissions },
       isUploading
     } = this.props;
-    const { modalOpened, image } = this.state;
+    const { selectedImages, modalOpened, image } = this.state;
     const album = getAlbum(this.albumId);
 
     // todo [after release]: fix positive and negative button background styling
     // todo [after release]: cancel button with confirm
     // todo [after release]: fix performance - it renders multiple times
-    // todo: set max count of uploading files
     return (
       <>
         <Segment
@@ -90,12 +107,31 @@ class AlbumEditView extends Component {
           loading={isFetching}
         >
           {permissions[userPermissions.canEditAlbum] ? (
-            <Segment loading={isUploading}>
-              <UploadFiles
-                onUploadSubmit={this.handleUploadSubmit}
+            <Segment loading={isUploading} className="upload-images-wrapper">
+              <ChooseFiles
+                onSelect={this.handleSelectImages}
                 acceptedFileTypes={acceptedFileTypes}
                 maxUploadFiles={maxUploadFiles}
               />
+              <Button
+                type="submit"
+                className="upload-btn"
+                disabled={!this.isUploadValid(selectedImages, maxUploadFiles)}
+                onClick={this.handleUploadImages}
+              >
+                {selectedImages && selectedImages.length
+                  ? formatMessage(
+                      {
+                        id: 'uploadFiles.uploadNFiles',
+                        defaultMessage: 'upload'
+                      },
+                      { length: selectedImages.length }
+                    )
+                  : formatMessage({
+                      id: 'common.upload',
+                      defaultMessage: 'upload'
+                    })}
+              </Button>
             </Segment>
           ) : null}
 
@@ -120,6 +156,7 @@ class AlbumEditView extends Component {
 }
 
 AlbumEditView.wrappedComponent.propTypes = {
+  intl: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -137,4 +174,4 @@ AlbumEditView.wrappedComponent.propTypes = {
   isUploading: PropTypes.bool.isRequired
 };
 
-export default AlbumEditView;
+export default injectIntl(AlbumEditView);

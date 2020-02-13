@@ -5,50 +5,22 @@ import { Button, Form } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 @observer
-class UploadFiles extends Component {
+class ChooseFiles extends Component {
   filesInputRef = React.createRef();
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      files: []
-    };
-  }
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-
-    const { files } = this.state;
-    const { onUploadSubmit } = this.props;
-
-    if (!files || !files.length) {
-      return;
-    }
-
-    onUploadSubmit(files);
-    this.clearSelectedFiles();
-  };
 
   handleFilesChange = e => {
     const { files } = e.target;
+    const { onSelect } = this.props;
 
-    this.setState({ files });
+    onSelect(files);
   };
 
   handleClickChooseButton = () => {
     this.filesInputRef.current.click();
   };
 
-  clearSelectedFiles = () => this.setState({ files: [] });
-
-  isFormValid = (files, maxUploadFiles) =>
-    files && files.length && files.length <= maxUploadFiles;
-
   // todo [after release]: move Max upload files to intl
-  // todo: if upload has been failed - no error handling here
   render() {
-    const { files } = this.state;
     const {
       intl: { formatMessage },
       acceptedFileTypes,
@@ -74,24 +46,6 @@ class UploadFiles extends Component {
           accept={acceptedFileTypes}
           onChange={this.handleFilesChange}
         />
-        <Button
-          type="submit"
-          disabled={!this.isFormValid(files, maxUploadFiles)}
-          onClick={this.handleFormSubmit}
-        >
-          {files && files.length
-            ? formatMessage(
-                {
-                  id: 'uploadFiles.uploadNFiles',
-                  defaultMessage: 'upload'
-                },
-                { length: files.length }
-              )
-            : formatMessage({
-                id: 'common.upload',
-                defaultMessage: 'upload'
-              })}
-        </Button>
         <span>
           Max upload files:
           {maxUploadFiles}
@@ -101,11 +55,11 @@ class UploadFiles extends Component {
   }
 }
 
-UploadFiles.propTypes = {
+ChooseFiles.propTypes = {
   intl: PropTypes.shape().isRequired,
-  onUploadSubmit: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
   acceptedFileTypes: PropTypes.string.isRequired,
   maxUploadFiles: PropTypes.number.isRequired
 };
 
-export default injectIntl(UploadFiles);
+export default injectIntl(ChooseFiles);

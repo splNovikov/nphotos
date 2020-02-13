@@ -1,7 +1,14 @@
 @import '../../style/mixins/page-padding.scss';
+@import '../../style/variables.scss';
 
 .album-edit-view {
   &.ui {
     @include page-padding(0);
+  }
+
+  .upload-images-wrapper {
+    .upload-btn {
+      margin-top: $padding-normal;
+    }
   }
 }
