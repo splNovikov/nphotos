@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Segment } from 'semantic-ui-react';
+import { Button, Form, Input, Segment } from 'semantic-ui-react';
+import { injectIntl } from 'react-intl';
 
-import UploadFiles from '../../components/UploadFiles';
-import api from '../../api/albums';
+import ChooseFiles from '../../components/ChooseFiles';
 
 import './CategoryEditView.scss';
 
-// todo: UPLOAD_ACCEPTED_IMAGE_TYPES instead of UPLOAD_ACCEPTED_FILE_TYPES;
-const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_FILE_TYPES;
+const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 
-@inject(() => ({}))
+@inject(({ categoriesStore }) => ({
+  fetchCategory: categoriesStore.fetchCategory,
+  isFetching: categoriesStore.isFetching,
+  getCategory: categoriesStore.category
+}))
 @observer
 class CategoryEditView extends Component {
   categoryId;
@@ -26,53 +29,124 @@ class CategoryEditView extends Component {
     } = this.props;
 
     this.categoryId = id;
+
+    this.state = {
+      cover: null,
+      titleRus: '',
+      titleEng: ''
+    };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    // todo: functionality - add new category
+    // todo: functionality - add new Album
+    const { fetchCategory, getCategory } = this.props;
+
+    fetchCategory(this.categoryId).then(() => {
+      const category = getCategory(this.categoryId);
+
+      this.setState({
+        titleRus: category.titleRus,
+        titleEng: category.titleEng,
+        cover: category.cover
+      });
+    });
+  }
+
+  handleImageSelected = ([image]) => this.setState({ cover: image });
 
   // todo [after release]: should be confirmed?
-  handleUploadSubmit = fileList => {
-    if (!this.categoryId) {
-      console.log('no category id');
-      return;
-    }
-
+  handleFormSubmit = () => {
+    // if (!this.categoryId) {
+    //   return;
+    // }
+    // const { cover, titleRus, titleEng } = this.state;
     // todo: right handling
-    api.addAlbum({
-      cover: fileList[0],
-      categoryId: this.categoryId,
-      titleEng: 'asda',
-      titleRus: 'фываыв'
-    });
-    // const { addCategory, getAlbum } = this.props;
-    // 1. vali
-    // const album = getAlbum(this.albumId);
-
-    // const uploadedImages = uploadImages(images, this.albumId);
-
-    // album.addImages(uploadedImages);
+    // api.addAlbum({
+    //   cover: fileList[0],
+    //   categoryId: this.categoryId,
+    //   titleEng,
+    //   titleRus
+    // });
   };
 
+  handleInputChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  isSaveValid = (cover, titleRus, titleEng) => !(cover && titleRus && titleEng);
+
   // todo [after release]: add album with confirm
+  // todo [after release]: Image selected to intl
+  // todo [rerender optimization]: add album with confirm
   render() {
+    const { cover, titleRus, titleEng } = this.state;
+    const {
+      intl: { formatMessage },
+      isFetching
+    } = this.props;
+
     return (
-      <Segment className="category-edit-view no-borders fetching-min-height">
-        <UploadFiles
-          onUploadSubmit={this.handleUploadSubmit}
-          acceptedFileTypes={acceptedFileTypes}
-          maxUploadFiles={1}
-        />
+      <Segment
+        className="category-edit-view no-borders fetching-min-height"
+        loading={isFetching}
+      >
+        <Segment>
+          <ChooseFiles
+            onSelect={this.handleImageSelected}
+            acceptedFileTypes={acceptedFileTypes}
+            maxUploadFiles={1}
+          />
+          {cover ? (
+            <span className="image-selected-label">Image Selected</span>
+          ) : (
+            <span className="image-not-selected-label">
+              Image Was Not Selected
+            </span>
+          )}
+
+          <Form onSubmit={this.handleFormSubmit} className="form-wrapper">
+            <Form.Field
+              width={4}
+              control={Input}
+              label="Title Rus"
+              name="titleRus"
+              placeholder="Title Rus"
+              value={titleRus}
+              onChange={this.handleInputChange}
+            />
+            <Form.Field
+              width={4}
+              control={Input}
+              label="Title Eng"
+              name="titleEng"
+              placeholder="Title Eng"
+              value={titleEng}
+              onChange={this.handleInputChange}
+            />
+            <Form.Field
+              disabled={this.isSaveValid(cover, titleRus, titleEng)}
+              control={Button}
+              content={formatMessage({
+                id: 'common.save',
+                defaultMessage: 'common.save'
+              })}
+            />
+          </Form>
+        </Segment>
       </Segment>
     );
   }
 }
 
 CategoryEditView.wrappedComponent.propTypes = {
+  intl: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     })
-  }).isRequired
+  }).isRequired,
+  fetchCategory: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  getCategory: PropTypes.func.isRequired
 };
 
-export default CategoryEditView;
+export default injectIntl(CategoryEditView);

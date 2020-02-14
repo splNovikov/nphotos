@@ -7,6 +7,10 @@ class CategoryModel {
 
   title;
 
+  titleRus;
+
+  titleEng;
+
   cover;
 
   albums;
@@ -15,6 +19,8 @@ class CategoryModel {
     this.store = store;
     this.id = category.id;
     this.title = category.title;
+    this.titleRus = category.title_rus;
+    this.titleEng = category.title_eng;
     this.cover = category.cover;
     if (category.albums) {
       this.albums = category.albums.map(album => new AlbumModel(this, album));

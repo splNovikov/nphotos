@@ -9,7 +9,13 @@ $_color_shark: #222426;
 $_color-pine-glade: #accf83;
 // yellow
 $_color-tango: #f37721;
+// red
+$_color-alizarin-crimson: #e23240;
 
 /* SEMANTIC-UI MENU */
 $semantic-ui-menu-border: rgba($_color_shark, 0.15);
 $semantic-ui-active-item-border: $instagram-gradient;
+
+/* COLORS FOR COMMON USAGE */
+$positive_color: $_color-pine-glade;
+$negative_color: $_color-alizarin-crimson;
