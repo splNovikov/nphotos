@@ -54,6 +54,10 @@ class CategoryEditView extends Component {
     fetchCategory(this.categoryId).then(() => {
       const category = getCategory(this.categoryId);
 
+      if (!category) {
+        return;
+      }
+
       this.setState({
         titleRus: category.titleRus,
         titleEng: category.titleEng,
