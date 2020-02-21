@@ -23,6 +23,8 @@ export class CategoriesStore {
 
   fetchCategory = id => this.flowFetchCategory(id);
 
+  updateCategory = (id, category) => this.flowUpdateCategory(id, category);
+
   flowFetchCategories = flow(function* fetchCategories() {
     this.isFetching = true;
     try {
@@ -58,6 +60,26 @@ export class CategoriesStore {
     } finally {
       this.isFetching = false;
     }
+  });
+
+  flowUpdateCategory = flow(function* updateCategory(categoryId, category) {
+    let updatedCategory;
+
+    this.isFetching = true;
+
+    try {
+      updatedCategory = yield categoriesApi.updateCategory(
+        categoryId,
+        category
+      );
+    } catch (error) {
+      this.errors.push(error);
+      httpErrorHandler(error);
+    } finally {
+      this.isUploading = false;
+    }
+
+    return updatedCategory && updatedCategory.data;
   });
 }
 

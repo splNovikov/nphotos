@@ -11,4 +11,7 @@ const getCategories = () =>
 const getCategory = id =>
   axios.get(`${apiRoutes.categories}/${id}`, { params: { lang: language } });
 
-export default { getCategories, getCategory };
+const updateCategory = (id, category) =>
+  axios.post(apiRoutes.categories, { ...category }, { params: { id } });
+
+export default { getCategories, getCategory, updateCategory };

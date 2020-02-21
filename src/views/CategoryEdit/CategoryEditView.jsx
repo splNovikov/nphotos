@@ -13,7 +13,8 @@ const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 @inject(({ categoriesStore }) => ({
   fetchCategory: categoriesStore.fetchCategory,
   isFetching: categoriesStore.isFetching,
-  getCategory: categoriesStore.category
+  getCategory: categoriesStore.category,
+  updateCategory: categoriesStore.updateCategory
 }))
 @observer
 class CategoryEditView extends Component {
@@ -40,6 +41,14 @@ class CategoryEditView extends Component {
   componentDidMount() {
     // todo: functionality - add new category
     // todo: functionality - add new Album
+    // this works, but we should put it in right place:
+    // api.addAlbum({
+    //   cover: fileList[0],
+    //   categoryId: this.categoryId,
+    //   titleEng,
+    //   titleRus
+    // });
+
     const { fetchCategory, getCategory } = this.props;
 
     fetchCategory(this.categoryId).then(() => {
@@ -57,18 +66,23 @@ class CategoryEditView extends Component {
 
   // todo [after release]: should be confirmed?
   handleFormSubmit = () => {
-    // if (!this.categoryId) {
-    //   return;
-    // }
-    // const { cover, titleRus, titleEng } = this.state;
-    // todo: right handling
-    // api.addAlbum({
-    //   cover: fileList[0],
-    //   categoryId: this.categoryId,
-    //   titleEng,
-    //   titleRus
-    // });
+    if (!this.categoryId) {
+      return this.createCategory();
+    }
+
+    const { cover, titleRus, titleEng } = this.state;
+    return this.updateCategory(this.categoryId, { cover, titleRus, titleEng });
   };
+
+  updateCategory = (categoryId, category) => {
+    const { updateCategory } = this.props;
+
+    // todo: здесь останвился - нужен бекенд
+    return updateCategory(categoryId, category);
+  };
+
+  // todo: implement creation
+  createCategory = () => {};
 
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value });
 
@@ -146,7 +160,8 @@ CategoryEditView.wrappedComponent.propTypes = {
   }).isRequired,
   fetchCategory: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  getCategory: PropTypes.func.isRequired
+  getCategory: PropTypes.func.isRequired,
+  updateCategory: PropTypes.func.isRequired
 };
 
 export default injectIntl(CategoryEditView);
