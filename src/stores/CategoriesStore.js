@@ -50,10 +50,7 @@ export class CategoriesStore {
     try {
       const { data: category } = yield categoriesApi.getCategory(id);
 
-      this.categoriesRegistry = {
-        ...this.categoriesRegistry,
-        [category.id]: new CategoryModel(this, category)
-      };
+      this.updateCategoriesRegistry(category);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -63,24 +60,29 @@ export class CategoriesStore {
   });
 
   flowUpdateCategory = flow(function* updateCategory(categoryId, category) {
-    let updatedCategory;
-
     this.isFetching = true;
 
     try {
-      updatedCategory = yield categoriesApi.updateCategory(
+      const { data: updatedCategory } = yield categoriesApi.updateCategory(
         categoryId,
         category
       );
+
+      this.updateCategoriesRegistry(updatedCategory);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isUploading = false;
+      this.isFetching = false;
     }
-
-    return updatedCategory && updatedCategory.data;
   });
+
+  updateCategoriesRegistry = category => {
+    this.categoriesRegistry = {
+      ...this.categoriesRegistry,
+      [category.id]: new CategoryModel(this, category)
+    };
+  };
 }
 
 export default new CategoriesStore();

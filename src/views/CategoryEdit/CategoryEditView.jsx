@@ -81,7 +81,6 @@ class CategoryEditView extends Component {
   updateCategory = (categoryId, category) => {
     const { updateCategory } = this.props;
 
-    // todo: здесь останвился - нужен бекенд
     return updateCategory(categoryId, category);
   };
 
