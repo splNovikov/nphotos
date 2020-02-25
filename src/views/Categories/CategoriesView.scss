@@ -1,0 +1,7 @@
+@import '../../style/mixins/page-padding.scss';
+
+.categories-view {
+  .edit-segment-wrapper {
+    @include page-padding(0);
+  }
+}
