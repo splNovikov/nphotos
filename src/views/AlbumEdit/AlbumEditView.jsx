@@ -54,7 +54,7 @@ class AlbumEditView extends Component {
     this.setState({ selectedImages: images });
   };
 
-  // todo: if upload has been failed - no error handling here
+  // todo [after release]: if upload has been failed - no error handling here
   handleUploadImages = async () => {
     const { selectedImages } = this.state;
 
@@ -68,7 +68,9 @@ class AlbumEditView extends Component {
 
     const uploadedImages = await uploadImages(selectedImages, this.albumId);
 
-    album.addImages(uploadedImages);
+    if (uploadedImages && uploadedImages.length) {
+      album.addImages(uploadedImages);
+    }
   };
 
   isUploadValid = (files, maxFiles) =>
