@@ -6,14 +6,22 @@ import { injectIntl } from 'react-intl';
 
 import Categories from '../../components/Categories';
 import userPermissions from '../../constants/userPermissions';
+import appRoutes from '../../constants/appRoutes';
 
 import './CategoriesView.scss';
 
-@inject(({ userStore }) => ({
+@inject(({ userStore, routingStore }) => ({
+  navigate: routingStore.push,
   user: userStore.user
 }))
 @observer
 class CategoriesView extends Component {
+  handleClickEdit = () => {
+    const { navigate } = this.props;
+
+    navigate(`${appRoutes.categoryEdit}/add`);
+  };
+
   render() {
     const {
       intl: { formatMessage },
@@ -50,7 +58,8 @@ CategoriesView.wrappedComponent.propTypes = {
     permissions: PropTypes.shape({
       [userPermissions.canEditCategory]: PropTypes.bool
     })
-  }).isRequired
+  }).isRequired,
+  navigate: PropTypes.func.isRequired
 };
 
 export default injectIntl(CategoriesView);

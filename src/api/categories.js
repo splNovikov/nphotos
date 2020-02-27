@@ -5,6 +5,16 @@ import getLanguage from '../utils/localization';
 
 const { language } = getLanguage();
 
+const generateFormData = category => {
+  const formData = new FormData();
+
+  formData.append('cover', category.cover);
+  formData.append('titleRus', category.titleRus);
+  formData.append('titleEng', category.titleEng);
+
+  return formData;
+};
+
 const getCategories = () =>
   axios.get(`${apiRoutes.categories}`, { params: { lang: language } });
 
@@ -16,12 +26,15 @@ const updateCategory = (id, category) => {
     return axios.put(`${apiRoutes.categories}/${id}`, category);
   }
 
-  const formData = new FormData();
-  formData.append('cover', category.cover);
-  formData.append('titleRus', category.titleRus);
-  formData.append('titleEng', category.titleEng);
+  const formData = generateFormData(category);
 
   return axios.put(`${apiRoutes.categories}/${id}`, formData);
 };
 
-export default { getCategories, getCategory, updateCategory };
+const createCategory = category => {
+  const formData = generateFormData(category);
+
+  return axios.post(apiRoutes.categories, formData);
+};
+
+export default { getCategories, getCategory, updateCategory, createCategory };

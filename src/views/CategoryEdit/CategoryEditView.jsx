@@ -14,7 +14,8 @@ const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
   fetchCategory: categoriesStore.fetchCategory,
   isFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category,
-  updateCategory: categoriesStore.updateCategory
+  updateCategory: categoriesStore.updateCategory,
+  createCategory: categoriesStore.createCategory
 }))
 @observer
 class CategoryEditView extends Component {
@@ -29,7 +30,7 @@ class CategoryEditView extends Component {
       }
     } = this.props;
 
-    this.categoryId = id;
+    this.categoryId = id === 'add' ? null : id;
 
     this.state = {
       cover: null,
@@ -48,6 +49,10 @@ class CategoryEditView extends Component {
     //   titleEng,
     //   titleRus
     // });
+
+    if (!this.categoryId) {
+      return;
+    }
 
     const { fetchCategory, getCategory } = this.props;
 
@@ -70,11 +75,12 @@ class CategoryEditView extends Component {
 
   // todo [after release]: should be confirmed?
   handleFormSubmit = () => {
+    const { cover, titleRus, titleEng } = this.state;
+
     if (!this.categoryId) {
-      return this.createCategory();
+      return this.createCategory({ cover, titleRus, titleEng });
     }
 
-    const { cover, titleRus, titleEng } = this.state;
     return this.updateCategory(this.categoryId, { cover, titleRus, titleEng });
   };
 
@@ -84,8 +90,12 @@ class CategoryEditView extends Component {
     return updateCategory(categoryId, category);
   };
 
-  // todo: implement creation
-  createCategory = () => {};
+  createCategory = category => {
+    const { createCategory } = this.props;
+
+    return createCategory(category);
+    // todo - on success redirect to edit/categoryId
+  };
 
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value });
 
@@ -164,7 +174,8 @@ CategoryEditView.wrappedComponent.propTypes = {
   fetchCategory: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   getCategory: PropTypes.func.isRequired,
-  updateCategory: PropTypes.func.isRequired
+  updateCategory: PropTypes.func.isRequired,
+  createCategory: PropTypes.func.isRequired
 };
 
 export default injectIntl(CategoryEditView);

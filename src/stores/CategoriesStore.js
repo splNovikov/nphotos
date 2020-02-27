@@ -25,6 +25,8 @@ export class CategoriesStore {
 
   updateCategory = (id, category) => this.flowUpdateCategory(id, category);
 
+  createCategory = category => this.flowCreateCategory(category);
+
   flowFetchCategories = flow(function* fetchCategories() {
     this.isFetching = true;
     try {
@@ -69,6 +71,23 @@ export class CategoriesStore {
       );
 
       this.updateCategoriesRegistry(updatedCategory);
+    } catch (error) {
+      this.errors.push(error);
+      httpErrorHandler(error);
+    } finally {
+      this.isFetching = false;
+    }
+  });
+
+  flowCreateCategory = flow(function* createCategory(category) {
+    this.isFetching = true;
+
+    try {
+      const { data: createdCategory } = yield categoriesApi.createCategory(
+        category
+      );
+
+      this.updateCategoriesRegistry(createdCategory);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
