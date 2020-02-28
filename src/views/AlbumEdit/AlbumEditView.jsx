@@ -50,6 +50,14 @@ class AlbumEditView extends Component {
     fetchAlbum(this.albumId);
   }
 
+  // this works, but we should put it in right place:
+  // api.addAlbum({
+  //   cover: fileList[0],
+  //   categoryId: this.categoryId,
+  //   titleEng,
+  //   titleRus
+  // });
+
   handleSelectImages = images => {
     this.setState({ selectedImages: images });
   };

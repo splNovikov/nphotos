@@ -7,10 +7,12 @@ import { injectIntl } from 'react-intl';
 import ChooseFiles from '../../components/ChooseFiles';
 
 import './CategoryEditView.scss';
+import appRoutes from '../../constants/appRoutes';
 
 const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 
-@inject(({ categoriesStore }) => ({
+@inject(({ categoriesStore, routingStore }) => ({
+  navigate: routingStore.push,
   fetchCategory: categoriesStore.fetchCategory,
   isFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category,
@@ -40,7 +42,6 @@ class CategoryEditView extends Component {
   }
 
   componentDidMount() {
-    // todo: functionality - add new category
     // todo: functionality - add new Album
     // this works, but we should put it in right place:
     // api.addAlbum({
@@ -93,8 +94,11 @@ class CategoryEditView extends Component {
   createCategory = category => {
     const { createCategory } = this.props;
 
-    return createCategory(category);
-    // todo - on success redirect to edit/categoryId
+    return createCategory(category).then(() => {
+      const { navigate } = this.props;
+
+      navigate(appRoutes.categories);
+    });
   };
 
   handleInputChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -171,6 +175,7 @@ CategoryEditView.wrappedComponent.propTypes = {
       id: PropTypes.string.isRequired
     })
   }).isRequired,
+  navigate: PropTypes.func.isRequired,
   fetchCategory: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   getCategory: PropTypes.func.isRequired,
