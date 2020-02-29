@@ -1,26 +1,7 @@
 @import '../../style/mixins/page-padding.scss';
-@import '../../style/colors.scss';
-@import '../../style/variables.scss';
 
 .category-edit-view {
   &.ui {
     @include page-padding(0);
-  }
-
-  .image-selected-label,
-  .image-not-selected-label {
-    font-style: italic;
-  }
-
-  .image-selected-label {
-    color: $positive_color;
-  }
-
-  .image-not-selected-label {
-    color: $negative_color;
-  }
-
-  .form-wrapper {
-    margin-top: $padding-normal;
   }
 }

@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Button, Form, Input, Segment } from 'semantic-ui-react';
-import { injectIntl } from 'react-intl';
+import { Segment } from 'semantic-ui-react';
 
-import ChooseFiles from '../../components/ChooseFiles';
+import appRoutes from '../../constants/appRoutes';
+import ImageEdit from '../../components/ImageEdit';
 
 import './CategoryEditView.scss';
-import appRoutes from '../../constants/appRoutes';
-
-const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 
 @inject(({ categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -35,22 +32,21 @@ class CategoryEditView extends Component {
     this.categoryId = id === 'add' ? null : id;
 
     this.state = {
-      cover: null,
-      titleRus: '',
-      titleEng: ''
+      category: { cover: null, titleRus: '', titleEng: '' }
     };
   }
 
-  componentDidMount() {
-    // todo: functionality - add new Album
-    // this works, but we should put it in right place:
-    // api.addAlbum({
-    //   cover: fileList[0],
-    //   categoryId: this.categoryId,
-    //   titleEng,
-    //   titleRus
-    // });
+  // todo [after release]: add album with confirm
+  // todo: functionality - add new Album
+  // this works, but we should put it in right place:
+  // api.addAlbum({
+  //   cover: fileList[0],
+  //   categoryId: this.categoryId,
+  //   titleEng,
+  //   titleRus
+  // });
 
+  componentDidMount() {
     if (!this.categoryId) {
       return;
     }
@@ -64,112 +60,53 @@ class CategoryEditView extends Component {
         return;
       }
 
-      this.setState({
-        titleRus: category.titleRus,
-        titleEng: category.titleEng,
-        cover: category.cover
-      });
+      this.updateCategoryState(category);
     });
   }
 
-  handleImageSelected = ([image]) => this.setState({ cover: image });
-
-  // todo [after release]: should be confirmed?
-  handleFormSubmit = () => {
-    const { cover, titleRus, titleEng } = this.state;
-
-    if (!this.categoryId) {
-      return this.createCategory({ cover, titleRus, titleEng });
-    }
-
-    return this.updateCategory(this.categoryId, { cover, titleRus, titleEng });
-  };
-
-  updateCategory = (categoryId, category) => {
-    const { updateCategory } = this.props;
-
-    return updateCategory(categoryId, category);
-  };
+  updateCategoryState = category =>
+    this.setState(state => ({
+      category: {
+        ...state.category,
+        ...category
+      }
+    }));
 
   createCategory = category => {
-    const { createCategory } = this.props;
+    const { createCategory, navigate } = this.props;
 
-    return createCategory(category).then(() => {
-      const { navigate } = this.props;
-
-      navigate(appRoutes.categories);
-    });
+    return createCategory(category).then(() => navigate(appRoutes.categories));
   };
 
-  handleInputChange = (e, { name, value }) => this.setState({ [name]: value });
+  // todo [after release]: when new image selected - the old one should be deleted from s3
+  updateCategory = category => {
+    const { updateCategory } = this.props;
 
-  isSaveValid = (cover, titleRus, titleEng) => !(cover && titleRus && titleEng);
+    return updateCategory(this.categoryId, category);
+  };
 
-  // todo [after release]: add album with confirm
-  // todo [after release]: Image selected to intl
-  // todo [rerender optimization]: add album with confirm
   render() {
-    const { cover, titleRus, titleEng } = this.state;
-    const {
-      intl: { formatMessage },
-      isFetching
-    } = this.props;
+    const { isFetching } = this.props;
+    const { category } = this.state;
 
     return (
-      <Segment
-        className="category-edit-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
-        <Segment>
-          <ChooseFiles
-            onSelect={this.handleImageSelected}
-            acceptedFileTypes={acceptedFileTypes}
-            maxUploadFiles={1}
-          />
-          {cover ? (
-            <span className="image-selected-label">Image Selected</span>
-          ) : (
-            <span className="image-not-selected-label">
-              Image Was Not Selected
-            </span>
-          )}
-
-          <Form onSubmit={this.handleFormSubmit} className="form-wrapper">
-            <Form.Field
-              width={4}
-              control={Input}
-              label="Title Rus"
-              name="titleRus"
-              placeholder="Title Rus"
-              value={titleRus}
-              onChange={this.handleInputChange}
-            />
-            <Form.Field
-              width={4}
-              control={Input}
-              label="Title Eng"
-              name="titleEng"
-              placeholder="Title Eng"
-              value={titleEng}
-              onChange={this.handleInputChange}
-            />
-            <Form.Field
-              disabled={this.isSaveValid(cover, titleRus, titleEng)}
-              control={Button}
-              content={formatMessage({
-                id: 'common.save',
-                defaultMessage: 'common.save'
-              })}
-            />
-          </Form>
-        </Segment>
+      <Segment className="category-edit-view no-borders fetching-min-height">
+        <ImageEdit
+          isCreate={!this.categoryId}
+          titleRus={category.titleRus}
+          titleEng={category.titleEng}
+          cover={category.cover}
+          isFetching={isFetching}
+          create={this.createCategory}
+          update={this.updateCategory}
+          updateRelativeState={this.updateCategoryState}
+        />
       </Segment>
     );
   }
 }
 
 CategoryEditView.wrappedComponent.propTypes = {
-  intl: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -183,4 +120,4 @@ CategoryEditView.wrappedComponent.propTypes = {
   createCategory: PropTypes.func.isRequired
 };
 
-export default injectIntl(CategoryEditView);
+export default CategoryEditView;

@@ -1,0 +1,16 @@
+@import '../../style/colors.scss';
+
+.image-edit {
+  .cover-selected-label,
+  .cover-not-selected-label {
+    font-style: italic;
+  }
+
+  .cover-selected-label {
+    color: $positive_color;
+  }
+
+  .cover-not-selected-label {
+    color: $negative_color;
+  }
+}
