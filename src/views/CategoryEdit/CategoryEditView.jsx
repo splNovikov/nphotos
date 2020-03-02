@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Segment } from 'semantic-ui-react';
+import { Header, Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
 import ImageEdit from '../../components/ImageEdit';
 
 import './CategoryEditView.scss';
 
-@inject(({ categoriesStore, routingStore }) => ({
+@inject(({ albumsStore, categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
   fetchCategory: categoriesStore.fetchCategory,
-  isFetching: categoriesStore.isFetching,
+  isCategoryFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category,
   updateCategory: categoriesStore.updateCategory,
-  createCategory: categoriesStore.createCategory
+  createCategory: categoriesStore.createCategory,
+  isAlbumFetching: albumsStore.isFetching,
+  createAlbum: albumsStore.createAlbum
 }))
 @observer
 class CategoryEditView extends Component {
@@ -32,19 +34,10 @@ class CategoryEditView extends Component {
     this.categoryId = id === 'add' ? null : id;
 
     this.state = {
-      category: { cover: null, titleRus: '', titleEng: '' }
+      category: { cover: null, titleRus: '', titleEng: '' },
+      newAlbum: { cover: null, titleRus: '', titleEng: '' }
     };
   }
-
-  // todo [after release]: add album with confirm
-  // todo: functionality - add new Album
-  // this works, but we should put it in right place:
-  // api.addAlbum({
-  //   cover: fileList[0],
-  //   categoryId: this.categoryId,
-  //   titleEng,
-  //   titleRus
-  // });
 
   componentDidMount() {
     if (!this.categoryId) {
@@ -72,10 +65,27 @@ class CategoryEditView extends Component {
       }
     }));
 
+  updateAlbumState = album =>
+    this.setState(state => ({
+      newAlbum: {
+        ...state.newAlbum,
+        ...album
+      }
+    }));
+
   createCategory = category => {
     const { createCategory, navigate } = this.props;
 
     return createCategory(category).then(() => navigate(appRoutes.categories));
+  };
+
+  // todo [after release]: add album with confirm
+  createAlbum = album => {
+    const { createAlbum } = this.props;
+
+    return createAlbum({ ...album, categoryId: this.categoryId }).then(() => {
+      // todo: clear state
+    });
   };
 
   // todo [after release]: when new image selected - the old one should be deleted from s3
@@ -85,22 +95,50 @@ class CategoryEditView extends Component {
     return updateCategory(this.categoryId, category);
   };
 
+  // todo [after release]: when new image selected - the old one should be deleted from s3
+  updateAlbum = album => {
+    // const { updateAlbum } = this.props;
+    // return updateAlbum(ID, updateAlbum);
+  };
+
+  // todo: show albums for edit and check that after create and update - store is updating
   render() {
-    const { isFetching } = this.props;
-    const { category } = this.state;
+    const { isCategoryFetching, isAlbumFetching } = this.props;
+    const { category, newAlbum } = this.state;
 
     return (
       <Segment className="category-edit-view no-borders fetching-min-height">
-        <ImageEdit
-          isCreate={!this.categoryId}
-          titleRus={category.titleRus}
-          titleEng={category.titleEng}
-          cover={category.cover}
-          isFetching={isFetching}
-          create={this.createCategory}
-          update={this.updateCategory}
-          updateRelativeState={this.updateCategoryState}
-        />
+        <Segment>
+          <Header>
+            {this.categoryId ? 'Edit' : 'Add'}
+            Category
+          </Header>
+          <ImageEdit
+            isCreate={!this.categoryId}
+            titleRus={category.titleRus}
+            titleEng={category.titleEng}
+            cover={category.cover}
+            isFetching={isCategoryFetching}
+            create={this.createCategory}
+            update={this.updateCategory}
+            updateRelativeState={this.updateCategoryState}
+          />
+        </Segment>
+        {this.categoryId ? (
+          <Segment>
+            <Header>Add Album</Header>
+            <ImageEdit
+              isCreate
+              titleRus={newAlbum.titleRus}
+              titleEng={newAlbum.titleEng}
+              cover={newAlbum.cover}
+              isFetching={isAlbumFetching}
+              create={this.createAlbum}
+              update={this.updateAlbum}
+              updateRelativeState={this.updateAlbumState}
+            />
+          </Segment>
+        ) : null}
       </Segment>
     );
   }
@@ -114,10 +152,12 @@ CategoryEditView.wrappedComponent.propTypes = {
   }).isRequired,
   navigate: PropTypes.func.isRequired,
   fetchCategory: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  isCategoryFetching: PropTypes.bool.isRequired,
   getCategory: PropTypes.func.isRequired,
   updateCategory: PropTypes.func.isRequired,
-  createCategory: PropTypes.func.isRequired
+  createCategory: PropTypes.func.isRequired,
+  isAlbumFetching: PropTypes.bool.isRequired,
+  createAlbum: PropTypes.func.isRequired
 };
 
 export default CategoryEditView;

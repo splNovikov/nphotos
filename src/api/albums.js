@@ -11,10 +11,11 @@ const getAlbums = () =>
 const getAlbum = id =>
   axios.get(`${apiRoutes.albums}/${id}`, { params: { lang: language } });
 
-const addAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
+const createAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
   const formData = new FormData();
 
   formData.append('cover', cover);
+  // todo: JSON.stringify??? Look how ot works on categories
   formData.append(
     'album',
     JSON.stringify({
@@ -27,4 +28,4 @@ const addAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
   return axios.post(apiRoutes.albums, formData);
 };
 
-export default { getAlbums, getAlbum, addAlbum };
+export default { getAlbums, getAlbum, createAlbum };

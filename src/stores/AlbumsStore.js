@@ -23,6 +23,8 @@ export class AlbumsStore {
 
   fetchAlbum = id => this.flowFetchAlbum(id);
 
+  createAlbum = album => this.flowCreateAlbum(album);
+
   flowFetchAlbums = flow(function* fetchAlbums() {
     this.isFetching = true;
     try {
@@ -45,10 +47,7 @@ export class AlbumsStore {
     try {
       const { data: album } = yield albumsApi.getAlbum(id);
 
-      this.albumsRegistry = {
-        ...this.albumsRegistry,
-        [album.id]: new AlbumModel(this, album)
-      };
+      this.updateAlbumsRegistry(album);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -56,6 +55,28 @@ export class AlbumsStore {
       this.isFetching = false;
     }
   });
+
+  flowCreateAlbum = flow(function* createAlbum(album) {
+    this.isFetching = true;
+
+    try {
+      const { data: createdAlbum } = yield albumsApi.createAlbum(album);
+
+      this.updateAlbumsRegistry(createdAlbum);
+    } catch (error) {
+      this.errors.push(error);
+      httpErrorHandler(error);
+    } finally {
+      this.isFetching = false;
+    }
+  });
+
+  updateAlbumsRegistry = album => {
+    this.albumsRegistry = {
+      ...this.albumsRegistry,
+      [album.id]: new AlbumModel(this, album)
+    };
+  };
 }
 
 export default new AlbumsStore();

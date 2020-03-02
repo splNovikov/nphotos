@@ -1,6 +1,10 @@
 @import '../../style/colors.scss';
 
 .image-edit {
+  &.ui.segment {
+    padding: 0;
+  }
+
   .cover-selected-label,
   .cover-not-selected-label {
     font-style: italic;
