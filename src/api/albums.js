@@ -15,15 +15,9 @@ const createAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
   const formData = new FormData();
 
   formData.append('cover', cover);
-  // todo: JSON.stringify??? Look how ot works on categories
-  formData.append(
-    'album',
-    JSON.stringify({
-      categoryId,
-      titleRus,
-      titleEng
-    })
-  );
+  formData.append('categoryId', categoryId);
+  formData.append('titleRus', titleRus);
+  formData.append('titleEng', titleEng);
 
   return axios.post(apiRoutes.albums, formData);
 };
