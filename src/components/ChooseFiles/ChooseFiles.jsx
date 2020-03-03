@@ -46,10 +46,12 @@ class ChooseFiles extends Component {
           accept={acceptedFileTypes}
           onChange={this.handleFilesChange}
         />
-        <span>
-          Max upload files:
-          {maxUploadFiles}
-        </span>
+        {maxUploadFiles > 1 ? (
+          <span>
+            Max upload files:
+            {maxUploadFiles}
+          </span>
+        ) : null}
       </Form>
     );
   }

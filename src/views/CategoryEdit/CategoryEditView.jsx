@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Header, Segment } from 'semantic-ui-react';
+import { Card, Grid, Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
 import ImageEdit from '../../components/ImageEdit';
@@ -108,37 +108,47 @@ class CategoryEditView extends Component {
 
     return (
       <Segment className="category-edit-view no-borders fetching-min-height">
-        <Segment>
-          <Header>
-            {this.categoryId ? 'Edit' : 'Add'}
-            Category
-          </Header>
-          <ImageEdit
-            isCreate={!this.categoryId}
-            titleRus={category.titleRus}
-            titleEng={category.titleEng}
-            cover={category.cover}
-            isFetching={isCategoryFetching}
-            create={this.createCategory}
-            update={this.updateCategory}
-            updateRelativeState={this.updateCategoryState}
-          />
-        </Segment>
-        {this.categoryId ? (
-          <Segment>
-            <Header>Add Album</Header>
-            <ImageEdit
-              isCreate
-              titleRus={newAlbum.titleRus}
-              titleEng={newAlbum.titleEng}
-              cover={newAlbum.cover}
-              isFetching={isAlbumFetching}
-              create={this.createAlbum}
-              update={this.updateAlbum}
-              updateRelativeState={this.updateAlbumState}
-            />
-          </Segment>
-        ) : null}
+        <Grid container columns={4}>
+          <Grid.Column>
+            <Card>
+              <Card.Content>
+                <Card.Header>
+                  {this.categoryId ? 'Edit ' : 'Add '}
+                  Category
+                </Card.Header>
+                <ImageEdit
+                  isCreate={!this.categoryId}
+                  titleRus={category.titleRus}
+                  titleEng={category.titleEng}
+                  cover={category.cover}
+                  isFetching={isCategoryFetching}
+                  create={this.createCategory}
+                  update={this.updateCategory}
+                  updateRelativeState={this.updateCategoryState}
+                />
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          {this.categoryId ? (
+            <Grid.Column>
+              <Card>
+                <Card.Content>
+                  <Card.Header>Add Album</Card.Header>
+                  <ImageEdit
+                    isCreate
+                    titleRus={newAlbum.titleRus}
+                    titleEng={newAlbum.titleEng}
+                    cover={newAlbum.cover}
+                    isFetching={isAlbumFetching}
+                    create={this.createAlbum}
+                    update={this.updateAlbum}
+                    updateRelativeState={this.updateAlbumState}
+                  />
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+          ) : null}
+        </Grid>
       </Segment>
     );
   }
