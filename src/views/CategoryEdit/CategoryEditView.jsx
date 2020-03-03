@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 
-import appRoutes from '../../constants/appRoutes';
 import ImageEdit from '../../components/ImageEdit';
 
 import './CategoryEditView.scss';
 
-@inject(({ albumsStore, categoriesStore, routingStore }) => ({
-  navigate: routingStore.push,
+@inject(({ albumsStore, categoriesStore }) => ({
   fetchCategory: categoriesStore.fetchCategory,
   isCategoryFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category,
@@ -34,7 +32,7 @@ class CategoryEditView extends Component {
     this.categoryId = id === 'add' ? null : id;
 
     this.state = {
-      category: { cover: null, titleRus: '', titleEng: '' },
+      newCategory: { cover: null, titleRus: '', titleEng: '' },
       newAlbum: { cover: null, titleRus: '', titleEng: '' }
     };
   }
@@ -44,26 +42,32 @@ class CategoryEditView extends Component {
       return;
     }
 
-    const { fetchCategory, getCategory } = this.props;
-
-    fetchCategory(this.categoryId).then(() => {
-      const category = getCategory(this.categoryId);
-
-      if (!category) {
-        return;
-      }
-
-      this.updateCategoryState(category);
-    });
+    this.fetchCategory();
   }
 
-  updateCategoryState = category =>
-    this.setState(state => ({
-      category: {
-        ...state.category,
+  fetchCategory = () => {
+    const { fetchCategory } = this.props;
+
+    fetchCategory(this.categoryId);
+  };
+
+  updateCategoryState = category => {
+    // edit
+    if (this.categoryId) {
+      const { getCategory } = this.props;
+      const categoryInStore = getCategory(this.categoryId);
+
+      return categoryInStore.updateCategory(category);
+    }
+
+    // new
+    return this.setState(state => ({
+      newCategory: {
+        ...state.newCategory,
         ...category
       }
     }));
+  };
 
   updateAlbumState = album =>
     this.setState(state => ({
@@ -74,9 +78,13 @@ class CategoryEditView extends Component {
     }));
 
   createCategory = category => {
-    const { createCategory, navigate } = this.props;
+    const { createCategory } = this.props;
 
-    return createCategory(category).then(() => navigate(appRoutes.categories));
+    return createCategory(category).then(created => {
+      this.categoryId = created.id;
+
+      this.fetchCategory();
+    });
   };
 
   // todo [after release]: add album with confirm
@@ -84,7 +92,10 @@ class CategoryEditView extends Component {
     const { createAlbum } = this.props;
 
     return createAlbum({ ...album, categoryId: this.categoryId }).then(() => {
-      // todo: clear state
+      this.fetchCategory();
+
+      // reset state:
+      this.updateAlbumState({ cover: null, titleRus: '', titleEng: '' });
     });
   };
 
@@ -103,14 +114,19 @@ class CategoryEditView extends Component {
 
   // todo: show albums for edit and check that after create and update - store is updating
   render() {
-    const { isCategoryFetching, isAlbumFetching } = this.props;
-    const { category, newAlbum } = this.state;
+    const { isCategoryFetching, isAlbumFetching, getCategory } = this.props;
+    const { newAlbum, newCategory } = this.state;
+    const category = getCategory(this.categoryId) || newCategory;
 
     return (
       <Segment className="category-edit-view no-borders fetching-min-height">
-        <Grid container columns={4}>
-          <Grid.Column>
-            <Card>
+        <Grid
+          container
+          columns={4}
+          className="main-category-administration-panel"
+        >
+          <Grid.Column mobile={16} tablet={8} computer={8}>
+            <Card fluid>
               <Card.Content>
                 <Card.Header>
                   {this.categoryId ? 'Edit ' : 'Add '}
@@ -130,8 +146,8 @@ class CategoryEditView extends Component {
             </Card>
           </Grid.Column>
           {this.categoryId ? (
-            <Grid.Column>
-              <Card>
+            <Grid.Column mobile={16} tablet={8} computer={8}>
+              <Card fluid>
                 <Card.Content>
                   <Card.Header>Add Album</Card.Header>
                   <ImageEdit
@@ -151,11 +167,11 @@ class CategoryEditView extends Component {
         </Grid>
 
         {category && category.albums && category.albums.length ? (
-          <Segment>
+          <Segment loading={isCategoryFetching}>
             <Header as="h2">Edit Albums</Header>
             <Grid container columns={4}>
               {category.albums.map(a => (
-                <Grid.Column>
+                <Grid.Column key={a.id} mobile={16} tablet={8} computer={4}>
                   <Card>
                     <Card.Content>
                       <Card.Header>{a.title}</Card.Header>
@@ -187,7 +203,6 @@ CategoryEditView.wrappedComponent.propTypes = {
       id: PropTypes.string.isRequired
     })
   }).isRequired,
-  navigate: PropTypes.func.isRequired,
   fetchCategory: PropTypes.func.isRequired,
   isCategoryFetching: PropTypes.bool.isRequired,
   getCategory: PropTypes.func.isRequired,

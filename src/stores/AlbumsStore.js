@@ -63,9 +63,13 @@ export class AlbumsStore {
       const { data: createdAlbum } = yield albumsApi.createAlbum(album);
 
       this.updateAlbumsRegistry(createdAlbum);
+
+      return createdAlbum;
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
+
+      return error;
     } finally {
       this.isFetching = false;
     }

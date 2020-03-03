@@ -88,9 +88,13 @@ export class CategoriesStore {
       );
 
       this.updateCategoriesRegistry(createdCategory);
+
+      return createdCategory;
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
+
+      return error;
     } finally {
       this.isFetching = false;
     }

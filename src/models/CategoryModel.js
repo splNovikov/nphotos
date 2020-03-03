@@ -1,3 +1,5 @@
+import { action, observable } from 'mobx';
+
 import AlbumModel from './AlbumModel';
 
 class CategoryModel {
@@ -13,6 +15,7 @@ class CategoryModel {
 
   cover;
 
+  @observable
   albums;
 
   constructor(store, category) {
@@ -26,6 +29,13 @@ class CategoryModel {
       this.albums = category.albums.map(album => new AlbumModel(this, album));
     }
   }
+
+  @action
+  updateCategory = ({ cover, titleRus, titleEng }) => {
+    this.cover = cover;
+    this.titleRus = titleRus;
+    this.titleEng = titleEng;
+  };
 }
 
 export default CategoryModel;
