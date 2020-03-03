@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Card, Grid, Segment } from 'semantic-ui-react';
+import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
 import ImageEdit from '../../components/ImageEdit';
@@ -149,6 +149,33 @@ class CategoryEditView extends Component {
             </Grid.Column>
           ) : null}
         </Grid>
+
+        {category && category.albums && category.albums.length ? (
+          <Segment>
+            <Header as="h2">Edit Albums</Header>
+            <Grid container columns={4}>
+              {category.albums.map(a => (
+                <Grid.Column>
+                  <Card>
+                    <Card.Content>
+                      <Card.Header>{a.title}</Card.Header>
+                      <ImageEdit
+                        isCreate={false}
+                        titleRus={a.titleRus}
+                        titleEng={a.titleEng}
+                        cover={a.cover}
+                        isFetching={false}
+                        create={() => {}}
+                        update={() => {}}
+                        updateRelativeState={this.updateCategoryState}
+                      />
+                    </Card.Content>
+                  </Card>
+                </Grid.Column>
+              ))}
+            </Grid>
+          </Segment>
+        ) : null}
       </Segment>
     );
   }
