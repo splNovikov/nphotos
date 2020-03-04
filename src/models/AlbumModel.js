@@ -9,6 +9,10 @@ class AlbumModel {
 
   title;
 
+  titleRus;
+
+  titleEng;
+
   cover;
 
   @observable
@@ -18,6 +22,8 @@ class AlbumModel {
     this.store = store;
     this.id = album.id;
     this.title = album.title;
+    this.titleRus = album.titleRus;
+    this.titleEng = album.titleEng;
     this.cover = album.cover;
     if (album.images) {
       this.images = album.images.map(image => new ImageModel(this, image));
