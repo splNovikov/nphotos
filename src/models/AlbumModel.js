@@ -9,10 +9,13 @@ class AlbumModel {
 
   title;
 
+  @observable
   titleRus;
 
+  @observable
   titleEng;
 
+  @observable
   cover;
 
   @observable
@@ -39,6 +42,11 @@ class AlbumModel {
       ...this.images,
       ...images.map(image => new ImageModel(this, image))
     ];
+  };
+
+  @action
+  update = ({ prop, value }) => {
+    this[prop] = value;
   };
 }
 

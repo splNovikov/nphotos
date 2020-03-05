@@ -31,6 +31,7 @@ class CategoryEditView extends Component {
 
     this.categoryId = id === 'add' ? null : id;
 
+    // todo: new Models instead
     this.state = {
       newCategory: { cover: null, titleRus: '', titleEng: '' },
       newAlbum: { cover: null, titleRus: '', titleEng: '' }
@@ -69,13 +70,17 @@ class CategoryEditView extends Component {
     }));
   };
 
-  updateAlbumState = album =>
+  updateNewAlbumState = album =>
     this.setState(state => ({
       newAlbum: {
         ...state.newAlbum,
         ...album
       }
     }));
+
+  updateAlbumState = (model, { prop, value }) => {
+    model.update({ prop, value });
+  };
 
   createCategory = category => {
     const { createCategory } = this.props;
@@ -95,7 +100,7 @@ class CategoryEditView extends Component {
       this.fetchCategory();
 
       // reset state:
-      this.updateAlbumState({ cover: null, titleRus: '', titleEng: '' });
+      this.updateNewAlbumState({ cover: null, titleRus: '', titleEng: '' });
     });
   };
 
@@ -116,6 +121,7 @@ class CategoryEditView extends Component {
   render() {
     const { isCategoryFetching, isAlbumFetching, getCategory } = this.props;
     const { newAlbum, newCategory } = this.state;
+    // todo: newCategory should be new CategoryModel
     const category = getCategory(this.categoryId) || newCategory;
 
     return (
@@ -133,14 +139,12 @@ class CategoryEditView extends Component {
                   Category
                 </Card.Header>
                 <ImageEdit
+                  model={category}
                   isCreate={!this.categoryId}
-                  titleRus={category.titleRus}
-                  titleEng={category.titleEng}
-                  cover={category.cover}
                   isFetching={isCategoryFetching}
                   create={this.createCategory}
                   update={this.updateCategory}
-                  updateRelativeState={this.updateCategoryState}
+                  updateModelState={this.updateCategoryState}
                 />
               </Card.Content>
             </Card>
@@ -151,14 +155,12 @@ class CategoryEditView extends Component {
                 <Card.Content>
                   <Card.Header>Add Album</Card.Header>
                   <ImageEdit
+                    model={newAlbum}
                     isCreate
-                    titleRus={newAlbum.titleRus}
-                    titleEng={newAlbum.titleEng}
-                    cover={newAlbum.cover}
                     isFetching={isAlbumFetching}
                     create={this.createAlbum}
                     update={this.updateAlbum}
-                    updateRelativeState={this.updateAlbumState}
+                    updateModelState={this.updateNewAlbumState}
                   />
                 </Card.Content>
               </Card>
@@ -176,14 +178,12 @@ class CategoryEditView extends Component {
                     <Card.Content>
                       <Card.Header>{a.title}</Card.Header>
                       <ImageEdit
+                        model={a}
                         isCreate={false}
-                        titleRus={a.titleRus}
-                        titleEng={a.titleEng}
-                        cover={a.cover}
                         isFetching={false}
                         create={() => {}}
                         update={() => {}}
-                        updateRelativeState={this.updateCategoryState}
+                        updateModelState={this.updateAlbumState}
                       />
                     </Card.Content>
                   </Card>

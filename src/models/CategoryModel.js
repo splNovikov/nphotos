@@ -17,14 +17,17 @@ class CategoryModel {
 
   albumsIds;
 
-  @computed get albums() {
-    return this.albumsIds.reduce(
-      (acc, albumId) => [
-        ...acc,
-        albumsStore.albums.find(a => a.id === albumId)
-      ],
-      []
-    );
+  @computed
+  get albums() {
+    return this.albumsIds
+      ? this.albumsIds.reduce(
+          (acc, albumId) => [
+            ...acc,
+            albumsStore.albums.find(a => a.id === albumId)
+          ],
+          []
+        )
+      : [];
   }
 
   constructor(store, category) {

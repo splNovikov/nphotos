@@ -12,32 +12,34 @@ const acceptedFileTypes = process.env.UPLOAD_ACCEPTED_IMAGE_TYPES;
 @observer
 class ImageEdit extends Component {
   handleImageSelected = ([image]) => {
-    const { updateRelativeState } = this.props;
+    const { model, updateModelState } = this.props;
 
-    // should be - updateModelState
-    return updateRelativeState({ cover: image });
+    return updateModelState(model, { prop: 'cover', image });
   };
 
   handleInputChange = (e, { name, value }) => {
-    const { updateRelativeState } = this.props;
+    const { model, updateModelState } = this.props;
 
-    // should be - updateModelState
-    return updateRelativeState({ [name]: value });
+    return updateModelState(model, { prop: name, value });
   };
 
   // todo [after release]: should be confirmed?
   handleFormSubmit = () => {
-    const { cover, titleRus, titleEng, isCreate, update, create } = this.props;
+    const { model, isCreate, update, create } = this.props;
 
-    return isCreate
-      ? create({ cover, titleRus, titleEng })
-      : update({ cover, titleRus, titleEng });
+    // todo:
+    // return isCreate
+    //   ? create({ cover, titleRus, titleEng })
+    //   : update({ cover, titleRus, titleEng });
   };
 
   isSaveValid = (cover, titleRus, titleEng) => !(cover && titleRus && titleEng);
 
   render() {
-    const { cover, titleRus, titleEng, isFetching } = this.props;
+    const {
+      model: { cover, titleRus, titleEng },
+      isFetching
+    } = this.props;
 
     return (
       <Segment loading={isFetching} className="image-edit no-borders">
@@ -84,17 +86,19 @@ class ImageEdit extends Component {
 
 ImageEdit.propTypes = {
   isCreate: PropTypes.bool.isRequired,
-  cover: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  titleRus: PropTypes.string.isRequired,
-  titleEng: PropTypes.string.isRequired,
+  model: PropTypes.shape({
+    cover: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    titleRus: PropTypes.string.isRequired,
+    titleEng: PropTypes.string.isRequired
+  }),
   isFetching: PropTypes.bool.isRequired,
   create: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
-  updateRelativeState: PropTypes.func.isRequired
+  updateModelState: PropTypes.func.isRequired
 };
 
 ImageEdit.defaultProps = {
-  cover: null
+  model: { cover: null }
 };
 
 export default ImageEdit;
