@@ -1,8 +1,9 @@
-import { computed, observable, flow } from 'mobx';
+import { action, computed, observable, flow } from 'mobx';
 
 import categoriesApi from '../api/categories';
 import CategoryModel from '../models/CategoryModel';
 import httpErrorHandler from '../utils/httpErrorHandler';
+import albumsStore from './AlbumsStore';
 
 export class CategoriesStore {
   @observable isFetching = false;
@@ -19,6 +20,35 @@ export class CategoriesStore {
     return id => this.categoriesRegistry[id];
   }
 
+  @action
+  updateCategoriesRegistry = categories => {
+    const reducedCategories = categories.reduce(
+      (acc, category) => ({
+        ...acc,
+        [category.id]: new CategoryModel(this, category)
+      }),
+      {}
+    );
+
+    this.updateAlbumsRegistry(categories);
+
+    this.categoriesRegistry = {
+      ...this.categoriesRegistry,
+      ...reducedCategories
+    };
+  };
+
+  updateAlbumsRegistry = categories => {
+    const albums = categories.reduce(
+      (acc, category) => (category.albums ? [...acc, ...category.albums] : acc),
+      []
+    );
+
+    if (albums.length) {
+      albumsStore.updateAlbumsRegistry(albums);
+    }
+  };
+
   fetchCategories = () => this.flowFetchCategories();
 
   fetchCategory = id => this.flowFetchCategory(id);
@@ -32,13 +62,7 @@ export class CategoriesStore {
     try {
       const { data: categories } = yield categoriesApi.getCategories();
 
-      this.categoriesRegistry = categories.reduce(
-        (acc, category) => ({
-          ...acc,
-          [category.id]: new CategoryModel(this, category)
-        }),
-        {}
-      );
+      this.updateCategoriesRegistry(categories);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -52,7 +76,7 @@ export class CategoriesStore {
     try {
       const { data: category } = yield categoriesApi.getCategory(id);
 
-      this.updateCategoriesRegistry(category);
+      this.updateCategoriesRegistry([category]);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -70,7 +94,7 @@ export class CategoriesStore {
         category
       );
 
-      this.updateCategoriesRegistry(updatedCategory);
+      this.updateCategoriesRegistry([updatedCategory]);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -87,7 +111,7 @@ export class CategoriesStore {
         category
       );
 
-      this.updateCategoriesRegistry(createdCategory);
+      this.updateCategoriesRegistry([createdCategory]);
 
       return createdCategory;
     } catch (error) {
@@ -99,13 +123,6 @@ export class CategoriesStore {
       this.isFetching = false;
     }
   });
-
-  updateCategoriesRegistry = category => {
-    this.categoriesRegistry = {
-      ...this.categoriesRegistry,
-      [category.id]: new CategoryModel(this, category)
-    };
-  };
 }
 
 export default new CategoriesStore();

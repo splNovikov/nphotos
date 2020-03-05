@@ -1,4 +1,4 @@
-import { computed, observable, flow } from 'mobx';
+import { action, computed, observable, flow } from 'mobx';
 
 import albumsApi from '../api/albums';
 import AlbumModel from '../models/AlbumModel';
@@ -19,6 +19,22 @@ export class AlbumsStore {
     return id => this.albumsRegistry[id];
   }
 
+  @action
+  updateAlbumsRegistry = (albums = []) => {
+    const reducedAlbums = albums.reduce(
+      (acc, a) => ({
+        ...acc,
+        [a.id]: new AlbumModel(this, a)
+      }),
+      {}
+    );
+
+    this.albumsRegistry = {
+      ...this.albumsRegistry,
+      ...reducedAlbums
+    };
+  };
+
   fetchAlbums = () => this.flowFetchAlbums();
 
   fetchAlbum = id => this.flowFetchAlbum(id);
@@ -30,10 +46,7 @@ export class AlbumsStore {
     try {
       const { data: albums } = yield albumsApi.getAlbums();
 
-      this.albumsRegistry = albums.reduce(
-        (acc, album) => ({ ...acc, [album.id]: new AlbumModel(this, album) }),
-        {}
-      );
+      this.updateAlbumsRegistry(albums);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -47,7 +60,7 @@ export class AlbumsStore {
     try {
       const { data: album } = yield albumsApi.getAlbum(id);
 
-      this.updateAlbumsRegistry(album);
+      this.updateAlbumsRegistry([album]);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);
@@ -62,7 +75,7 @@ export class AlbumsStore {
     try {
       const { data: createdAlbum } = yield albumsApi.createAlbum(album);
 
-      this.updateAlbumsRegistry(createdAlbum);
+      this.updateAlbumsRegistry([createdAlbum]);
 
       return createdAlbum;
     } catch (error) {
@@ -74,13 +87,6 @@ export class AlbumsStore {
       this.isFetching = false;
     }
   });
-
-  updateAlbumsRegistry = album => {
-    this.albumsRegistry = {
-      ...this.albumsRegistry,
-      [album.id]: new AlbumModel(this, album)
-    };
-  };
 }
 
 export default new AlbumsStore();

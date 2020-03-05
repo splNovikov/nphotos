@@ -1,6 +1,6 @@
-import { action, observable } from 'mobx';
+import { action, computed } from 'mobx';
 
-import AlbumModel from './AlbumModel';
+import albumsStore from '../stores/AlbumsStore';
 
 class CategoryModel {
   store;
@@ -15,8 +15,17 @@ class CategoryModel {
 
   cover;
 
-  @observable
-  albums;
+  albumsIds;
+
+  @computed get albums() {
+    return this.albumsIds.reduce(
+      (acc, albumId) => [
+        ...acc,
+        albumsStore.albums.find(a => a.id === albumId)
+      ],
+      []
+    );
+  }
 
   constructor(store, category) {
     this.store = store;
@@ -26,7 +35,7 @@ class CategoryModel {
     this.titleEng = category.titleEng;
     this.cover = category.cover;
     if (category.albums) {
-      this.albums = category.albums.map(album => new AlbumModel(this, album));
+      this.albumsIds = category.albums.map(album => album.id);
     }
   }
 

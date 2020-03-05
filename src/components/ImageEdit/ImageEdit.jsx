@@ -14,12 +14,14 @@ class ImageEdit extends Component {
   handleImageSelected = ([image]) => {
     const { updateRelativeState } = this.props;
 
+    // should be - updateModelState
     return updateRelativeState({ cover: image });
   };
 
   handleInputChange = (e, { name, value }) => {
     const { updateRelativeState } = this.props;
 
+    // should be - updateModelState
     return updateRelativeState({ [name]: value });
   };
 
