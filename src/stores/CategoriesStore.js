@@ -85,13 +85,16 @@ export class CategoriesStore {
     }
   });
 
-  flowUpdateCategory = flow(function* updateCategory(category) {
+  flowUpdateCategory = flow(function* updateCategory(categoryModel) {
     this.isFetching = true;
 
     try {
-      const { data: updatedCategory } = yield categoriesApi.updateCategory(
-        category
-      );
+      const { data: updatedCategory } = yield categoriesApi.updateCategory({
+        id: categoryModel.id,
+        cover: categoryModel.cover,
+        titleRus: categoryModel.titleRus,
+        titleEng: categoryModel.titleEng
+      });
 
       this.updateCategoriesRegistry([updatedCategory]);
     } catch (error) {
@@ -102,13 +105,15 @@ export class CategoriesStore {
     }
   });
 
-  flowCreateCategory = flow(function* createCategory(category) {
+  flowCreateCategory = flow(function* createCategory(categoryModel) {
     this.isFetching = true;
 
     try {
-      const { data: createdCategory } = yield categoriesApi.createCategory(
-        category
-      );
+      const { data: createdCategory } = yield categoriesApi.createCategory({
+        cover: categoryModel.cover,
+        titleRus: categoryModel.titleRus,
+        titleEng: categoryModel.titleEng
+      });
 
       this.updateCategoriesRegistry([createdCategory]);
 

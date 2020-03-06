@@ -71,11 +71,16 @@ export class AlbumsStore {
     }
   });
 
-  flowUpdateAlbum = flow(function* updateAlbum(album) {
+  flowUpdateAlbum = flow(function* updateAlbum(albumModel) {
     this.isFetching = true;
 
     try {
-      const { data: updatedAlbum } = yield albumsApi.updateAlbum(album);
+      const { data: updatedAlbum } = yield albumsApi.updateAlbum({
+        id: albumModel.id,
+        cover: albumModel.cover,
+        titleRus: albumModel.titleRus,
+        titleEng: albumModel.titleEng
+      });
 
       this.updateAlbumsRegistry([updatedAlbum]);
     } catch (error) {
@@ -86,11 +91,16 @@ export class AlbumsStore {
     }
   });
 
-  flowCreateAlbum = flow(function* createAlbum(album) {
+  flowCreateAlbum = flow(function* createAlbum(albumModel) {
     this.isFetching = true;
 
     try {
-      const { data: createdAlbum } = yield albumsApi.createAlbum(album);
+      const { data: createdAlbum } = yield albumsApi.createAlbum({
+        categoryId: albumModel.categoryId,
+        cover: albumModel.cover,
+        titleRus: albumModel.titleRus,
+        titleEng: albumModel.titleEng
+      });
 
       this.updateAlbumsRegistry([createdAlbum]);
 

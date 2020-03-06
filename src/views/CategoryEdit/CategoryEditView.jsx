@@ -66,10 +66,10 @@ class CategoryEditView extends Component {
     model.update({ prop, value });
   };
 
-  createCategory = category => {
+  createCategory = categoryModel => {
     const { createCategory } = this.props;
 
-    return createCategory(category).then(this.createCategoryCallback);
+    return createCategory(categoryModel).then(this.createCategoryCallback);
   };
 
   createCategoryCallback = created => {
@@ -101,17 +101,17 @@ class CategoryEditView extends Component {
   };
 
   // todo [after release]: when new image selected - the old one should be deleted from s3
-  updateCategory = category => {
+  updateCategory = categoryModel => {
     const { updateCategory } = this.props;
 
-    return updateCategory(category);
+    return updateCategory(categoryModel);
   };
 
   // todo [after release]: when new image selected - the old one should be deleted from s3
-  updateAlbum = album => {
+  updateAlbum = albumModel => {
     const { updateAlbum } = this.props;
 
-    return updateAlbum(album);
+    return updateAlbum(albumModel);
   };
 
   // todo: show albums for edit and check that after create and update - store is updating
