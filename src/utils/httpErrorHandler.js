@@ -1,13 +1,14 @@
 import { toast } from 'react-semantic-toasts';
 
-const httpErrorHandler = error =>
-  toast({
+const httpErrorHandler = ({ message, config }) => {
+  return toast({
     type: 'error',
     size: 'small',
-    title: 'Http error',
-    description: error.message,
+    title: message,
+    description: `${config.method.toUpperCase()}: ${config.url}`,
     animation: 'bounce',
     time: 5000
   });
+};
 
 export default httpErrorHandler;
