@@ -114,11 +114,9 @@ class CategoryEditView extends Component {
     return updateAlbum(albumModel);
   };
 
-  // todo: show albums for edit and check that after create and update - store is updating
   render() {
     const { isCategoryFetching, isAlbumFetching, getCategory } = this.props;
     const { newAlbum, newCategory } = this.state;
-    // todo: newCategory should be new CategoryModel
     const category = getCategory(this.categoryId) || newCategory;
 
     return (
