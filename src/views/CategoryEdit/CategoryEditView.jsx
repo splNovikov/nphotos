@@ -122,7 +122,10 @@ class CategoryEditView extends Component {
     const category = getCategory(this.categoryId) || newCategory;
 
     return (
-      <Segment className="category-edit-view no-borders fetching-min-height">
+      <Segment
+        className="category-edit-view no-borders fetching-min-height"
+        loading={isCategoryFetching || isAlbumFetching}
+      >
         <Grid
           container
           columns={4}
@@ -138,7 +141,7 @@ class CategoryEditView extends Component {
                 <ImageEdit
                   model={category}
                   isCreate={!this.categoryId}
-                  isFetching={isCategoryFetching}
+                  isFetching={false}
                   create={this.createCategory}
                   update={this.updateCategory}
                   updateModelState={this.updateModel}
@@ -154,7 +157,7 @@ class CategoryEditView extends Component {
                   <ImageEdit
                     model={newAlbum}
                     isCreate
-                    isFetching={isAlbumFetching}
+                    isFetching={false}
                     create={this.createAlbum}
                     updateModelState={this.updateModel}
                   />
@@ -165,7 +168,7 @@ class CategoryEditView extends Component {
         </Grid>
 
         {category && category.albums && category.albums.length ? (
-          <Segment loading={isCategoryFetching}>
+          <Segment>
             <Header as="h2">Edit Albums</Header>
             <Grid container columns={4}>
               {category.albums.map(a => (
