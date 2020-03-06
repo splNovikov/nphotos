@@ -156,7 +156,6 @@ class CategoryEditView extends Component {
                     isCreate
                     isFetching={isAlbumFetching}
                     create={this.createAlbum}
-                    update={this.updateAlbum}
                     updateModelState={this.updateModel}
                   />
                 </Card.Content>
@@ -178,8 +177,7 @@ class CategoryEditView extends Component {
                         model={a}
                         isCreate={false}
                         isFetching={false}
-                        create={() => {}}
-                        update={() => {}}
+                        update={this.updateAlbum}
                         updateModelState={this.updateModel}
                       />
                     </Card.Content>

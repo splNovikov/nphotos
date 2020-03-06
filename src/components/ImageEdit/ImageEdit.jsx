@@ -90,8 +90,10 @@ ImageEdit.propTypes = {
     titleEng: PropTypes.string.isRequired
   }),
   isFetching: PropTypes.bool.isRequired,
-  create: PropTypes.func.isRequired,
-  update: PropTypes.func.isRequired,
+  /* eslint-disable react/require-default-props */
+  create: PropTypes.func,
+  update: PropTypes.func,
+  /* eslint-enable react/require-default-props */
   updateModelState: PropTypes.func.isRequired
 };
 
