@@ -14,7 +14,7 @@ class ImageEdit extends Component {
   handleImageSelected = ([image]) => {
     const { model, updateModelState } = this.props;
 
-    return updateModelState(model, { prop: 'cover', image });
+    return updateModelState(model, { prop: 'cover', value: image });
   };
 
   handleInputChange = (e, { name, value }) => {
@@ -27,10 +27,7 @@ class ImageEdit extends Component {
   handleFormSubmit = () => {
     const { model, isCreate, update, create } = this.props;
 
-    // todo:
-    // return isCreate
-    //   ? create({ cover, titleRus, titleEng })
-    //   : update({ cover, titleRus, titleEng });
+    return isCreate ? create(model) : update(model);
   };
 
   isSaveValid = (cover, titleRus, titleEng) => !(cover && titleRus && titleEng);
@@ -38,6 +35,7 @@ class ImageEdit extends Component {
   render() {
     const {
       model: { cover, titleRus, titleEng },
+      isCreate,
       isFetching
     } = this.props;
 
@@ -76,7 +74,7 @@ class ImageEdit extends Component {
           <Form.Field
             disabled={this.isSaveValid(cover, titleRus, titleEng)}
             control={Button}
-            content="Save"
+            content={isCreate ? 'Create' : 'Update'}
           />
         </Form>
       </Segment>

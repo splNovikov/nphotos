@@ -39,6 +39,8 @@ export class AlbumsStore {
 
   fetchAlbum = id => this.flowFetchAlbum(id);
 
+  updateAlbum = album => this.flowUpdateAlbum(album);
+
   createAlbum = album => this.flowCreateAlbum(album);
 
   flowFetchAlbums = flow(function* fetchAlbums() {
@@ -61,6 +63,21 @@ export class AlbumsStore {
       const { data: album } = yield albumsApi.getAlbum(id);
 
       this.updateAlbumsRegistry([album]);
+    } catch (error) {
+      this.errors.push(error);
+      httpErrorHandler(error);
+    } finally {
+      this.isFetching = false;
+    }
+  });
+
+  flowUpdateAlbum = flow(function* updateAlbum(album) {
+    this.isFetching = true;
+
+    try {
+      const { data: updatedAlbum } = yield albumsApi.updateAlbum(album);
+
+      this.updateAlbumsRegistry([updatedAlbum]);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);

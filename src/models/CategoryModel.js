@@ -1,4 +1,4 @@
-import { action, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 
 import albumsStore from '../stores/AlbumsStore';
 
@@ -9,10 +9,13 @@ class CategoryModel {
 
   title;
 
+  @observable
   titleRus;
 
+  @observable
   titleEng;
 
+  @observable
   cover;
 
   albumsIds;
@@ -43,10 +46,8 @@ class CategoryModel {
   }
 
   @action
-  updateCategory = ({ cover, titleRus, titleEng }) => {
-    this.cover = cover;
-    this.titleRus = titleRus;
-    this.titleEng = titleEng;
+  update = ({ prop, value }) => {
+    this[prop] = value;
   };
 }
 

@@ -1,9 +1,23 @@
 import axios from 'axios';
+
 import apiRoutes from '../constants/apiRoutes';
 
 import getLanguage from '../utils/localization';
 
 const { language } = getLanguage();
+
+const generateFormData = album => {
+  const formData = new FormData();
+
+  formData.append('cover', album.cover);
+  formData.append('titleRus', album.titleRus);
+  formData.append('titleEng', album.titleEng);
+  if (album.categoryId) {
+    formData.append('categoryId', album.categoryId);
+  }
+
+  return formData;
+};
 
 const getAlbums = () =>
   axios.get(`${apiRoutes.albums}`, { params: { lang: language } });
@@ -11,15 +25,20 @@ const getAlbums = () =>
 const getAlbum = id =>
   axios.get(`${apiRoutes.albums}/${id}`, { params: { lang: language } });
 
-const createAlbum = ({ cover, categoryId, titleRus, titleEng }) => {
-  const formData = new FormData();
+const updateAlbum = album => {
+  if (typeof album.cover === 'string') {
+    return axios.put(`${apiRoutes.albums}/${album.id}`, album);
+  }
 
-  formData.append('cover', cover);
-  formData.append('categoryId', categoryId);
-  formData.append('titleRus', titleRus);
-  formData.append('titleEng', titleEng);
+  const formData = generateFormData(album);
+
+  return axios.put(`${apiRoutes.albums}/${album.id}`, formData);
+};
+
+const createAlbum = album => {
+  const formData = generateFormData(album);
 
   return axios.post(apiRoutes.albums, formData);
 };
 
-export default { getAlbums, getAlbum, createAlbum };
+export default { getAlbums, getAlbum, updateAlbum, createAlbum };

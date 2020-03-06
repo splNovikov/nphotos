@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { Card, Grid, Header, Segment } from 'semantic-ui-react';
 
 import ImageEdit from '../../components/ImageEdit';
+import AlbumModel from '../../models/AlbumModel';
+import CategoryModel from '../../models/CategoryModel';
 
 import './CategoryEditView.scss';
 
@@ -14,7 +16,8 @@ import './CategoryEditView.scss';
   updateCategory: categoriesStore.updateCategory,
   createCategory: categoriesStore.createCategory,
   isAlbumFetching: albumsStore.isFetching,
-  createAlbum: albumsStore.createAlbum
+  createAlbum: albumsStore.createAlbum,
+  updateAlbum: albumsStore.updateAlbum
 }))
 @observer
 class CategoryEditView extends Component {
@@ -31,10 +34,17 @@ class CategoryEditView extends Component {
 
     this.categoryId = id === 'add' ? null : id;
 
-    // todo: new Models instead
     this.state = {
-      newCategory: { cover: null, titleRus: '', titleEng: '' },
-      newAlbum: { cover: null, titleRus: '', titleEng: '' }
+      newCategory: new CategoryModel(this, {
+        cover: null,
+        titleRus: '',
+        titleEng: ''
+      }),
+      newAlbum: new AlbumModel(this, {
+        cover: null,
+        titleRus: '',
+        titleEng: ''
+      })
     };
   }
 
@@ -52,55 +62,41 @@ class CategoryEditView extends Component {
     fetchCategory(this.categoryId);
   };
 
-  updateCategoryState = category => {
-    // edit
-    if (this.categoryId) {
-      const { getCategory } = this.props;
-      const categoryInStore = getCategory(this.categoryId);
-
-      return categoryInStore.updateCategory(category);
-    }
-
-    // new
-    return this.setState(state => ({
-      newCategory: {
-        ...state.newCategory,
-        ...category
-      }
-    }));
-  };
-
-  updateNewAlbumState = album =>
-    this.setState(state => ({
-      newAlbum: {
-        ...state.newAlbum,
-        ...album
-      }
-    }));
-
-  updateAlbumState = (model, { prop, value }) => {
+  updateModel = (model, { prop, value }) => {
     model.update({ prop, value });
   };
 
   createCategory = category => {
     const { createCategory } = this.props;
 
-    return createCategory(category).then(created => {
-      this.categoryId = created.id;
+    return createCategory(category).then(this.createCategoryCallback);
+  };
 
-      this.fetchCategory();
-    });
+  createCategoryCallback = created => {
+    this.categoryId = created.id;
+
+    this.fetchCategory();
   };
 
   // todo [after release]: add album with confirm
-  createAlbum = album => {
+  createAlbum = albumModel => {
     const { createAlbum } = this.props;
 
-    return createAlbum({ ...album, categoryId: this.categoryId }).then(() => {
-      this.fetchCategory();
+    return createAlbum({ ...albumModel, categoryId: this.categoryId }).then(
+      this.createAlbumCallback
+    );
+  };
 
-      // reset state:
-      this.updateNewAlbumState({ cover: null, titleRus: '', titleEng: '' });
+  createAlbumCallback = () => {
+    this.fetchCategory();
+
+    // reset state:
+    this.setState({
+      newAlbum: new AlbumModel(this, {
+        cover: null,
+        titleRus: '',
+        titleEng: ''
+      })
     });
   };
 
@@ -108,13 +104,14 @@ class CategoryEditView extends Component {
   updateCategory = category => {
     const { updateCategory } = this.props;
 
-    return updateCategory(this.categoryId, category);
+    return updateCategory(category);
   };
 
   // todo [after release]: when new image selected - the old one should be deleted from s3
   updateAlbum = album => {
-    // const { updateAlbum } = this.props;
-    // return updateAlbum(ID, updateAlbum);
+    const { updateAlbum } = this.props;
+
+    return updateAlbum(album);
   };
 
   // todo: show albums for edit and check that after create and update - store is updating
@@ -144,7 +141,7 @@ class CategoryEditView extends Component {
                   isFetching={isCategoryFetching}
                   create={this.createCategory}
                   update={this.updateCategory}
-                  updateModelState={this.updateCategoryState}
+                  updateModelState={this.updateModel}
                 />
               </Card.Content>
             </Card>
@@ -160,7 +157,7 @@ class CategoryEditView extends Component {
                     isFetching={isAlbumFetching}
                     create={this.createAlbum}
                     update={this.updateAlbum}
-                    updateModelState={this.updateNewAlbumState}
+                    updateModelState={this.updateModel}
                   />
                 </Card.Content>
               </Card>
@@ -183,7 +180,7 @@ class CategoryEditView extends Component {
                         isFetching={false}
                         create={() => {}}
                         update={() => {}}
-                        updateModelState={this.updateAlbumState}
+                        updateModelState={this.updateModel}
                       />
                     </Card.Content>
                   </Card>
@@ -209,7 +206,8 @@ CategoryEditView.wrappedComponent.propTypes = {
   updateCategory: PropTypes.func.isRequired,
   createCategory: PropTypes.func.isRequired,
   isAlbumFetching: PropTypes.bool.isRequired,
-  createAlbum: PropTypes.func.isRequired
+  createAlbum: PropTypes.func.isRequired,
+  updateAlbum: PropTypes.func.isRequired
 };
 
 export default CategoryEditView;

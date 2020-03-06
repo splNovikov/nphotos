@@ -53,7 +53,7 @@ export class CategoriesStore {
 
   fetchCategory = id => this.flowFetchCategory(id);
 
-  updateCategory = (id, category) => this.flowUpdateCategory(id, category);
+  updateCategory = category => this.flowUpdateCategory(category);
 
   createCategory = category => this.flowCreateCategory(category);
 
@@ -85,12 +85,11 @@ export class CategoriesStore {
     }
   });
 
-  flowUpdateCategory = flow(function* updateCategory(categoryId, category) {
+  flowUpdateCategory = flow(function* updateCategory(category) {
     this.isFetching = true;
 
     try {
       const { data: updatedCategory } = yield categoriesApi.updateCategory(
-        categoryId,
         category
       );
 
