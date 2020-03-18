@@ -26,6 +26,15 @@ class Breadcrumbs extends Component {
           defaultMessage: 'albums'
         })}
       </Breadcrumb.Section>
+    ),
+    [appRoutes.categoryEdit]: (
+      <Breadcrumb.Section as={NavLink} to={appRoutes.categories}>
+        {/* eslint-disable-next-line react/destructuring-assignment */}
+        {this.props.intl.formatMessage({
+          id: `navigationMenu.categories`,
+          defaultMessage: 'categories'
+        })}
+      </Breadcrumb.Section>
     )
   };
 
@@ -54,9 +63,7 @@ class Breadcrumbs extends Component {
     return this.getTitle(section) || section;
   };
 
-  isLast = (length, index) => index === length - 1;
-
-  renderSection = (section, sectionsSize, index) => {
+  renderSection = section => {
     const {
       intl: { formatMessage }
     } = this.props;
@@ -65,19 +72,22 @@ class Breadcrumbs extends Component {
       return this.specificRoutesMap[`/${section}`];
     }
 
-    if (!this.isLast(sectionsSize, index)) {
-      return (
-        <Breadcrumb.Section as={NavLink} to={`/${section}`}>
-          {formatMessage({
-            id: `navigationMenu.${section}`,
-            defaultMessage: section
-          })}
-        </Breadcrumb.Section>
-      );
+    if (this.isId(section)) {
+      return this.getLastSection(section);
     }
 
-    return this.getLastSection(section);
+    return (
+      <Breadcrumb.Section as={NavLink} to={`/${section}`}>
+        {formatMessage({
+          id: `navigationMenu.${section}`,
+          defaultMessage: section
+        })}
+      </Breadcrumb.Section>
+    );
   };
+
+  // todo [after release]: figure out about correct identifying
+  isId = section => section.length === 24;
 
   render() {
     const { pathname } = this.props;
@@ -89,12 +99,12 @@ class Breadcrumbs extends Component {
           <Icon name="home" />
         </Breadcrumb.Section>
 
-        {sections.map((section, index) => {
+        {sections.map(section => {
           return (
             <React.Fragment key={section}>
               <Breadcrumb.Divider icon="right angle" />
 
-              {this.renderSection(section, sections.length, index)}
+              {this.renderSection(section)}
             </React.Fragment>
           );
         })}
