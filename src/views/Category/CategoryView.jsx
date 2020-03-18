@@ -103,7 +103,6 @@ class CategoryView extends Component {
               <Grid
                 elements={category.albums}
                 onCardClick={this.handleClickAlbum}
-                columns={3}
                 imageHeight={200}
                 circle={false}
               />

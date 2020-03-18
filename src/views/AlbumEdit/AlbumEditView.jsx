@@ -141,7 +141,6 @@ class AlbumEditView extends Component {
               className="images-grid"
               onCardClick={this.toggleModal}
               elements={albumHelper.mapToGridEntity(album)}
-              columns={4}
               imageHeight={200}
               circle={false}
               imagePadding={10}

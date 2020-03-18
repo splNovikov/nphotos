@@ -124,11 +124,7 @@ class CategoryEditView extends Component {
         className="category-edit-view no-borders fetching-min-height"
         loading={isCategoryFetching || isAlbumFetching}
       >
-        <Grid
-          container
-          columns={4}
-          className="main-category-administration-panel"
-        >
+        <Grid container className="main-category-administration-panel">
           <Grid.Column mobile={16} tablet={8} computer={8}>
             <Card fluid>
               <Card.Content>
@@ -168,7 +164,7 @@ class CategoryEditView extends Component {
         {category && category.albums && category.albums.length ? (
           <Segment>
             <Header as="h2">Edit Albums</Header>
-            <Grid container columns={4}>
+            <Grid container>
               {category.albums.map(a => (
                 <Grid.Column key={a.id} mobile={16} tablet={8} computer={4}>
                   <Card>

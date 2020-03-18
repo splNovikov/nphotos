@@ -9,7 +9,7 @@ import './Contact.scss';
 
 const Contact = ({ contact }) => (
   <Segment className="contact">
-    <Grid stackable columns={2}>
+    <Grid stackable>
       <Grid.Column width={4} textAlign="center">
         <Image src={contact.avatar} size="tiny" avatar />
       </Grid.Column>

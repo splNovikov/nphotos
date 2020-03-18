@@ -37,7 +37,6 @@ class Categories extends Component {
         <Grid
           elements={categories}
           onCardClick={this.handleClickCategory}
-          columns={4}
           imageHeight={200}
           imagePadding={0}
           circle={false}

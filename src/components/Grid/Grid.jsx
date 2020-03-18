@@ -10,7 +10,6 @@ import Card from '../Card';
 class Grid extends Component {
   render() {
     const {
-      columns,
       elements,
       onCardClick,
       circle,
@@ -19,7 +18,7 @@ class Grid extends Component {
     } = this.props;
 
     return (
-      <SemanticGrid container columns={columns}>
+      <SemanticGrid container>
         {elements.map(el => (
           <SemanticGrid.Column key={el.id} mobile={16} tablet={8} computer={4}>
             <Card
@@ -46,17 +45,12 @@ Grid.propTypes = {
     }).isRequired
   ).isRequired,
   onCardClick: PropTypes.func.isRequired,
-  columns: PropTypes.number,
   // disable next rule, because those properties in this component are optional
   /* eslint-disable react/require-default-props */
   circle: PropTypes.bool,
   imageHeight: PropTypes.number,
   imagePadding: PropTypes.number
   /* eslint-enable react/require-default-props */
-};
-
-Grid.defaultProps = {
-  columns: 3
 };
 
 export default Grid;

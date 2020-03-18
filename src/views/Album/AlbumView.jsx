@@ -109,7 +109,6 @@ class AlbumView extends Component {
                 className="images-grid"
                 elements={albumHelper.mapToGridEntity(album)}
                 onCardClick={this.handleClickImage}
-                columns={4}
                 imageHeight={200}
                 circle={false}
                 imagePadding={10}

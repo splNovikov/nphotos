@@ -37,7 +37,6 @@ class Albums extends Component {
         <Grid
           elements={albums}
           onCardClick={this.handleClickAlbum}
-          columns={3}
           imageHeight={200}
           circle={false}
         />

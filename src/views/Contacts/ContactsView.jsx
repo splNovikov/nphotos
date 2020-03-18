@@ -30,7 +30,7 @@ class ContactsView extends Component {
         className="contacts-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Grid container stackable columns={2}>
+        <Grid container stackable>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
               <Contact contact={contact} />
