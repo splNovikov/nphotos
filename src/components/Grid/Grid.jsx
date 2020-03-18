@@ -5,7 +5,6 @@ import { Grid as SemanticGrid } from 'semantic-ui-react';
 
 import Card from '../Card';
 
-// todo: seems like columns property is not affecting anything
 @observer
 class Grid extends Component {
   render() {
