@@ -3,6 +3,7 @@
   "common.close": "close",
   "common.category": "category",
   "common.album": "album",
+  "common.albumsCount": "albums",
   "common.upload": "upload",
   "common.edit": "edit",
   "common.save": "save",

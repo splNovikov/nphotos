@@ -43,6 +43,9 @@ class Card extends Component {
             </SemanticCard.Description>
           ) : null}
         </SemanticCard.Content>
+        {entity.extra ? (
+          <SemanticCard.Content extra>{entity.extra}</SemanticCard.Content>
+        ) : null}
       </SemanticCard>
     );
   }
@@ -52,7 +55,8 @@ Card.propTypes = {
   entity: PropTypes.shape({
     title: PropTypes.string,
     cover: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    extra: PropTypes.element
   }).isRequired,
   onCardClick: PropTypes.func.isRequired,
   circle: PropTypes.bool,

@@ -9,6 +9,8 @@ class CategoryModel {
 
   title;
 
+  albumsCount;
+
   @observable
   titleRus;
 
@@ -40,6 +42,7 @@ class CategoryModel {
     this.titleRus = category.titleRus;
     this.titleEng = category.titleEng;
     this.cover = category.cover;
+    this.albumsCount = category.albumsCount;
     if (category.albums) {
       this.albumsIds = category.albums.map(album => album.id);
     }

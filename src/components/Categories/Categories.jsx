@@ -5,6 +5,7 @@ import { Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
 import Grid from '../Grid';
+import CategoryExtra from './CategoryExtra';
 
 @inject(({ categoriesStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -26,8 +27,16 @@ class Categories extends Component {
     navigate(`${appRoutes.categories}/${category.id}`);
   };
 
+  fillCategoriesWithExtraProps = categories => {
+    return categories.map(category => ({
+      ...category,
+      extra: <CategoryExtra albumsCount={category.albumsCount} />
+    }));
+  };
+
   render() {
     const { isFetching, categories } = this.props;
+    const elements = this.fillCategoriesWithExtraProps(categories);
 
     return (
       <Segment
@@ -35,7 +44,7 @@ class Categories extends Component {
         loading={isFetching}
       >
         <Grid
-          elements={categories}
+          elements={elements}
           onCardClick={this.handleClickCategory}
           imageHeight={200}
           imagePadding={0}

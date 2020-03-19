@@ -40,7 +40,8 @@ Grid.propTypes = {
       id: PropTypes.string,
       title: PropTypes.string,
       description: PropTypes.string,
-      cover: PropTypes.string
+      cover: PropTypes.string,
+      extra: PropTypes.element
     }).isRequired
   ).isRequired,
   onCardClick: PropTypes.func.isRequired,
