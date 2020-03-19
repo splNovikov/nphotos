@@ -17,7 +17,11 @@ const CategoryExtra = ({ albumsCount, intl: { formatMessage } }) => (
 
 CategoryExtra.propTypes = {
   intl: PropTypes.shape().isRequired,
-  albumsCount: PropTypes.number.isRequired
+  albumsCount: PropTypes.number
+};
+
+CategoryExtra.defaultProps = {
+  albumsCount: 0
 };
 
 export default injectIntl(observer(CategoryExtra));
