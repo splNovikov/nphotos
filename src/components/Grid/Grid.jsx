@@ -35,18 +35,10 @@ class Grid extends Component {
 }
 
 Grid.propTypes = {
-  elements: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      description: PropTypes.string,
-      cover: PropTypes.string,
-      extra: PropTypes.element
-    }).isRequired
-  ).isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  elements: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   // disable next rule, because those properties in this component are optional
   /* eslint-disable react/require-default-props */
+  onCardClick: PropTypes.func,
   circle: PropTypes.bool,
   imageHeight: PropTypes.number,
   imagePadding: PropTypes.number

@@ -7,8 +7,7 @@ import appRoutes from '../../constants/appRoutes';
 import Grid from '../Grid';
 import AlbumExtra from './AlbumExtra';
 
-@inject(({ albumsStore, routingStore }) => ({
-  navigate: routingStore.push,
+@inject(({ albumsStore }) => ({
   fetchAlbums: albumsStore.fetchAlbums,
   isFetching: albumsStore.isFetching,
   albums: albumsStore.albums
@@ -21,15 +20,10 @@ class Albums extends Component {
     fetchAlbums();
   }
 
-  handleClickAlbum = album => {
-    const { navigate } = this.props;
-
-    navigate(`${appRoutes.albums}/${album.id}`);
-  };
-
   fillAlbumsWithExtraProps = albums =>
     albums.map(album => ({
       ...album,
+      to: `${appRoutes.albums}/${album.id}`,
       extra: <AlbumExtra categories={album.categories} />
     }));
 
@@ -42,19 +36,13 @@ class Albums extends Component {
         className="albums no-borders fetching-min-height"
         loading={isFetching}
       >
-        <Grid
-          elements={elements}
-          onCardClick={this.handleClickAlbum}
-          imageHeight={200}
-          circle={false}
-        />
+        <Grid elements={elements} imageHeight={200} circle={false} />
       </Segment>
     );
   }
 }
 
 Albums.wrappedComponent.propTypes = {
-  navigate: PropTypes.func.isRequired,
   fetchAlbums: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   albums: PropTypes.arrayOf(PropTypes.shape)

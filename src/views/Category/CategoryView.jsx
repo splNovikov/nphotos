@@ -39,13 +39,16 @@ class CategoryView extends Component {
     fetchCategory(this.categoryId);
   }
 
-  handleClickAlbum = album => {
-    const { navigate } = this.props;
+  getCategoryAlbums = category => {
+    if (!category || !category.albums || !category.albums.length) {
+      return [];
+    }
 
-    navigate(`${appRoutes.albums}/${album.id}`);
+    return category.albums.map(album => ({
+      ...album,
+      to: `${appRoutes.albums}/${album.id}`
+    }));
   };
-
-  hasAlbums = category => category && category.albums && category.albums.length;
 
   handleClickEdit = () => {
     const { navigate } = this.props;
@@ -61,13 +64,14 @@ class CategoryView extends Component {
       user: { permissions }
     } = this.props;
     const category = getCategory(this.categoryId);
+    const categoryAlbums = this.getCategoryAlbums(category);
 
     return (
       <Segment
         className="category-view no-borders fetching-min-height"
         loading={isFetching}
       >
-        {!this.hasAlbums(category) && !isFetching ? (
+        {!categoryAlbums.length && !isFetching ? (
           <Header as="h2" className="category-title capitalize">
             {formatMessage({
               id: 'categoryView.noAlbums',
@@ -93,7 +97,7 @@ class CategoryView extends Component {
           </div>
         ) : null}
 
-        {this.hasAlbums(category) ? (
+        {categoryAlbums.length ? (
           <>
             <Header as="h2" className="category-title capitalize">
               {category.title}
@@ -101,8 +105,7 @@ class CategoryView extends Component {
 
             <div className="albums-grid-wrapper">
               <Grid
-                elements={category.albums}
-                onCardClick={this.handleClickAlbum}
+                elements={categoryAlbums}
                 imageHeight={200}
                 circle={false}
               />

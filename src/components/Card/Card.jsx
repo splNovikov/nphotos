@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { Card as SemanticCard } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 
@@ -12,7 +13,9 @@ class Card extends Component {
   handleCardClick = () => {
     const { entity, onCardClick } = this.props;
 
-    return onCardClick(entity);
+    if (onCardClick) {
+      onCardClick(entity);
+    }
   };
 
   render() {
@@ -23,6 +26,7 @@ class Card extends Component {
         className="common-card"
         raised
         centered
+        {...(entity.to ? { as: NavLink, to: entity.to } : {})}
         onClick={this.handleCardClick}
       >
         <ResponsiveImage
@@ -56,12 +60,13 @@ Card.propTypes = {
     title: PropTypes.string,
     cover: PropTypes.string,
     description: PropTypes.string,
+    to: PropTypes.string,
     extra: PropTypes.element
   }).isRequired,
-  onCardClick: PropTypes.func.isRequired,
   circle: PropTypes.bool,
   // disable next rule, because those properties in this component are optional
   /* eslint-disable react/require-default-props */
+  onCardClick: PropTypes.func,
   height: PropTypes.number,
   imagePadding: PropTypes.number
   /* eslint-enable react/require-default-props */

@@ -7,8 +7,7 @@ import appRoutes from '../../constants/appRoutes';
 import Grid from '../Grid';
 import CategoryExtra from './CategoryExtra';
 
-@inject(({ categoriesStore, routingStore }) => ({
-  navigate: routingStore.push,
+@inject(({ categoriesStore }) => ({
   fetchCategories: categoriesStore.fetchCategories,
   isFetching: categoriesStore.isFetching,
   categories: categoriesStore.categories
@@ -21,15 +20,10 @@ class Categories extends Component {
     fetchCategories();
   }
 
-  handleClickCategory = category => {
-    const { navigate } = this.props;
-
-    navigate(`${appRoutes.categories}/${category.id}`);
-  };
-
   fillCategoriesWithExtraProps = categories =>
     categories.map(category => ({
       ...category,
+      to: `${appRoutes.categories}/${category.id}`,
       extra: <CategoryExtra albumsCount={category.albumsCount} />
     }));
 
@@ -44,7 +38,6 @@ class Categories extends Component {
       >
         <Grid
           elements={elements}
-          onCardClick={this.handleClickCategory}
           imageHeight={200}
           imagePadding={0}
           circle={false}
@@ -55,7 +48,6 @@ class Categories extends Component {
 }
 
 Categories.wrappedComponent.propTypes = {
-  navigate: PropTypes.func.isRequired,
   fetchCategories: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape)
