@@ -29,7 +29,7 @@ const AlbumExtra = ({ categories, intl: { formatMessage } }) => {
         })}
         :
       </div>
-      <List horizontal relaxed="very">
+      <List>
         {categoriesWithNavLink.map(category => (
           <List.Item
             className="category"
