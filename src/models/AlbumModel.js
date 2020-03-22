@@ -21,6 +21,8 @@ class AlbumModel {
   @observable
   images;
 
+  categories;
+
   constructor(store, album) {
     this.store = store;
     this.id = album.id;
@@ -30,6 +32,9 @@ class AlbumModel {
     this.cover = album.cover;
     if (album.images) {
       this.images = album.images.map(image => new ImageModel(this, image));
+    }
+    if (album.categories) {
+      this.categories = album.categories;
     }
   }
 

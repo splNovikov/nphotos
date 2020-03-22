@@ -27,12 +27,11 @@ class Categories extends Component {
     navigate(`${appRoutes.categories}/${category.id}`);
   };
 
-  fillCategoriesWithExtraProps = categories => {
-    return categories.map(category => ({
+  fillCategoriesWithExtraProps = categories =>
+    categories.map(category => ({
       ...category,
       extra: <CategoryExtra albumsCount={category.albumsCount} />
     }));
-  };
 
   render() {
     const { isFetching, categories } = this.props;

@@ -5,6 +5,7 @@ import { Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
 import Grid from '../Grid';
+import AlbumExtra from './AlbumExtra';
 
 @inject(({ albumsStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -26,8 +27,15 @@ class Albums extends Component {
     navigate(`${appRoutes.albums}/${album.id}`);
   };
 
+  fillAlbumsWithExtraProps = albums =>
+    albums.map(album => ({
+      ...album,
+      extra: <AlbumExtra categories={album.categories} />
+    }));
+
   render() {
     const { isFetching, albums } = this.props;
+    const elements = this.fillAlbumsWithExtraProps(albums);
 
     return (
       <Segment
@@ -35,7 +43,7 @@ class Albums extends Component {
         loading={isFetching}
       >
         <Grid
-          elements={albums}
+          elements={elements}
           onCardClick={this.handleClickAlbum}
           imageHeight={200}
           circle={false}

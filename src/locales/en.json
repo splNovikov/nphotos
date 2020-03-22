@@ -2,6 +2,7 @@
   "common.add": "add",
   "common.close": "close",
   "common.category": "category",
+  "common.categories": "categories",
   "common.album": "album",
   "common.albumsCount": "albums",
   "common.upload": "upload",
