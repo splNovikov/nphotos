@@ -97,6 +97,7 @@ class AlbumEditView extends Component {
     } = this.props;
     const { selectedImages, modalOpened, image } = this.state;
     const album = getAlbum(this.albumId);
+    const elements = albumHelper.mapToGridEntity(album);
 
     // todo [after release]: fix positive and negative button background styling
     // todo [after release]: cancel button with confirm
@@ -140,7 +141,7 @@ class AlbumEditView extends Component {
             <Grid
               className="images-grid"
               onCardClick={this.toggleModal}
-              elements={albumHelper.mapToGridEntity(album)}
+              elements={elements}
               imageHeight={200}
               circle={false}
               imagePadding={10}

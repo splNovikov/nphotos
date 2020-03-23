@@ -9,6 +9,7 @@ import appRoutes from '../../constants/appRoutes';
 import userPermissions from '../../constants/userPermissions';
 
 import './CategoryView.scss';
+import AlbumExtra from '../../components/Albums/AlbumExtra';
 
 @inject(({ categoriesStore, userStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -46,7 +47,10 @@ class CategoryView extends Component {
 
     return category.albums.map(album => ({
       ...album,
-      to: `${appRoutes.albums}/${album.id}`
+      to: `${appRoutes.albums}/${album.id}`,
+      extra: album.categories ? (
+        <AlbumExtra categories={album.categories} />
+      ) : null
     }));
   };
 
