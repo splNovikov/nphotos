@@ -1,64 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-import { injectIntl } from 'react-intl';
-import { Image, List } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
+import { List } from 'semantic-ui-react';
 
 import appRoutes from '../../../constants/appRoutes';
+import CategoryShort from '../CategoryShort';
 
-import './AlbumExtra.scss';
+@inject(({ routingStore }) => ({
+  navigate: routingStore.push
+}))
+@observer
+class AlbumExtra extends Component {
+  handleCategoryClick = category => {
+    const { navigate } = this.props;
 
-const handleCategoryClick = e => e.stopPropagation();
+    navigate(`${appRoutes.categories}/${category.id}`);
+  };
 
-const mapLinkToCategories = categories =>
-  categories.map(c => ({
-    ...c,
-    to: `${appRoutes.categories}/${c.id}`
-  }));
+  render() {
+    const { categories } = this.props;
 
-const AlbumExtra = ({ categories, intl: { formatMessage } }) => {
-  const categoriesWithNavLink = mapLinkToCategories(categories);
-
-  return (
-    <div className="album-extra">
-      <div>
-        {formatMessage({
-          id: 'common.categories',
-          defaultMessage: 'categories'
-        })}
-        :
+    return (
+      <div className="album-extra">
+        <List>
+          {categories.map(category => (
+            <CategoryShort
+              key={category.id}
+              category={category}
+              onCategoryClick={this.handleCategoryClick}
+            />
+          ))}
+        </List>
       </div>
-      <List>
-        {categoriesWithNavLink.map(category => (
-          <List.Item
-            className="category"
-            onClick={handleCategoryClick}
-            key={category.id}
-            as={NavLink}
-            to={category.to}
-          >
-            <Image avatar src={category.cover} />
-            <List.Content>{category.title}</List.Content>
-          </List.Item>
-        ))}
-      </List>
-    </div>
-  );
+    );
+  }
+}
+AlbumExtra.wrappedComponent.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.shape()),
+  navigate: PropTypes.func.isRequired
 };
 
-AlbumExtra.propTypes = {
-  intl: PropTypes.shape().isRequired,
-  categories: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string
-    })
-  )
-};
-
-AlbumExtra.defaultProps = {
+AlbumExtra.wrappedComponent.defaultProps = {
   categories: []
 };
 
-export default injectIntl(observer(AlbumExtra));
+export default AlbumExtra;
