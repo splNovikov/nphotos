@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { Image, List } from 'semantic-ui-react';
-
-import './CategoryShort.scss';
+import { Image } from 'semantic-ui-react';
 
 @observer
 class CategoryShort extends Component {
@@ -20,10 +18,12 @@ class CategoryShort extends Component {
     const { category } = this.props;
 
     return (
-      <List.Item className="category-short" onClick={this.handleCategoryClick}>
-        <Image avatar src={category.cover} />
-        <List.Content>{category.title}</List.Content>
-      </List.Item>
+      <Image
+        spaced
+        avatar
+        src={category.cover}
+        onClick={this.handleCategoryClick}
+      />
     );
   }
 }

@@ -5,6 +5,7 @@
   "common.categories": "categories",
   "common.album": "album",
   "common.albumsCount": "albums",
+  "common.imagesCount": "photos",
   "common.upload": "upload",
   "common.edit": "edit",
   "common.save": "save",
