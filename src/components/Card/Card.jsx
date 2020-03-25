@@ -29,12 +29,14 @@ class Card extends Component {
         {...(entity.to ? { as: NavLink, to: entity.to } : {})}
         onClick={this.handleCardClick}
       >
-        <ResponsiveImage
-          url={entity.cover}
-          height={height}
-          circle={circle}
-          padding={imagePadding}
-        />
+        {entity.cover ? (
+          <ResponsiveImage
+            url={entity.cover}
+            height={height}
+            circle={circle}
+            padding={imagePadding}
+          />
+        ) : null}
         <SemanticCard.Content>
           {entity.title ? (
             <SemanticCard.Header className="capitalize">
