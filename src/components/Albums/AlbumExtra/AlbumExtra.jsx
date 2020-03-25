@@ -18,12 +18,13 @@ class AlbumExtra extends Component {
   };
 
   render() {
-    const { categories } = this.props;
+    const { album } = this.props;
 
     return (
       <div className="album-extra">
+        <div>{album.imagesCount}</div>
         <List>
-          {categories.map(category => (
+          {album.categories.map(category => (
             <CategoryShort
               key={category.id}
               category={category}
@@ -36,12 +37,17 @@ class AlbumExtra extends Component {
   }
 }
 AlbumExtra.wrappedComponent.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape()),
+  album: PropTypes.shape({
+    categories: PropTypes.arrayOf(PropTypes.shape()),
+    imagesCount: PropTypes.number
+  }),
   navigate: PropTypes.func.isRequired
 };
 
 AlbumExtra.wrappedComponent.defaultProps = {
-  categories: []
+  album: {
+    categories: []
+  }
 };
 
 export default AlbumExtra;

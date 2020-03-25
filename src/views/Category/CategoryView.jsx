@@ -48,9 +48,7 @@ class CategoryView extends Component {
     return category.albums.map(album => ({
       ...album,
       to: `${appRoutes.albums}/${album.id}`,
-      extra: album.categories ? (
-        <AlbumExtra categories={album.categories} />
-      ) : null
+      extra: album.categories ? <AlbumExtra album={album} /> : null
     }));
   };
 
