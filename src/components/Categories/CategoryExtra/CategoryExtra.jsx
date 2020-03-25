@@ -11,7 +11,7 @@ const CategoryExtra = ({ albumsCount, intl: { formatMessage } }) => (
       id: 'common.albumsCount',
       defaultMessage: 'albums count'
     })}
-    :{albumsCount}
+    : {albumsCount}
   </span>
 );
 
