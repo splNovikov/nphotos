@@ -7,7 +7,6 @@ import SanitizeHTML from '../../components/SanitizeHTML';
 
 @inject(({ priceListStore }) => ({
   fetchPriceList: priceListStore.fetchPriceList,
-  isFetching: priceListStore.isFetching,
   priceList: priceListStore.priceList
 }))
 @observer
@@ -21,13 +20,10 @@ class PriceListView extends Component {
   }
 
   render() {
-    const { isFetching, priceList } = this.props;
+    const { priceList } = this.props;
 
     return (
-      <Segment
-        className="price-list-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="price-list-view no-borders fetching-min-height">
         <Grid container stackable padded="vertically">
           {priceList.map(row =>
             row.price ? (
@@ -49,8 +45,7 @@ PriceListView.wrappedComponent.propTypes = {
       price: PropTypes.string
     })
   ),
-  fetchPriceList: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  fetchPriceList: PropTypes.func.isRequired
 };
 
 PriceListView.wrappedComponent.defaultProps = {

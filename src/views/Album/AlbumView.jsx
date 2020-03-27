@@ -69,10 +69,7 @@ class AlbumView extends Component {
     const elements = albumHelper.mapToGridEntity(album);
 
     return (
-      <Segment
-        className="album-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="album-view no-borders fetching-min-height">
         {!albumHelper.hasImages(album) && !isFetching ? (
           <Header as="h2" className="album-title capitalize">
             {formatMessage({

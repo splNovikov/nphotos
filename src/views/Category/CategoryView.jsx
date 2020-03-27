@@ -69,10 +69,7 @@ class CategoryView extends Component {
     const categoryAlbums = this.getCategoryAlbums(category);
 
     return (
-      <Segment
-        className="category-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="category-view no-borders fetching-min-height">
         {!categoryAlbums.length && !isFetching ? (
           <Header as="h2" className="category-title capitalize">
             {formatMessage({

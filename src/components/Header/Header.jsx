@@ -10,6 +10,7 @@ import SocialLinks from '../SocialLinks';
 import logo from '../../assets/images/logo.svg';
 
 import './Header.scss';
+import Spinner from '../Spinner';
 
 @inject(({ commonStore }) => ({
   toggleSidebar: commonStore.toggleSidebar
@@ -35,6 +36,9 @@ class Header extends Component {
         <Menu className="navigation-menu-lg">
           <Menu.Item as={NavLink} className="item-wrapper-for-logo" to="/">
             <img src={logo} alt="logo" className="logo" />
+          </Menu.Item>
+          <Menu.Item className="item-wrapper-for-spinner">
+            <Spinner />
           </Menu.Item>
           <Menu.Menu position="right">
             <Navigation />

@@ -9,7 +9,6 @@ import CategoryExtra from './CategoryExtra';
 
 @inject(({ categoriesStore }) => ({
   fetchCategories: categoriesStore.fetchCategories,
-  isFetching: categoriesStore.isFetching,
   categories: categoriesStore.categories
 }))
 @observer
@@ -28,14 +27,11 @@ class Categories extends Component {
     }));
 
   render() {
-    const { isFetching, categories } = this.props;
+    const { categories } = this.props;
     const elements = this.fillCategoriesWithExtraProps(categories);
 
     return (
-      <Segment
-        className="categories no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="categories no-borders fetching-min-height">
         <Grid
           elements={elements}
           imageHeight={200}
@@ -49,7 +45,6 @@ class Categories extends Component {
 
 Categories.wrappedComponent.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(PropTypes.shape)
 };
 

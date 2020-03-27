@@ -9,7 +9,6 @@ import './ContactsView.scss';
 
 @inject(({ contactsStore }) => ({
   fetchContacts: contactsStore.fetchContacts,
-  isFetching: contactsStore.isFetching,
   contacts: contactsStore.contacts
 }))
 @observer
@@ -23,13 +22,10 @@ class ContactsView extends Component {
   }
 
   render() {
-    const { isFetching, contacts } = this.props;
+    const { contacts } = this.props;
 
     return (
-      <Segment
-        className="contacts-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="contacts-view no-borders fetching-min-height">
         <Grid container stackable columns={2}>
           {contacts.map(contact => (
             <Grid.Column key={contact.id}>
@@ -44,8 +40,7 @@ class ContactsView extends Component {
 
 ContactsView.wrappedComponent.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.shape),
-  fetchContacts: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  fetchContacts: PropTypes.func.isRequired
 };
 
 ContactsView.wrappedComponent.defaultProps = {

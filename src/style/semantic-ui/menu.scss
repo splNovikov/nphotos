@@ -6,12 +6,15 @@
   border-bottom: 1px solid $semantic-ui-menu-border;
   border-radius: 0;
 
-  a.item {
-    text-transform: capitalize;
-
+  a.item,
+  div.item {
     &::before {
       background: none;
     }
+  }
+
+  a.item {
+    text-transform: capitalize;
 
     &::after {
       content: '';

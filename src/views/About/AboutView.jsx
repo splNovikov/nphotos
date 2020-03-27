@@ -9,7 +9,6 @@ import './AboutView.scss';
 
 @inject(({ aboutStore }) => ({
   fetchAbout: aboutStore.fetchAbout,
-  isFetching: aboutStore.isFetching,
   about: aboutStore.about
 }))
 @observer
@@ -23,13 +22,10 @@ class AboutView extends Component {
   }
 
   render() {
-    const { isFetching, about } = this.props;
+    const { about } = this.props;
 
     return (
-      <Segment
-        className="about-view no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="about-view no-borders fetching-min-height">
         <Grid container stackable>
           {about.map(a =>
             a.row ? (
@@ -51,8 +47,7 @@ AboutView.wrappedComponent.propTypes = {
       row: PropTypes.string
     })
   ),
-  fetchAbout: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired
+  fetchAbout: PropTypes.func.isRequired
 };
 
 AboutView.wrappedComponent.defaultProps = {

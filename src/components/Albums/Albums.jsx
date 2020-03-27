@@ -9,7 +9,6 @@ import AlbumExtra from './AlbumExtra';
 
 @inject(({ albumsStore }) => ({
   fetchAlbums: albumsStore.fetchAlbums,
-  isFetching: albumsStore.isFetching,
   albums: albumsStore.albums
 }))
 @observer
@@ -28,14 +27,11 @@ class Albums extends Component {
     }));
 
   render() {
-    const { isFetching, albums } = this.props;
+    const { albums } = this.props;
     const elements = this.fillAlbumsWithExtraProps(albums);
 
     return (
-      <Segment
-        className="albums no-borders fetching-min-height"
-        loading={isFetching}
-      >
+      <Segment className="albums no-borders fetching-min-height">
         <Grid elements={elements} imageHeight={200} circle={false} />
       </Segment>
     );
@@ -44,7 +40,6 @@ class Albums extends Component {
 
 Albums.wrappedComponent.propTypes = {
   fetchAlbums: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
   albums: PropTypes.arrayOf(PropTypes.shape)
 };
 
