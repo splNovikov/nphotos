@@ -21,6 +21,8 @@ class Card extends Component {
   render() {
     const { entity, height, circle, imagePadding } = this.props;
 
+    /* eslint-disable react/jsx-props-no-spreading */
+    // We have to made this spread operator there
     return (
       <SemanticCard
         className="common-card"
@@ -54,6 +56,7 @@ class Card extends Component {
         ) : null}
       </SemanticCard>
     );
+    /* eslint-enable react/jsx-props-no-spreading */
   }
 }
 

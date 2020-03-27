@@ -33,7 +33,7 @@ class AlbumExtra extends Component {
             id: 'common.imagesCount',
             defaultMessage: 'imagesCount'
           })}
-          : {album.imagesCount}
+          {`: ${album.imagesCount}`}
         </div>
         <List>
           {formatMessage({
