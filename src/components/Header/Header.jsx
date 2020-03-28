@@ -31,6 +31,7 @@ class Header extends Component {
             <Icon name="sidebar" />
           </Menu.Item>
           <Image className="logo" size="tiny" src={logo} as={NavLink} to="/" />
+          <Spinner width={30} />
         </Menu>
 
         <Menu className="navigation-menu-lg">
@@ -38,7 +39,7 @@ class Header extends Component {
             <img src={logo} alt="logo" className="logo" />
           </Menu.Item>
           <Menu.Item className="item-wrapper-for-spinner">
-            <Spinner />
+            <Spinner width={100} />
           </Menu.Item>
           <Menu.Menu position="right">
             <Navigation />

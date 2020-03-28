@@ -41,14 +41,16 @@ class Spinner extends Component {
 
   render() {
     const isFetching = this.getIsFetching();
+    const { width } = this.props;
 
     return isFetching ? (
-      <img width={100} src={spinner} alt="spinner" className="spinner" />
+      <img width={width} src={spinner} alt="spinner" className="spinner" />
     ) : null;
   }
 }
 
 Spinner.wrappedComponent.propTypes = {
+  width: PropTypes.number.isRequired,
   isAboutFetching: PropTypes.bool.isRequired,
   isAlbumsFetching: PropTypes.bool.isRequired,
   isCategoriesFetching: PropTypes.bool.isRequired,
