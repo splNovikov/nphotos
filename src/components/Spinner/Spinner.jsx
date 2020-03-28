@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
 import spinner from '../../assets/images/spinner.svg';
-import debounce from '../../utils/debounce';
 
 @inject(
   ({
@@ -22,22 +21,7 @@ import debounce from '../../utils/debounce';
 )
 @observer
 class Spinner extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isFetching: false
-    };
-  }
-
-  // can not use getDerivedStateFromProps here because
-  // getDerivedStateFromProps is static and we can not call this.anyFunction
-  // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps() {
-    this.getIsFetching();
-  }
-
-  getIsFetching = debounce(() => {
+  getIsFetching = () => {
     const {
       isAboutFetching,
       isAlbumsFetching,
@@ -46,18 +30,17 @@ class Spinner extends Component {
       isPriceFetching
     } = this.props;
 
-    this.setState({
-      isFetching:
-        isAboutFetching ||
-        isAlbumsFetching ||
-        isCategoriesFetching ||
-        isContactsFetching ||
-        isPriceFetching
-    });
-  }, 300);
+    return (
+      isAboutFetching ||
+      isAlbumsFetching ||
+      isCategoriesFetching ||
+      isContactsFetching ||
+      isPriceFetching
+    );
+  };
 
   render() {
-    const { isFetching } = this.state;
+    const isFetching = this.getIsFetching();
 
     return isFetching ? (
       <img width={100} src={spinner} alt="spinner" className="spinner" />
