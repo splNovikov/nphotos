@@ -1,13 +1,12 @@
 import { action, computed, observable, flow } from 'mobx';
 
+import { BaseStore } from './BaseStore';
 import categoriesApi from '../api/categories';
 import CategoryModel from '../models/CategoryModel';
 import httpErrorHandler from '../utils/httpErrorHandler';
 import albumsStore from './AlbumsStore';
 
-export class CategoriesStore {
-  @observable isFetching = false;
-
+export class CategoriesStore extends BaseStore {
   @observable errors = [];
 
   @observable categoriesRegistry = {};
@@ -58,7 +57,8 @@ export class CategoriesStore {
   createCategory = category => this.flowCreateCategory(category);
 
   flowFetchCategories = flow(function* fetchCategories() {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: categories } = yield categoriesApi.getCategories();
 
@@ -67,12 +67,13 @@ export class CategoriesStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowFetchCategory = flow(function* fetchCategory(id) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: category } = yield categoriesApi.getCategory(id);
 
@@ -81,12 +82,12 @@ export class CategoriesStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowUpdateCategory = flow(function* updateCategory(categoryModel) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
 
     try {
       const { data: updatedCategory } = yield categoriesApi.updateCategory({
@@ -101,12 +102,12 @@ export class CategoriesStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowCreateCategory = flow(function* createCategory(categoryModel) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
 
     try {
       const { data: createdCategory } = yield categoriesApi.createCategory({
@@ -124,7 +125,7 @@ export class CategoriesStore {
 
       return error;
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 }

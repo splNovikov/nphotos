@@ -1,11 +1,10 @@
 import { observable, flow } from 'mobx';
 
+import { BaseStore } from './BaseStore';
 import aboutApi from '../api/about';
 import httpErrorHandler from '../utils/httpErrorHandler';
 
-export class AboutStore {
-  @observable isFetching = false;
-
+export class AboutStore extends BaseStore {
   @observable errors = [];
 
   @observable about = [];
@@ -13,7 +12,8 @@ export class AboutStore {
   fetchAbout = () => this.flowFetchAbout();
 
   flowFetchAbout = flow(function* fetchAbout() {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: about } = yield aboutApi.getAbout();
 
@@ -22,7 +22,7 @@ export class AboutStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 }

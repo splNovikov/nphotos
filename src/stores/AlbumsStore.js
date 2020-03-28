@@ -1,12 +1,11 @@
 import { action, computed, observable, flow } from 'mobx';
 
+import { BaseStore } from './BaseStore';
 import albumsApi from '../api/albums';
 import AlbumModel from '../models/AlbumModel';
 import httpErrorHandler from '../utils/httpErrorHandler';
 
-export class AlbumsStore {
-  @observable isFetching = false;
-
+export class AlbumsStore extends BaseStore {
   @observable errors = [];
 
   @observable albumsRegistry = {};
@@ -44,7 +43,8 @@ export class AlbumsStore {
   createAlbum = album => this.flowCreateAlbum(album);
 
   flowFetchAlbums = flow(function* fetchAlbums() {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: albums } = yield albumsApi.getAlbums();
 
@@ -53,12 +53,13 @@ export class AlbumsStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowFetchAlbum = flow(function* fetchAlbum(id) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: album } = yield albumsApi.getAlbum(id);
 
@@ -67,12 +68,12 @@ export class AlbumsStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowUpdateAlbum = flow(function* updateAlbum(albumModel) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
 
     try {
       const { data: updatedAlbum } = yield albumsApi.updateAlbum({
@@ -87,12 +88,12 @@ export class AlbumsStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 
   flowCreateAlbum = flow(function* createAlbum(albumModel) {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
 
     try {
       const { data: createdAlbum } = yield albumsApi.createAlbum({
@@ -111,7 +112,7 @@ export class AlbumsStore {
 
       return error;
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 }

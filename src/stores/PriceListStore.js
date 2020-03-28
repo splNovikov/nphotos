@@ -1,11 +1,10 @@
 import { observable, flow } from 'mobx';
 
+import { BaseStore } from './BaseStore';
 import priceListApi from '../api/priceList';
 import httpErrorHandler from '../utils/httpErrorHandler';
 
-export class PriceListStore {
-  @observable isFetching = false;
-
+export class PriceListStore extends BaseStore {
   @observable errors = [];
 
   @observable priceList = [];
@@ -13,7 +12,8 @@ export class PriceListStore {
   fetchPriceList = () => this.flowFetchPriceList();
 
   flowFetchPriceList = flow(function* fetchPriceList() {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: priceList } = yield priceListApi.getPriceList();
 
@@ -22,7 +22,7 @@ export class PriceListStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 }

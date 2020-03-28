@@ -1,12 +1,11 @@
 import { observable, flow } from 'mobx';
 
+import { BaseStore } from './BaseStore';
 import contactsApi from '../api/contacts';
 import ContactModel from '../models/ContactModel';
 import httpErrorHandler from '../utils/httpErrorHandler';
 
-export class ContactsStore {
-  @observable isFetching = false;
-
+export class ContactsStore extends BaseStore {
   @observable errors = [];
 
   // contacts, loaded all for once
@@ -15,7 +14,8 @@ export class ContactsStore {
   fetchContacts = () => this.flowFetchContacts();
 
   flowFetchContacts = flow(function* fetchContacts() {
-    this.isFetching = true;
+    this.debouncedToggleFetching(true);
+
     try {
       const { data: contacts } = yield contactsApi.getContacts();
 
@@ -24,7 +24,7 @@ export class ContactsStore {
       this.errors.push(error);
       httpErrorHandler(error);
     } finally {
-      this.isFetching = false;
+      this.debouncedToggleFetching(false);
     }
   });
 }
