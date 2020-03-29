@@ -15,7 +15,6 @@ const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
 
 @inject(({ albumsStore, commonStore, userStore, routingStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
-  isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
   toggleImagesCarousel: commonStore.toggleImagesCarousel,
   user: userStore.user,
@@ -60,7 +59,6 @@ class AlbumView extends Component {
   // todo [after release]: delete button with confirm
   render() {
     const {
-      isFetching,
       getAlbum,
       intl: { formatMessage },
       user: { permissions }
@@ -68,20 +66,11 @@ class AlbumView extends Component {
     const album = getAlbum(this.albumId);
     const elements = albumHelper.mapToGridEntity(album);
 
-    return (
+    return album ? (
       <Segment className="album-view no-borders fetching-min-height">
-        {!albumHelper.hasImages(album) && !isFetching ? (
-          <Header as="h2" className="album-title capitalize">
-            {formatMessage({
-              id: 'albumView.noImages',
-              defaultMessage: 'No Images'
-            })}
-          </Header>
-        ) : null}
-
         {permissions[userPermissions.canEditAlbum] ? (
           <div className="edit-segment-wrapper">
-            <Segment textAlign="right">
+            <Segment textAlign="right" className="no-borders">
               <Button
                 onClick={this.handleClickEdit}
                 labelPosition="left"
@@ -96,7 +85,16 @@ class AlbumView extends Component {
           </div>
         ) : null}
 
-        {albumHelper.hasImages(album) ? (
+        {album.images && !album.images.length ? (
+          <Header as="h2" className="album-title capitalize">
+            {formatMessage({
+              id: 'albumView.noImages',
+              defaultMessage: 'No Images'
+            })}
+          </Header>
+        ) : null}
+
+        {album.images && album.images.length ? (
           <>
             <Header as="h2" className="album-title capitalize">
               {album.title}
@@ -117,7 +115,7 @@ class AlbumView extends Component {
           </>
         ) : null}
       </Segment>
-    );
+    ) : null;
   }
 }
 
@@ -129,7 +127,6 @@ AlbumView.wrappedComponent.propTypes = {
     })
   }).isRequired,
   fetchAlbum: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
   getAlbum: PropTypes.func.isRequired,
   toggleImagesCarousel: PropTypes.func.isRequired,
   user: PropTypes.shape({

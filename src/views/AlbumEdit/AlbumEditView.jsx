@@ -17,7 +17,6 @@ const maxUploadFiles = +process.env.MAX_UPLOAD_IMAGES || 50;
 
 @inject(({ albumsStore, userStore, filesStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
-  isFetching: albumsStore.isFetching,
   getAlbum: albumsStore.album,
   user: userStore.user,
   uploadImages: filesStore.uploadImages,
@@ -90,7 +89,6 @@ class AlbumEditView extends Component {
   render() {
     const {
       intl: { formatMessage },
-      isFetching,
       getAlbum,
       user: { permissions },
       isUploading
@@ -104,10 +102,7 @@ class AlbumEditView extends Component {
     // todo [after release]: fix performance - it renders multiple times
     return (
       <>
-        <Segment
-          className="album-edit-view no-borders fetching-min-height"
-          loading={isFetching}
-        >
+        <Segment className="album-edit-view no-borders fetching-min-height">
           {permissions[userPermissions.canEditAlbum] ? (
             <Segment loading={isUploading} className="upload-images-wrapper">
               <ChooseFiles
@@ -137,7 +132,7 @@ class AlbumEditView extends Component {
             </Segment>
           ) : null}
 
-          {albumHelper.hasImages(album) ? (
+          {album && album.images && album.images.length ? (
             <Grid
               className="images-grid"
               onCardClick={this.toggleModal}
@@ -164,7 +159,6 @@ AlbumEditView.wrappedComponent.propTypes = {
     })
   }).isRequired,
   fetchAlbum: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
   getAlbum: PropTypes.func.isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({

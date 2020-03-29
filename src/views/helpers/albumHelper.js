@@ -1,5 +1,3 @@
-const hasImages = album => album && album.images && album.images.length;
-
 const mapToGridEntity = album =>
   album && album.images && album.images.length
     ? album.images.reduce(
@@ -20,4 +18,4 @@ const mapToGridEntity = album =>
       )
     : [];
 
-export default { hasImages, mapToGridEntity };
+export default { mapToGridEntity };
