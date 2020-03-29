@@ -22,6 +22,6 @@
   "uploadFiles.chooseFiles": "выбрать файлы",
   "uploadFiles.uploadNFiles": "загрузить ({length})",
 
-  "albumView.noImages": "нет изображений",
+  "albumView.noImages": "нет фотографий в этом альбоме",
   "categoryView.noAlbums": "нет альбомов в этой категории"
 }
