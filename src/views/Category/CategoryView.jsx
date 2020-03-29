@@ -61,8 +61,6 @@ class CategoryView extends Component {
     } = this.props;
     const category = getCategory(this.categoryId);
 
-    console.log(category && category.albums);
-
     return category ? (
       <Segment className="category-view no-borders fetching-min-height">
         {permissions[userPermissions.canEditCategory] ? (
