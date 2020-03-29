@@ -14,7 +14,6 @@ import AlbumExtra from '../../components/Albums/AlbumExtra';
 @inject(({ categoriesStore, userStore, routingStore }) => ({
   navigate: routingStore.push,
   fetchCategory: categoriesStore.fetchCategory,
-  isFetching: categoriesStore.isFetching,
   getCategory: categoriesStore.category,
   user: userStore.user
 }))
@@ -40,11 +39,7 @@ class CategoryView extends Component {
     fetchCategory(this.categoryId);
   }
 
-  getCategoryAlbums = category => {
-    if (!category || !category.albums || !category.albums.length) {
-      return [];
-    }
-
+  mapExtraToCategoryAlbums = category => {
     return category.albums.map(album => ({
       ...album,
       to: `${appRoutes.albums}/${album.id}`,
@@ -60,28 +55,19 @@ class CategoryView extends Component {
 
   render() {
     const {
-      isFetching,
       getCategory,
       intl: { formatMessage },
       user: { permissions }
     } = this.props;
     const category = getCategory(this.categoryId);
-    const categoryAlbums = this.getCategoryAlbums(category);
 
-    return (
+    console.log(category && category.albums);
+
+    return category ? (
       <Segment className="category-view no-borders fetching-min-height">
-        {!categoryAlbums.length && !isFetching ? (
-          <Header as="h2" className="category-title capitalize">
-            {formatMessage({
-              id: 'categoryView.noAlbums',
-              defaultMessage: 'No Albums in this category'
-            })}
-          </Header>
-        ) : null}
-
         {permissions[userPermissions.canEditCategory] ? (
           <div className="edit-segment-wrapper">
-            <Segment textAlign="right">
+            <Segment textAlign="right" className="no-borders">
               <Button
                 onClick={this.handleClickEdit}
                 labelPosition="left"
@@ -96,7 +82,16 @@ class CategoryView extends Component {
           </div>
         ) : null}
 
-        {categoryAlbums.length ? (
+        {category.albums && !category.albums.length ? (
+          <Header as="h2" className="category-title capitalize">
+            {formatMessage({
+              id: 'categoryView.noAlbums',
+              defaultMessage: 'No Albums'
+            })}
+          </Header>
+        ) : null}
+
+        {category.albums && category.albums.length ? (
           <>
             <Header as="h2" className="category-title capitalize">
               {category.title}
@@ -104,7 +99,7 @@ class CategoryView extends Component {
 
             <div className="albums-grid-wrapper">
               <Grid
-                elements={categoryAlbums}
+                elements={this.mapExtraToCategoryAlbums(category)}
                 imageHeight={200}
                 circle={false}
               />
@@ -112,7 +107,7 @@ class CategoryView extends Component {
           </>
         ) : null}
       </Segment>
-    );
+    ) : null;
   }
 }
 
@@ -130,7 +125,6 @@ CategoryView.wrappedComponent.propTypes = {
   }).isRequired,
   navigate: PropTypes.func.isRequired,
   fetchCategory: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired,
   getCategory: PropTypes.func.isRequired
 };
 

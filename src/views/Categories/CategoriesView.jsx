@@ -32,7 +32,7 @@ class CategoriesView extends Component {
       <div className="categories-view">
         {permissions[userPermissions.canEditCategory] ? (
           <div className="edit-segment-wrapper">
-            <Segment textAlign="right">
+            <Segment textAlign="right" className="no-borders">
               <Button
                 onClick={this.handleClickEdit}
                 labelPosition="left"

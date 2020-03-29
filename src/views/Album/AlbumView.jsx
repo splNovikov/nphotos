@@ -64,7 +64,6 @@ class AlbumView extends Component {
       user: { permissions }
     } = this.props;
     const album = getAlbum(this.albumId);
-    const elements = albumHelper.mapToGridEntity(album);
 
     return album ? (
       <Segment className="album-view no-borders fetching-min-height">
@@ -103,7 +102,7 @@ class AlbumView extends Component {
             <div className="images-grid-wrapper">
               <Grid
                 className="images-grid"
-                elements={elements}
+                elements={albumHelper.mapToGridEntity(album)}
                 onCardClick={this.handleClickImage}
                 imageHeight={200}
                 circle={false}

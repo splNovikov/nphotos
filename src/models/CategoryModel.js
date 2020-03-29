@@ -24,15 +24,16 @@ class CategoryModel {
 
   @computed
   get albums() {
-    return this.albumsIds
-      ? this.albumsIds.reduce(
-          (acc, albumId) => [
-            ...acc,
-            albumsStore.albums.find(a => a.id === albumId)
-          ],
-          []
-        )
-      : [];
+    return (
+      this.albumsIds &&
+      this.albumsIds.reduce(
+        (acc, albumId) => [
+          ...acc,
+          albumsStore.albums.find(a => a.id === albumId)
+        ],
+        []
+      )
+    );
   }
 
   constructor(store, category) {
