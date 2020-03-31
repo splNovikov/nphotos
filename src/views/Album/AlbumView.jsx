@@ -96,7 +96,10 @@ class AlbumView extends Component {
         {album.images && album.images.length ? (
           <>
             <Header as="h2" className="album-title capitalize">
-              {album.title}
+              {`${formatMessage({
+                id: 'common.album',
+                defaultMessage: 'album'
+              })}: ${album.title}`}
             </Header>
 
             <div className="images-grid-wrapper">

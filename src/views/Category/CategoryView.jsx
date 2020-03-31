@@ -92,7 +92,11 @@ class CategoryView extends Component {
         {category.albums && category.albums.length ? (
           <>
             <Header as="h2" className="category-title capitalize">
-              {category.title}
+              {`${formatMessage({
+                id: 'common.category',
+                defaultMessage: 'category'
+              })}
+              : ${category.title}`}
             </Header>
 
             <div className="albums-grid-wrapper">

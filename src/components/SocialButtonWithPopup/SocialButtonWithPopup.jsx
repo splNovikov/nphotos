@@ -7,7 +7,7 @@ import SocialButton from '../SocialButton';
 
 const SocialButtonWithPopup = ({ href, icon }) => (
   <Popup
-    inverted
+    position="bottom right"
     content={href}
     trigger={<SocialButton href={href} icon={icon} />}
   />

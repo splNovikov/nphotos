@@ -39,18 +39,22 @@ class Card extends Component {
             padding={imagePadding}
           />
         ) : null}
-        <SemanticCard.Content>
-          {entity.title ? (
-            <SemanticCard.Header className="capitalize">
-              {entity.title}
-            </SemanticCard.Header>
-          ) : null}
-          {entity.description ? (
-            <SemanticCard.Description className="capitalize">
-              {entity.description}
-            </SemanticCard.Description>
-          ) : null}
-        </SemanticCard.Content>
+
+        {entity.title || entity.description ? (
+          <SemanticCard.Content>
+            {entity.title ? (
+              <SemanticCard.Header className="capitalize">
+                {entity.title}
+              </SemanticCard.Header>
+            ) : null}
+            {entity.description ? (
+              <SemanticCard.Description className="capitalize">
+                {entity.description}
+              </SemanticCard.Description>
+            ) : null}
+          </SemanticCard.Content>
+        ) : null}
+
         {entity.extra ? (
           <SemanticCard.Content extra>{entity.extra}</SemanticCard.Content>
         ) : null}
