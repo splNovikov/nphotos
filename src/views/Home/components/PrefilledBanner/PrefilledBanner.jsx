@@ -2,8 +2,26 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 
-import banners from '../../../../assets/images/banners-bg';
 import Banner from '../Banner';
+
+const banners = [
+  {
+    mobile:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-mobile.png',
+    tablet:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png',
+    computer:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png'
+  },
+  {
+    mobile:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-mobile.jpg',
+    tablet:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-computer.jpg',
+    computer:
+      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-computer.jpg'
+  }
+];
 
 const PrefilledBanner = () => (
   <Slider
@@ -22,20 +40,16 @@ const PrefilledBanner = () => (
     swipe
     touchMove
   >
-    <Banner
-      h1="Сайт"
-      h2="в разработке"
-      bgMobile={banners.bg1mobile}
-      bgTablet={banners.bg1tablet}
-      bgDesktop={banners.bg1computer}
-    />
-    <Banner
-      h1="Сайт"
-      h2="в разработке, тоже"
-      bgMobile={banners.bg2mobile}
-      bgTablet={banners.bg2tablet}
-      bgDesktop={banners.bg2computer}
-    />
+    {banners.map(banner => (
+      <Banner
+        key={banner.mobile}
+        h1={banner.h1}
+        h2={banner.h2}
+        bgMobile={banner.mobile}
+        bgTablet={banner.tablet}
+        bgDesktop={banner.computer}
+      />
+    ))}
   </Slider>
 );
 
