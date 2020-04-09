@@ -3,25 +3,10 @@ import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 
 import Banner from '../Banner';
+import randomNumber from '../../../../utils/randomNumber';
 
-const banners = [
-  {
-    mobile:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-mobile.png',
-    tablet:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png',
-    computer:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png'
-  },
-  {
-    mobile:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-mobile.jpg',
-    tablet:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-computer.jpg',
-    computer:
-      'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-2-computer.jpg'
-  }
-];
+// eslint-disable-next-line no-use-before-define
+const banners = getBanners(3);
 
 const PrefilledBanner = () => (
   <Slider
@@ -52,5 +37,28 @@ const PrefilledBanner = () => (
     ))}
   </Slider>
 );
+
+function getBanners(count) {
+  const bans = [
+    // because of .png of the first image
+    {
+      mobile:
+        'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-mobile.png',
+      tablet:
+        'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png',
+      computer:
+        'https://nphotos-images.s3.us-east-2.amazonaws.com/banner-1-computer.png'
+    },
+    ...[2, 3, 4, 5, 6, 7].map(value => ({
+      mobile: `https://nphotos-images.s3.us-east-2.amazonaws.com/banner-${value}-mobile.jpg`,
+      tablet: `https://nphotos-images.s3.us-east-2.amazonaws.com/banner-${value}-computer.jpg`,
+      computer: `https://nphotos-images.s3.us-east-2.amazonaws.com/banner-${value}-computer.jpg`
+    }))
+  ];
+
+  const randomNumbers = randomNumber(count, 0, bans.length - 1);
+
+  return randomNumbers.map(num => bans[num]);
+}
 
 export default observer(PrefilledBanner);
