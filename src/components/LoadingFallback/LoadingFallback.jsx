@@ -5,7 +5,7 @@ import { Segment } from 'semantic-ui-react';
 @observer
 class LoadingFallback extends Component {
   render() {
-    return <Segment className="no-borders fetching-min-height" loading />;
+    return <Segment className="no-borders fetching-min-height" />;
   }
 }
 
