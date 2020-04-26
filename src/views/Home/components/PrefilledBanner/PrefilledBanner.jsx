@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import Banner from '../Banner';
 import randomNumber from '../../../../utils/randomNumber';
 
+const bannersPath = process.env.BANNERS_PATH;
 // eslint-disable-next-line no-use-before-define
 const banners = getBanners(3);
 
@@ -40,9 +41,9 @@ const PrefilledBanner = () => (
 
 function getBanners(count) {
   const bans = [1, 2, 3, 4, 5].map(value => ({
-    mobile: `https://nphotos-images.s3.us-east-2.amazonaws.com/banners/banner-${value}-mobile.jpg`,
-    tablet: `https://nphotos-images.s3.us-east-2.amazonaws.com/banners/banner-${value}-computer.jpg`,
-    computer: `https://nphotos-images.s3.us-east-2.amazonaws.com/banners/banner-${value}-computer.jpg`
+    mobile: `${bannersPath}/banner-${value}-mobile.jpg`,
+    tablet: `${bannersPath}/banner-${value}-computer.jpg`,
+    computer: `${bannersPath}/banner-${value}-computer.jpg`
   }));
 
   const randomNumbers = randomNumber(count, 0, bans.length - 1);
