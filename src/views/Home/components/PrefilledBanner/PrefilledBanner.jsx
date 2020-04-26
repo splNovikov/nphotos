@@ -14,12 +14,12 @@ const PrefilledBanner = () => (
     accessibility={false}
     arrows={false}
     autoplay
-    autoplaySpeed={15000}
+    autoplaySpeed={7500}
     draggable
     infinite
     mobileFirst
     pauseOnFocus={false}
-    pauseInHover={false}
+    pauseOnHover={false}
     speed={1500}
     slidesToShow={1}
     slidesToScroll={1}
