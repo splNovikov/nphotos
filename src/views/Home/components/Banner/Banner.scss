@@ -1,8 +1,10 @@
 @import '../../../../style/colors.scss';
+@import '../../../../style/variables.scss';
 
 .banner {
   position: relative;
   min-height: 30rem;
+  padding: $padding-small 0;
 
   .banner-text {
     position: absolute;

@@ -20,11 +20,12 @@ const PrefilledBanner = () => (
     mobileFirst
     pauseOnFocus={false}
     pauseOnHover={false}
-    speed={1500}
+    speed={750}
     slidesToShow={1}
     slidesToScroll={1}
     swipe
     touchMove
+    lazyLoad
   >
     {banners.map(banner => (
       <Banner

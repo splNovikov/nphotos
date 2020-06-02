@@ -34,7 +34,7 @@ class Categories extends Component {
       <Segment className="categories no-borders fetching-min-height">
         <Grid
           elements={elements}
-          imageHeight={200}
+          imageHeight={400}
           imagePadding={0}
           circle={false}
         />
