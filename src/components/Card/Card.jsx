@@ -19,7 +19,7 @@ class Card extends Component {
   };
 
   render() {
-    const { entity, height, circle, imagePadding } = this.props;
+    const { entity, height, circle, imagePadding, withGradient } = this.props;
 
     /* eslint-disable react/jsx-props-no-spreading */
     // We have to made this spread operator there
@@ -37,6 +37,7 @@ class Card extends Component {
             height={height}
             circle={circle}
             padding={imagePadding}
+            withGradient={withGradient}
           />
         ) : null}
 
@@ -77,7 +78,8 @@ Card.propTypes = {
   /* eslint-disable react/require-default-props */
   onCardClick: PropTypes.func,
   height: PropTypes.number,
-  imagePadding: PropTypes.number
+  imagePadding: PropTypes.number,
+  withGradient: PropTypes.number
   /* eslint-enable react/require-default-props */
 };
 

@@ -13,7 +13,8 @@ class Grid extends Component {
       onCardClick,
       circle,
       imageHeight,
-      imagePadding
+      imagePadding,
+      withGradient
     } = this.props;
 
     return (
@@ -26,6 +27,7 @@ class Grid extends Component {
               circle={circle}
               height={imageHeight}
               imagePadding={imagePadding}
+              withGradient={withGradient}
             />
           </SemanticGrid.Column>
         ))}
@@ -41,7 +43,8 @@ Grid.propTypes = {
   onCardClick: PropTypes.func,
   circle: PropTypes.bool,
   imageHeight: PropTypes.number,
-  imagePadding: PropTypes.number
+  imagePadding: PropTypes.number,
+  withGradient: PropTypes.number
   /* eslint-enable react/require-default-props */
 };
 

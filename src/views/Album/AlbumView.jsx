@@ -110,6 +110,7 @@ class AlbumView extends Component {
                 imageHeight={200}
                 circle={false}
                 imagePadding={10}
+                withGradient={70}
               />
             </div>
 
