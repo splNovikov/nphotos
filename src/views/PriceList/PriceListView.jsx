@@ -24,12 +24,12 @@ class PriceListView extends Component {
 
     return (
       <Segment className="price-list-view no-borders fetching-min-height">
-        <Grid container stackable padded="vertically">
+        <Grid container stackable padded="vertically" columns={2}>
           {priceList.map(row =>
             row.price ? (
-              <Grid.Row key={row.index}>
+              <Grid.Column key={row.index}>
                 <SanitizeHTML html={row.price} />
-              </Grid.Row>
+              </Grid.Column>
             ) : null
           )}
         </Grid>
