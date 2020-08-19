@@ -5,6 +5,8 @@ import { observer, inject } from 'mobx-react';
 
 import SanitizeHTML from '../../components/SanitizeHTML';
 
+import './PriceListView.scss';
+
 @inject(({ priceListStore }) => ({
   fetchPriceList: priceListStore.fetchPriceList,
   priceList: priceListStore.priceList
@@ -24,15 +26,26 @@ class PriceListView extends Component {
 
     return (
       <Segment className="price-list-view no-borders fetching-min-height">
-        <Grid container stackable padded="vertically" columns={2}>
-          {priceList.map(row =>
-            row.price ? (
-              <Grid.Column key={row.index}>
-                <SanitizeHTML html={row.price} />
-              </Grid.Column>
-            ) : null
-          )}
-        </Grid>
+        {priceList && priceList.length !== 0 && (
+          <>
+            <Grid container stackable padded="vertically" columns={2}>
+              {priceList.map((row, index) =>
+                row.price && priceList.length - 1 !== index ? (
+                  <Grid.Column key={row.index}>
+                    <SanitizeHTML html={row.price} />
+                  </Grid.Column>
+                ) : null
+              )}
+            </Grid>
+            <Grid container stackable padded="vertically">
+              {priceList[priceList.length - 1].price ? (
+                <Grid.Column>
+                  <SanitizeHTML html={priceList[priceList.length - 1].price} />
+                </Grid.Column>
+              ) : null}
+            </Grid>
+          </>
+        )}
       </Segment>
     );
   }
