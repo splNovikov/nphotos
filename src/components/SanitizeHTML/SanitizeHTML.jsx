@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import sanitizeHtml from 'sanitize-html-react';
 
 const defaultOptions = {
-  allowedTags: ['p']
+  allowedTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'li', 'b']
 };
 
 const sanitize = (dirty, options) => ({
