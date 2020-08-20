@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&subset=latin');
+
+$font-family: 'Open Sans', 'Lato', 'Helvetica Neue', Arial, Helvetica,
+  sans-serif;
+
+/* stylelint-disable no-descending-specificity */
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $font-family;
+}
+
+.ui.button {
+  font-family: $font-family;
+}
+
+.ui.text.container {
+  font-family: $font-family;
+}
+
+.ui.header {
+  font-family: $font-family;
+}
+
+.ui.input > input {
+  font-family: $font-family;
+}
+
+.ui.list .list > .item .header,
+.ui.list > .item .header {
+  font-family: $font-family;
+}
+
+.ui.steps .step .title {
+  font-family: $font-family;
+}
+
+.ui.form input:not([type]),
+.ui.form input[type='date'],
+.ui.form input[type='datetime-local'],
+.ui.form input[type='email'],
+.ui.form input[type='number'],
+.ui.form input[type='password'],
+.ui.form input[type='search'],
+.ui.form input[type='tel'],
+.ui.form input[type='time'],
+.ui.form input[type='text'],
+.ui.form input[type='file'],
+.ui.form input[type='url'] {
+  font-family: $font-family;
+}
+
+.ui.menu {
+  font-family: $font-family;
+}
+
+.ui.message .header {
+  font-family: $font-family;
+}
+
+.ui.cards > .card > .content > .header,
+.ui.card > .content > .header {
+  font-family: $font-family;
+}
+
+.ui.items > .item > .content > .header {
+  font-family: $font-family;
+}
+
+.ui.statistics .statistic > .value,
+.ui.statistic > .value {
+  font-family: $font-family;
+}
+
+.ui.statistics .statistic > .label,
+.ui.statistic > .label {
+  font-family: $font-family;
+}
+
+.ui.accordion .title:not(.ui) {
+  font-family: $font-family;
+}
+
+.ui.modal > .header {
+  font-family: $font-family;
+}
+
+.ui.popup > .header {
+  font-family: $font-family;
+}
+
+.ui.search > .results .result .title {
+  font-family: $font-family;
+}
+
+.ui.search > .results > .message .header {
+  font-family: $font-family;
+}
+
+.ui.category.search > .results .category > .name {
+  font-family: $font-family;
+}
+/* stylelint-enable no-descending-specificity */
