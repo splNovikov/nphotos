@@ -3,11 +3,10 @@ import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 
 import Banner from '../Banner';
-import randomNumber from '../../../../utils/randomNumber';
 
 const bannersPath = process.env.BANNERS_PATH;
 // eslint-disable-next-line no-use-before-define
-const banners = getBanners(3);
+const banners = getBanners();
 
 const PrefilledBanner = () => (
   <Slider
@@ -40,16 +39,16 @@ const PrefilledBanner = () => (
   </Slider>
 );
 
-function getBanners(count) {
-  const bans = [1, 2, 3, 4, 5].map(value => ({
+function getBanners() {
+  // const randomNumbers = randomNumber(count, 0, bans.length - 1);
+
+  // return randomNumbers.map(num => bans[num]);
+
+  return [1, 2, 4, 5].map(value => ({
     mobile: `${bannersPath}/banner-${value}-mobile.jpg`,
     tablet: `${bannersPath}/banner-${value}-computer.jpg`,
     computer: `${bannersPath}/banner-${value}-computer.jpg`
   }));
-
-  const randomNumbers = randomNumber(count, 0, bans.length - 1);
-
-  return randomNumbers.map(num => bans[num]);
 }
 
 export default observer(PrefilledBanner);
