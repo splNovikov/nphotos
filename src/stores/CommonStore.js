@@ -16,17 +16,6 @@ class CommonStore {
   closeSidebar() {
     this.isSidebarOpened = false;
   }
-
-  @action.bound
-  toggleImagesCarousel(isOpened, selectedImageIndex) {
-    this.selectedCarouselImageIndex = selectedImageIndex;
-
-    if (typeof isOpened === 'boolean') {
-      this.isImagesCarouselOpened = isOpened;
-      return;
-    }
-    this.isImagesCarouselOpened = !this.isImagesCarouselOpened;
-  }
 }
 
 export default new CommonStore();

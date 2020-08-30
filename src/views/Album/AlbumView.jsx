@@ -1,22 +1,21 @@
-import React, { Component, lazy } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
+import { SRLWrapper } from 'simple-react-lightbox';
 
 import Grid from '../../components/Grid';
 import appRoutes from '../../constants/appRoutes';
 import userPermissions from '../../constants/userPermissions';
 import albumHelper from '../helpers/albumHelper';
+import withLightboxHook from '../../utils/withLightboxHook';
 
 import './AlbumView.scss';
 
-const LazyImagesCarousel = lazy(() => import('./components/ImagesCarousel'));
-
-@inject(({ albumsStore, commonStore, userStore, routingStore }) => ({
+@inject(({ albumsStore, userStore, routingStore }) => ({
   fetchAlbum: albumsStore.fetchAlbum,
   getAlbum: albumsStore.album,
-  toggleImagesCarousel: commonStore.toggleImagesCarousel,
   user: userStore.user,
   navigate: routingStore.push
 }))
@@ -43,11 +42,11 @@ class AlbumView extends Component {
   }
 
   handleClickImage = image => {
-    const { getAlbum, toggleImagesCarousel } = this.props;
+    const { getAlbum, openLightbox } = this.props;
     const album = getAlbum(this.albumId);
     const index = album.images.map(e => e.id).indexOf(image.id);
 
-    toggleImagesCarousel(true, index);
+    openLightbox(index);
   };
 
   handleClickEdit = () => {
@@ -63,7 +62,8 @@ class AlbumView extends Component {
       intl: { formatMessage },
       user: { permissions }
     } = this.props;
-    const album = getAlbum(this.albumId);
+    const albumUnMapped = getAlbum(this.albumId);
+    const album = albumHelper.mapAlbum(albumUnMapped);
 
     return album ? (
       <Segment className="album-view no-borders fetching-min-height">
@@ -114,7 +114,17 @@ class AlbumView extends Component {
               />
             </div>
 
-            <LazyImagesCarousel images={album.images} />
+            <SRLWrapper
+              images={album.images}
+              options={{
+                settings: { disablePanzoom: true },
+                thumbnails: { showThumbnails: true },
+                buttons: {
+                  showAutoplayButton: false,
+                  showDownloadButton: false
+                }
+              }}
+            />
           </>
         ) : null}
       </Segment>
@@ -131,7 +141,7 @@ AlbumView.wrappedComponent.propTypes = {
   }).isRequired,
   fetchAlbum: PropTypes.func.isRequired,
   getAlbum: PropTypes.func.isRequired,
-  toggleImagesCarousel: PropTypes.func.isRequired,
+  openLightbox: PropTypes.func.isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({
       [userPermissions.canEditAlbum]: PropTypes.bool
@@ -140,4 +150,4 @@ AlbumView.wrappedComponent.propTypes = {
   navigate: PropTypes.func.isRequired
 };
 
-export default injectIntl(AlbumView);
+export default injectIntl(withLightboxHook(AlbumView));

@@ -3,11 +3,13 @@ import debounce from './debounce';
 import formatPhoneNumber from './formatPhoneNumber';
 import withTracker from './analytics/withTracker';
 import randomNumber from './randomNumber';
+import withLightboxHook from './withLightboxHook';
 
 export {
   getLanguageMessages,
   debounce,
   formatPhoneNumber,
   withTracker,
-  randomNumber
+  randomNumber,
+  withLightboxHook
 };

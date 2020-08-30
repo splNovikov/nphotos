@@ -5,6 +5,7 @@ import { Router, Route } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { IntlProvider } from 'react-intl';
+import SimpleReactLightbox from 'simple-react-lightbox';
 
 import App from './components/App';
 import { withTracker, getLanguageMessages } from './utils';
@@ -27,7 +28,9 @@ ReactDOM.render(
   <Provider {...stores}>
     <IntlProvider locale={language} messages={messages}>
       <Router history={history}>
-        <Route component={withTracker(App)} />
+        <SimpleReactLightbox>
+          <Route component={withTracker(App)} />
+        </SimpleReactLightbox>
       </Router>
     </IntlProvider>
   </Provider>,

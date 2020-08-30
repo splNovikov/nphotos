@@ -18,4 +18,18 @@ const mapToGridEntity = album =>
       )
     : [];
 
-export default { mapToGridEntity };
+const mapAlbum = album => {
+  if (!album || !album.images || !album.images.length) {
+    return [];
+  }
+
+  return {
+    ...album,
+    images: album.images.map(image => ({
+      ...image,
+      thumbnail: image.previewSrc
+    }))
+  };
+};
+
+export default { mapToGridEntity, mapAlbum };
