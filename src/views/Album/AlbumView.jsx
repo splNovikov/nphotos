@@ -117,10 +117,17 @@ class AlbumView extends Component {
             <SRLWrapper
               images={album.images}
               options={{
-                settings: { disablePanzoom: true },
+                settings: {
+                  autoplaySpeed: 0,
+                  disablePanzoom: true,
+                  disableWheelControls: true,
+                  disableKeyboardControls: true,
+                  hideControlsAfter: false,
+                  slideAnimationType: 'slide'
+                },
                 thumbnails: { showThumbnails: true },
                 buttons: {
-                  showAutoplayButton: false,
+                  showThumbnailsButton: false,
                   showDownloadButton: false
                 }
               }}
