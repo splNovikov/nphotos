@@ -23,7 +23,5 @@
   "uploadFiles.uploadNFiles": "upload ({length})",
 
   "albumView.noImages": "no images in this album",
-  "categoryView.noAlbums": "no albums in this category",
-
-  "footer.imageQualityAttention": "Attention. The quality of photos on the site is deliberately degraded to speed up the download speed"
+  "categoryView.noAlbums": "no albums in this category"
 }

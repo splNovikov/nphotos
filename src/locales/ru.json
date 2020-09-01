@@ -23,7 +23,5 @@
   "uploadFiles.uploadNFiles": "загрузить ({length})",
 
   "albumView.noImages": "нет фотографий в этом альбоме",
-  "categoryView.noAlbums": "нет альбомов в этой категории",
-
-  "footer.imageQualityAttention": "Внимание. Качество фотографий на сайте заведомо ухудшено для ускорения скорости загрузки"
+  "categoryView.noAlbums": "нет альбомов в этой категории"
 }
