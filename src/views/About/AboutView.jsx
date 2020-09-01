@@ -26,14 +26,18 @@ class AboutView extends Component {
 
     return (
       <Segment className="about-view no-borders fetching-min-height">
-        <Grid container stackable>
-          {about.map(a =>
-            a.row ? (
-              <Grid.Column key={a.index} width={8} className="about-column">
-                <SanitizeHTML html={a.row} />
-              </Grid.Column>
-            ) : null
-          )}
+        <Grid container stackable columns={3}>
+          <Grid.Column width={3} />
+          <Grid.Column width={10}>
+            {about.map(a =>
+              a.row ? (
+                <Grid.Row key={a.index} className="about-column">
+                  <SanitizeHTML html={a.row} />
+                </Grid.Row>
+              ) : null
+            )}
+          </Grid.Column>
+          <Grid.Column width={3} />
         </Grid>
       </Segment>
     );
