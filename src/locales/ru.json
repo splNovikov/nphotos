@@ -23,5 +23,7 @@
   "uploadFiles.uploadNFiles": "загрузить ({length})",
 
   "albumView.noImages": "нет фотографий в этом альбоме",
-  "categoryView.noAlbums": "нет альбомов в этой категории"
+  "categoryView.noAlbums": "нет альбомов в этой категории",
+
+  "socialButton.routeTo": "Перейти на профиль в"
 }
