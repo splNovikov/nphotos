@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
 import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 import { SRLWrapper } from 'simple-react-lightbox';
@@ -33,6 +34,7 @@ class AlbumView extends Component {
     } = this.props;
 
     this.albumId = id;
+    this.historyListenerUnsubscribe = null;
   }
 
   componentDidMount() {
@@ -40,6 +42,26 @@ class AlbumView extends Component {
 
     fetchAlbum(this.albumId);
   }
+
+  handleOpenLightBox = () => {
+    const { history, closeLightbox } = this.props;
+
+    this.historyListenerUnsubscribe = history.listen(() => {
+      if (history.action === 'POP') {
+        this.unsubscribeHistoryListener();
+        closeLightbox();
+      }
+    });
+  };
+
+  unsubscribeHistoryListener = () => {
+    if (
+      this.historyListenerUnsubscribe &&
+      typeof this.historyListenerUnsubscribe === 'function'
+    ) {
+      this.historyListenerUnsubscribe();
+    }
+  };
 
   handleClickImage = image => {
     const { getAlbum, openLightbox } = this.props;
@@ -116,6 +138,10 @@ class AlbumView extends Component {
 
             <SRLWrapper
               images={album.images}
+              callbacks={{
+                onLightboxOpened: this.handleOpenLightBox,
+                onLightboxClosed: this.unsubscribeHistoryListener
+              }}
               options={{
                 settings: {
                   autoplaySpeed: 0,
@@ -149,6 +175,11 @@ AlbumView.wrappedComponent.propTypes = {
   fetchAlbum: PropTypes.func.isRequired,
   getAlbum: PropTypes.func.isRequired,
   openLightbox: PropTypes.func.isRequired,
+  closeLightbox: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    listen: PropTypes.func.isRequired,
+    action: PropTypes.string.isRequired
+  }).isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({
       [userPermissions.canEditAlbum]: PropTypes.bool
@@ -157,4 +188,4 @@ AlbumView.wrappedComponent.propTypes = {
   navigate: PropTypes.func.isRequired
 };
 
-export default injectIntl(withLightboxHook(AlbumView));
+export default injectIntl(withRouter(withLightboxHook(AlbumView)));
