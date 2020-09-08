@@ -2,6 +2,8 @@
 logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Runtime data
 pids
@@ -32,9 +34,11 @@ src/**/*.css
 # IDE files
 .idea/
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # env variables
 .env
+
+# stuff
+cert.txt
+intermediary.crt
+server.crt
+server.key
