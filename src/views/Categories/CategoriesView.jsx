@@ -5,6 +5,7 @@ import { Button, Segment } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 import Categories from '../../components/Categories';
+import SEO from '../../components/SEO';
 import userPermissions from '../../constants/userPermissions';
 import appRoutes from '../../constants/appRoutes';
 
@@ -30,6 +31,15 @@ class CategoriesView extends Component {
 
     return (
       <div className="categories-view">
+        <SEO
+          pageProps={{
+            title: 'NPhotos: Categories',
+            url: appRoutes.categories,
+            thumbnail:
+              'https://nphotos-images.s3.us-east-2.amazonaws.com/bnnrs/banner-5-mobile.jpg'
+          }}
+        />
+
         {permissions[userPermissions.canEditCategory] ? (
           <div className="edit-segment-wrapper">
             <Segment textAlign="right" className="no-borders">
