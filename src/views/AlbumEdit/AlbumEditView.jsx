@@ -86,6 +86,16 @@ class AlbumEditView extends Component {
     }));
   };
 
+  handleRemoveImage = entity => {
+    const {
+      user: { permissions }
+    } = this.props;
+
+    if (permissions[userPermissions.canEditAlbum]) {
+      alert(entity.id);
+    }
+  };
+
   render() {
     const {
       intl: { formatMessage },
@@ -139,7 +149,9 @@ class AlbumEditView extends Component {
               elements={elements}
               imageHeight={200}
               circle={false}
+              canRemove={permissions[userPermissions.canEditAlbum]}
               imagePadding={10}
+              onRemove={this.handleRemoveImage}
             />
           ) : null}
         </Segment>

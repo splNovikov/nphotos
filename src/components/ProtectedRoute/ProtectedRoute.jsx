@@ -29,7 +29,8 @@ ProtectedRoute.propTypes = {
   restriction: PropTypes.string.isRequired,
   user: PropTypes.shape({
     permissions: PropTypes.shape({
-      [userPermissions.canEditAlbum]: PropTypes.bool
+      [userPermissions.canEditAlbum]: PropTypes.bool,
+      [userPermissions.canEditCategory]: PropTypes.bool
     })
   }).isRequired,
   location: PropTypes.shape({
