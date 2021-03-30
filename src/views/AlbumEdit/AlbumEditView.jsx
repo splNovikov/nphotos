@@ -20,6 +20,7 @@ const maxUploadFiles = +process.env.MAX_UPLOAD_IMAGES || 50;
   getAlbum: albumsStore.album,
   user: userStore.user,
   uploadImages: filesStore.uploadImages,
+  deleteImage: filesStore.deleteImage,
   isUploading: filesStore.isUploading
 }))
 @observer
@@ -88,11 +89,12 @@ class AlbumEditView extends Component {
 
   handleRemoveImage = entity => {
     const {
-      user: { permissions }
+      user: { permissions },
+      deleteImage
     } = this.props;
 
     if (permissions[userPermissions.canEditAlbum]) {
-      alert(entity.id);
+      deleteImage(entity.id, this.albumId);
     }
   };
 
@@ -178,6 +180,7 @@ AlbumEditView.wrappedComponent.propTypes = {
     })
   }).isRequired,
   uploadImages: PropTypes.func.isRequired,
+  deleteImage: PropTypes.func.isRequired,
   isUploading: PropTypes.bool.isRequired
 };
 

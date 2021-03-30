@@ -13,4 +13,12 @@ const uploadImages = (images, albumId) => {
   });
 };
 
-export default { uploadImages };
+const deleteImage = (imageId, albumId) =>
+  axios.delete(apiRoutes.images, {
+    params: {
+      imageId,
+      albumId
+    }
+  });
+
+export default { uploadImages, deleteImage };
