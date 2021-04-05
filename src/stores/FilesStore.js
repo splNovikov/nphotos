@@ -3,6 +3,7 @@ import { observable, flow } from 'mobx';
 import imagesApi from '../api/images';
 import httpErrorHandler from '../utils/httpErrorHandler';
 import { BaseStore } from './BaseStore';
+import albumsStore from './AlbumsStore';
 
 export class FilesStore extends BaseStore {
   @observable isUploading = false;
@@ -34,7 +35,8 @@ export class FilesStore extends BaseStore {
 
     try {
       yield imagesApi.deleteImage(image.id, albumId);
-      // todo: should update Albums store somehow
+
+      albumsStore.deleteImageFromAlbumsRegistry(albumId, image.id);
     } catch (error) {
       this.errors.push(error);
       httpErrorHandler(error);

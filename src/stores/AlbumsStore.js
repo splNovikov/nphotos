@@ -34,6 +34,11 @@ export class AlbumsStore extends BaseStore {
     };
   };
 
+  @action
+  deleteImageFromAlbumsRegistry = (albumId, imageId) => {
+    this.albumsRegistry[albumId].deleteImage(imageId);
+  };
+
   fetchAlbums = () => this.flowFetchAlbums();
 
   fetchAlbum = id => this.flowFetchAlbum(id);
