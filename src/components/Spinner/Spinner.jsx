@@ -59,7 +59,8 @@ Spinner.wrappedComponent.propTypes = {
   isAlbumsFetching: PropTypes.bool.isRequired,
   isCategoriesFetching: PropTypes.bool.isRequired,
   isContactsFetching: PropTypes.bool.isRequired,
-  isPriceFetching: PropTypes.bool.isRequired
+  isPriceFetching: PropTypes.bool.isRequired,
+  isFilesFetching: PropTypes.bool.isRequired
 };
 
 export default Spinner;

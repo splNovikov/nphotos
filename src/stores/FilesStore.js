@@ -11,7 +11,7 @@ export class FilesStore extends BaseStore {
 
   uploadImages = (images, albumId) => this.flowUploadImages(images, albumId);
 
-  deleteImage = (imageId, albumId) => this.flowDeleteImage(imageId, albumId);
+  deleteImage = (image, albumId) => this.flowDeleteImage(image, albumId);
 
   flowUploadImages = flow(function* uploadImages(images, albumId) {
     let uploadedImages;
@@ -29,11 +29,11 @@ export class FilesStore extends BaseStore {
     return uploadedImages && uploadedImages.data;
   });
 
-  flowDeleteImage = flow(function* deleteImage(imageId, albumId) {
+  flowDeleteImage = flow(function* deleteImage(image, albumId) {
     this.debouncedToggleFetching(true);
 
     try {
-      yield imagesApi.deleteImage(imageId, albumId);
+      yield imagesApi.deleteImage(image.id, albumId);
       // todo: should update Albums store somehow
     } catch (error) {
       this.errors.push(error);

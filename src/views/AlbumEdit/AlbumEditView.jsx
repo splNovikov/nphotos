@@ -94,7 +94,7 @@ class AlbumEditView extends Component {
     } = this.props;
 
     if (permissions[userPermissions.canEditAlbum]) {
-      deleteImage(entity.id, this.albumId);
+      deleteImage(entity, this.albumId);
     }
   };
 
