@@ -10,13 +10,15 @@ import spinner from '../../assets/images/spinner.svg';
     albumsStore,
     categoriesStore,
     contactsStore,
-    priceListStore
+    priceListStore,
+    filesStore
   }) => ({
     isAlbumsFetching: albumsStore.isFetching,
     isCategoriesFetching: categoriesStore.isFetching,
     isContactsFetching: contactsStore.isFetching,
     isAboutFetching: aboutStore.isFetching,
-    isPriceFetching: priceListStore.isFetching
+    isPriceFetching: priceListStore.isFetching,
+    isFilesFetching: filesStore.isFetching
   })
 )
 @observer
@@ -27,7 +29,8 @@ class Spinner extends Component {
       isAlbumsFetching,
       isCategoriesFetching,
       isContactsFetching,
-      isPriceFetching
+      isPriceFetching,
+      isFilesFetching
     } = this.props;
 
     return (
@@ -35,7 +38,8 @@ class Spinner extends Component {
       isAlbumsFetching ||
       isCategoriesFetching ||
       isContactsFetching ||
-      isPriceFetching
+      isPriceFetching ||
+      isFilesFetching
     );
   };
 
@@ -55,7 +59,8 @@ Spinner.wrappedComponent.propTypes = {
   isAlbumsFetching: PropTypes.bool.isRequired,
   isCategoriesFetching: PropTypes.bool.isRequired,
   isContactsFetching: PropTypes.bool.isRequired,
-  isPriceFetching: PropTypes.bool.isRequired
+  isPriceFetching: PropTypes.bool.isRequired,
+  isFilesFetching: PropTypes.bool.isRequired
 };
 
 export default Spinner;

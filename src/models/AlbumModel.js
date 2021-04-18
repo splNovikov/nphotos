@@ -53,6 +53,18 @@ class AlbumModel {
   };
 
   @action
+  deleteImage = imageId => {
+    if (!imageId) {
+      return;
+    }
+
+    this.images = this.images.reduce(
+      (acc, image) => (image.id === imageId ? acc : [...acc, image]),
+      []
+    );
+  };
+
+  @action
   update = ({ prop, value }) => {
     this[prop] = value;
   };

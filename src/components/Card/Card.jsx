@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { Card as SemanticCard } from 'semantic-ui-react';
+import { Button, Card as SemanticCard } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
@@ -18,8 +18,25 @@ class Card extends Component {
     }
   };
 
+  handleRemoveClick = e => {
+    e.stopPropagation();
+
+    const { entity, onRemove } = this.props;
+
+    if (onRemove) {
+      onRemove(entity);
+    }
+  };
+
   render() {
-    const { entity, height, circle, imagePadding, withGradient } = this.props;
+    const {
+      entity,
+      height,
+      circle,
+      imagePadding,
+      withGradient,
+      canRemove
+    } = this.props;
 
     /* eslint-disable react/jsx-props-no-spreading */
     // We have to made this spread operator there
@@ -59,6 +76,11 @@ class Card extends Component {
         {entity.extra ? (
           <SemanticCard.Content extra>{entity.extra}</SemanticCard.Content>
         ) : null}
+        {canRemove ? (
+          <SemanticCard.Content extra>
+            <Button compact icon="trash" onClick={this.handleRemoveClick} />
+          </SemanticCard.Content>
+        ) : null}
       </SemanticCard>
     );
     /* eslint-enable react/jsx-props-no-spreading */
@@ -74,17 +96,21 @@ Card.propTypes = {
     extra: PropTypes.element
   }).isRequired,
   circle: PropTypes.bool,
+  canRemove: PropTypes.bool,
   // disable next rule, because those properties in this component are optional
   /* eslint-disable react/require-default-props */
   onCardClick: PropTypes.func,
   height: PropTypes.number,
   imagePadding: PropTypes.number,
-  withGradient: PropTypes.number
+  withGradient: PropTypes.number,
+  removeHandler: PropTypes.func,
+  onRemove: PropTypes.func
   /* eslint-enable react/require-default-props */
 };
 
 Card.defaultProps = {
-  circle: false
+  circle: false,
+  canRemove: false
 };
 
 export default Card;

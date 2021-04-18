@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
-import { Card, Grid, Header, Segment } from 'semantic-ui-react';
+import { Confirm, Grid, Header, Segment } from 'semantic-ui-react';
 
-import ImageEdit from '../../components/ImageEdit';
+import EditCard from './components/EditCard';
 import AlbumModel from '../../models/AlbumModel';
 import CategoryModel from '../../models/CategoryModel';
 
@@ -17,7 +17,8 @@ import './CategoryEditView.scss';
   createCategory: categoriesStore.createCategory,
   isAlbumFetching: albumsStore.isFetching,
   createAlbum: albumsStore.createAlbum,
-  updateAlbum: albumsStore.updateAlbum
+  updateAlbum: albumsStore.updateAlbum,
+  deleteAlbum: albumsStore.deleteAlbum
 }))
 @observer
 class CategoryEditView extends Component {
@@ -44,7 +45,9 @@ class CategoryEditView extends Component {
         cover: null,
         titleRus: '',
         titleEng: ''
-      })
+      }),
+      isRemoveModalOpened: false,
+      removeModalEntity: null
     };
   }
 
@@ -114,9 +117,34 @@ class CategoryEditView extends Component {
     return updateAlbum(albumModel);
   };
 
+  handleRemove = entity => {
+    this.setState({
+      isRemoveModalOpened: true,
+      removeModalEntity: entity
+    });
+  };
+
+  removeEntity = () => {
+    const { deleteAlbum } = this.props;
+    const { removeModalEntity } = this.state;
+
+    if (deleteAlbum && removeModalEntity) {
+      deleteAlbum(removeModalEntity, this.categoryId);
+    }
+
+    this.closeRemoveModal();
+  };
+
+  closeRemoveModal = () => {
+    this.setState({
+      isRemoveModalOpened: false,
+      removeModalEntity: null
+    });
+  };
+
   render() {
     const { isCategoryFetching, isAlbumFetching, getCategory } = this.props;
-    const { newAlbum, newCategory } = this.state;
+    const { newAlbum, newCategory, isRemoveModalOpened } = this.state;
     const category = getCategory(this.categoryId) || newCategory;
 
     return (
@@ -124,39 +152,36 @@ class CategoryEditView extends Component {
         className="category-edit-view no-borders fetching-min-height"
         loading={isCategoryFetching || isAlbumFetching}
       >
+        <Confirm
+          open={isRemoveModalOpened}
+          onCancel={this.closeRemoveModal}
+          onConfirm={this.removeEntity}
+          size="mini"
+        />
         <Grid container className="main-category-administration-panel">
           <Grid.Column mobile={16} tablet={8} computer={8}>
-            <Card fluid>
-              <Card.Content>
-                <Card.Header>
-                  {this.categoryId ? 'Edit ' : 'Add '}
-                  Category
-                </Card.Header>
-                <ImageEdit
-                  model={category}
-                  isCreate={!this.categoryId}
-                  isFetching={false}
-                  create={this.createCategory}
-                  update={this.updateCategory}
-                  updateModelState={this.updateModel}
-                />
-              </Card.Content>
-            </Card>
+            <EditCard
+              fluid
+              header={this.categoryId ? 'Edit Category' : 'Add Category'}
+              model={category}
+              isCreate={!this.categoryId}
+              isFetching={false}
+              create={this.createCategory}
+              update={this.updateCategory}
+              updateModel={this.updateModel}
+            />
           </Grid.Column>
           {this.categoryId ? (
             <Grid.Column mobile={16} tablet={8} computer={8}>
-              <Card fluid>
-                <Card.Content>
-                  <Card.Header>Add Album</Card.Header>
-                  <ImageEdit
-                    model={newAlbum}
-                    isCreate
-                    isFetching={false}
-                    create={this.createAlbum}
-                    updateModelState={this.updateModel}
-                  />
-                </Card.Content>
-              </Card>
+              <EditCard
+                fluid
+                header="Add Album"
+                model={newAlbum}
+                isCreate
+                isFetching={false}
+                create={this.createAlbum}
+                updateModel={this.updateModel}
+              />
             </Grid.Column>
           ) : null}
         </Grid>
@@ -167,18 +192,15 @@ class CategoryEditView extends Component {
             <Grid container>
               {category.albums.map(a => (
                 <Grid.Column key={a.id} mobile={16} tablet={8} computer={4}>
-                  <Card>
-                    <Card.Content>
-                      <Card.Header>{a.title}</Card.Header>
-                      <ImageEdit
-                        model={a}
-                        isCreate={false}
-                        isFetching={false}
-                        update={this.updateAlbum}
-                        updateModelState={this.updateModel}
-                      />
-                    </Card.Content>
-                  </Card>
+                  <EditCard
+                    header={a.title}
+                    model={a}
+                    isCreate={false}
+                    isFetching={false}
+                    update={this.updateAlbum}
+                    updateModel={this.updateModel}
+                    remove={this.handleRemove}
+                  />
                 </Grid.Column>
               ))}
             </Grid>
@@ -202,7 +224,8 @@ CategoryEditView.wrappedComponent.propTypes = {
   createCategory: PropTypes.func.isRequired,
   isAlbumFetching: PropTypes.bool.isRequired,
   createAlbum: PropTypes.func.isRequired,
-  updateAlbum: PropTypes.func.isRequired
+  updateAlbum: PropTypes.func.isRequired,
+  deleteAlbum: PropTypes.func.isRequired
 };
 
 export default CategoryEditView;

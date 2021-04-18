@@ -41,4 +41,12 @@ const createAlbum = album => {
   return axios.post(apiRoutes.albums, formData);
 };
 
-export default { getAlbums, getAlbum, updateAlbum, createAlbum };
+const deleteAlbum = (albumId, categoryId) =>
+  axios.delete(apiRoutes.albums, {
+    params: {
+      albumId,
+      categoryId
+    }
+  });
+
+export default { getAlbums, getAlbum, updateAlbum, createAlbum, deleteAlbum };
