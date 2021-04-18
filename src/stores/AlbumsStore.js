@@ -47,6 +47,8 @@ export class AlbumsStore extends BaseStore {
 
   createAlbum = album => this.flowCreateAlbum(album);
 
+  deleteAlbum = (album, categoryId) => this.flowDeleteAlbum(album, categoryId);
+
   flowFetchAlbums = flow(function* fetchAlbums() {
     this.debouncedToggleFetching(true);
 
@@ -116,6 +118,22 @@ export class AlbumsStore extends BaseStore {
       httpErrorHandler(error);
 
       return error;
+    } finally {
+      this.debouncedToggleFetching(false);
+    }
+  });
+
+  flowDeleteAlbum = flow(function* deleteAlbum(album, categoryId) {
+    this.debouncedToggleFetching(true);
+
+    try {
+      yield albumsApi.deleteAlbum(album.id, categoryId);
+
+      // todo: delete from categories registry and from albums registry
+      // albumsStore.deleteImageFromAlbumsRegistry(albumId, image.id);
+    } catch (error) {
+      this.errors.push(error);
+      httpErrorHandler(error);
     } finally {
       this.debouncedToggleFetching(false);
     }
