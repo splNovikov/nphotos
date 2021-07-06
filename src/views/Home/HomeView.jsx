@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 
-import Categories from '../../components/Categories';
 import PrefilledBanner from './components/PrefilledBanner';
+import Albums from '../../components/Albums';
 
 @observer
 class HomeView extends Component {
@@ -10,7 +10,7 @@ class HomeView extends Component {
     return (
       <div className="home-view">
         <PrefilledBanner />
-        <Categories />
+        <Albums />
       </div>
     );
   }
