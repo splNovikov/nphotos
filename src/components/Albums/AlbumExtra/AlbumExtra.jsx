@@ -23,7 +23,8 @@ class AlbumExtra extends Component {
   render() {
     const {
       album,
-      intl: { formatMessage }
+      intl: { formatMessage },
+      showCategories
     } = this.props;
 
     return (
@@ -35,20 +36,22 @@ class AlbumExtra extends Component {
           })}
           {`: ${album.imagesCount}`}
         </div>
-        <List>
-          {formatMessage({
-            id: 'common.categories',
-            defaultMessage: 'categories'
-          })}
-          :
-          {album.categories.map(category => (
-            <CategoryShort
-              key={category.id}
-              category={category}
-              onCategoryClick={this.handleCategoryClick}
-            />
-          ))}
-        </List>
+        {showCategories && (
+          <List>
+            {formatMessage({
+              id: 'common.categories',
+              defaultMessage: 'categories'
+            })}
+            :
+            {album.categories.map(category => (
+              <CategoryShort
+                key={category.id}
+                category={category}
+                onCategoryClick={this.handleCategoryClick}
+              />
+            ))}
+          </List>
+        )}
       </div>
     );
   }
@@ -59,13 +62,15 @@ AlbumExtra.wrappedComponent.propTypes = {
     categories: PropTypes.arrayOf(PropTypes.shape()),
     imagesCount: PropTypes.number
   }),
+  showCategories: PropTypes.bool,
   navigate: PropTypes.func.isRequired
 };
 
 AlbumExtra.wrappedComponent.defaultProps = {
   album: {
     categories: []
-  }
+  },
+  showCategories: true
 };
 
 export default injectIntl(AlbumExtra);

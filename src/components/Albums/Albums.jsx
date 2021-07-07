@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { Segment } from 'semantic-ui-react';
 
 import appRoutes from '../../constants/appRoutes';
+import { showCategories } from '../../utils';
 import Grid from '../Grid';
 import AlbumExtra from './AlbumExtra';
 
@@ -23,7 +24,9 @@ class Albums extends Component {
     albums.map(album => ({
       ...album,
       to: `${appRoutes.albums}/${album.id}`,
-      extra: album.categories ? <AlbumExtra album={album} /> : null
+      extra: album.categories ? (
+        <AlbumExtra album={album} showCategories={showCategories} />
+      ) : null
     }));
 
   render() {

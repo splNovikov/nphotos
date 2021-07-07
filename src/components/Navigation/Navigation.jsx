@@ -6,6 +6,7 @@ import { injectIntl } from 'react-intl';
 import { inject, observer } from 'mobx-react';
 
 import appRoutes from '../../constants/appRoutes';
+import { showCategories } from '../../utils';
 
 @inject(({ commonStore, routingStore }) => ({
   location: routingStore.location,
@@ -31,16 +32,18 @@ class Navigation extends Component {
             defaultMessage: 'home'
           })}
         />
-        <Menu.Item
-          as={NavLink}
-          onClick={closeSidebar}
-          exact
-          to={appRoutes.categories}
-          content={formatMessage({
-            id: 'navigationMenu.categories',
-            defaultMessage: 'categories'
-          })}
-        />
+        {showCategories && (
+          <Menu.Item
+            as={NavLink}
+            onClick={closeSidebar}
+            exact
+            to={appRoutes.categories}
+            content={formatMessage({
+              id: 'navigationMenu.categories',
+              defaultMessage: 'categories'
+            })}
+          />
+        )}
         <Menu.Item
           as={NavLink}
           onClick={closeSidebar}

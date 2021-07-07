@@ -5,11 +5,12 @@ import { Segment, Header, Button } from 'semantic-ui-react';
 import { injectIntl } from 'react-intl';
 
 import Grid from '../../components/Grid';
+import AlbumExtra from '../../components/Albums/AlbumExtra';
 import appRoutes from '../../constants/appRoutes';
 import userPermissions from '../../constants/userPermissions';
+import { showCategories } from '../../utils';
 
 import './CategoryView.scss';
-import AlbumExtra from '../../components/Albums/AlbumExtra';
 
 @inject(({ categoriesStore, userStore, routingStore }) => ({
   navigate: routingStore.push,
@@ -43,7 +44,9 @@ class CategoryView extends Component {
     return category.albums.map(album => ({
       ...album,
       to: `${appRoutes.albums}/${album.id}`,
-      extra: album.categories ? <AlbumExtra album={album} /> : null
+      extra: album.categories ? (
+        <AlbumExtra album={album} showCategories={showCategories} />
+      ) : null
     }));
   };
 

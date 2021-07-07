@@ -4,6 +4,7 @@ import formatPhoneNumber from './formatPhoneNumber';
 import withTracker from './analytics/withTracker';
 import randomNumber from './randomNumber';
 import withLightboxHook from './withLightboxHook';
+import showCategories from './showCategories';
 
 export {
   getLanguageMessages,
@@ -11,5 +12,6 @@ export {
   formatPhoneNumber,
   withTracker,
   randomNumber,
-  withLightboxHook
+  withLightboxHook,
+  showCategories
 };
